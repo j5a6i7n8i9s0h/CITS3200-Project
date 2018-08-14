@@ -4,18 +4,7 @@
 	<title>Login</title>
 </head>
 <body>
-	<form action="" method="post" >
-			<h1> Login Page</h1>
-			<br><br>
-			<h3> Username </h3>
-		   <input type="text" name="Username">
-		   <h3>Password</h3>
-
-		   <input type="text" name="Password">
-		   		   <br><br>
-		   <input type="submit" value ="login" name="login">
-
-
-	</form>
+	<h1> hey {{user.username}}, Welcome to the animal well being ruberic</h1>
+	<a href={% url 'awb:login' %}> Logout</a>
 </body>
 </html>
