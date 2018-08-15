@@ -59,8 +59,11 @@ body {
 	<form class="form-signin" method="post" >
       {% csrf_token %}
       {% load static %}
-			<img ="mb-4" src= "{% static 'animalwellbeing/paw-print-rooweb-clipart.png' %}"  alt="" width="140" height="140">
-			<h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
+      <!-- animalwellbeing/paw-print-rooweb-clipart.png -->
+      <h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
+			<img ="mb-4" src= "{% static 'animalwellbeing/rat.png' %}"  alt="" width="308" height="140">
+      <br>
+      <br>
 			<input type="text" class="form-control" name="Username" placeholder="Username">
        <input type="password"  class="form-control" name="Password" placeholder="Password">
        <p class="mt-5 mb-3 text-muted"> Please Sign In to continue</p>

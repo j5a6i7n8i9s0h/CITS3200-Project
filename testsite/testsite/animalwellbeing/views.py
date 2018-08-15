@@ -16,6 +16,10 @@ def index(request):
 def logout_view(request):
 	logout(request)
 	return redirect('/awb/')
+	
+@login_required
+def form_creation(request):
+	return index(request)
 
 def login_view(request):
 	context = {}
