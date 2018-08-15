@@ -57,11 +57,13 @@ body {
 </style>
 <body class="text-center">
 	<form class="form-signin" method="post" >
-			{% csrf_token %}
-			<img ="mb-4" src="https://www.clipartqueen.com/image-files/paw-prints-clipart-cat-paw.png" alt="" width="140" height="140">
-			<h1 class="h3 mb-3 font-weight-normal"> Login Page</h1>
+      {% csrf_token %}
+      {% load static %}
+			<img ="mb-4" src= "{% static 'animalwellbeing/paw-print-rooweb-clipart.png' %}"  alt="" width="140" height="140">
+			<h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
 			<input type="text" class="form-control" name="Username" placeholder="Username">
-		   <input type="password"  class="form-control" name="Password" placeholder="Password">
+       <input type="password"  class="form-control" name="Password" placeholder="Password">
+       <p class="mt-5 mb-3 text-muted"> Please Sign In to continue</p>
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
 		   </form>
 </body>
