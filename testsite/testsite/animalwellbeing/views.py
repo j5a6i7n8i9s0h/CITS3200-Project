@@ -11,8 +11,11 @@ from django.contrib.auth.models import User, Group
 # Create your views here.
 
 def index(request):
-		return redirect('/awb/accounts/index') if not request.user.is_authenticated else render(request, 'animalwellbeing/index.html',{'user':request.user})
+		return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/index.html',{'user':request.user})
 	
+def logout_view(request):
+	logout(request)
+	return redirect('/awb/')
 
 def login_view(request):
 	context = {}
@@ -24,8 +27,7 @@ def login_view(request):
 			user = authenticate(request, username=username, password=password)
 			if user:
 				login(request, user)
-				return index(request)
-				#success 
+				return redirect('/awb/')
 	return render(request, 'animalwellbeing/login.html')
 
 

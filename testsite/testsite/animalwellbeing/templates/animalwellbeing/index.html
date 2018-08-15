@@ -4,7 +4,9 @@
 	<title>Login</title>
 </head>
 <body>
-	<h1> hey {{user.username}}, Welcome to the animal well being ruberic</h1>
-	<a href={% url 'awb:login' %}> Logout</a>
+	<h1> Hey {{user.username}}, Welcome to the animal well being ruberic</h1>
+	<a href={% url 'awb:logout' %}> <button type="button">Logout</button>
+	</a>
+
 </body>
 </html>
