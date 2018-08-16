@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+	
 		<head>
 				<title>{{user.username}}'s Profile</title>
 				<meta charset="utf-8">
@@ -7,13 +8,18 @@
 			
 				<!-- Bootstrap CSS -->
 				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+						
 			</head>
+			{% include "./nav_bar.html" %}
 <body>
 	<div class="container-fluid">
-	<h1> Hey {{user.username}}, Welcome to the animal well being ruberic</h1>
-	<a href={% url 'awb:logout' %}> <button type="button" class="btn btn-danger">Logout</button>
-	<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button>
+	<h1> Hey {{user.username}} </h1>
+	<p>
+		Welcome to UWA's animal well being app 
+	</p>
+		<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button>
 	</a>
+	
 	<br>
 	</div>
 

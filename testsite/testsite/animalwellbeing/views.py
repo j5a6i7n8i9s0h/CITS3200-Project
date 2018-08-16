@@ -32,7 +32,8 @@ def login_view(request):
 			if user:
 				login(request, user)
 				return redirect('/awb/')
-	return render(request, 'animalwellbeing/login.html')
+		return render(request, 'animalwellbeing/login.html',{'has_attempted':True})
+	return render(request, 'animalwellbeing/login.html',{'has_attempted':False})
 
 
 
