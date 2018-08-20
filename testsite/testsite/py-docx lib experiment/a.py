@@ -62,7 +62,7 @@ for rows in document.tables[0].rows:
                     rows.cells[1].paragraphs[0].add_run(dictionary[head][0]).bold = True
 criteras = len(standard_dict)
 proj_specific_critera = len(specifc_dict)
-
+total = 0
 if criteras > 4: 
     for i in range(criteras-4): 
         document.tables[2].add_row()
@@ -71,6 +71,7 @@ j=1
 for key in standard_dict: 
     document.tables[2].rows[j].cells[0].paragraphs[0].add_run(key).bold = True   #.cells[0].key 
     document.tables[2].rows[j].cells[int(standard_dict[key])+1].paragraphs[0].add_run('this').bold = True   #.cells[0].key 
+    total += int(standard_dict[key])
     j+=1
 
 if proj_specific_critera > 2: 
@@ -81,16 +82,41 @@ j=1
 for key in specifc_dict: 
     document.tables[3].rows[j].cells[0].paragraphs[0].add_run(key).bold = True   #.cells[0].key 
     document.tables[3].rows[j].cells[int(specifc_dict[key])+1].paragraphs[0].add_run('this').bold = True   #.cells[0].key 
+    total += int(specifc_dict[key])
     j+=1
 #modifyBorder(document.tables[2])
 document.tables[5].rows[0].cells[0].paragraphs[0].add_run('good_car').bold = True
 
 
-type_of_sheet = '0'
+type_of_sheet = '3'
 ''' processing  type of recording sheet '''
 string = document.tables[6].rows[1].cells[int(type_of_sheet)].text
 string = string[:string.index("[")] + '[x]'
-document.tables[6].rows[1].cells[int(type_of_sheet)].paragraphs[0].text = string
 
+document.tables[6].rows[1].cells[int(type_of_sheet)].paragraphs[0].text = string
+if type_of_sheet=='3' : 
+    document.tables[6].rows[1].cells[int(type_of_sheet)].paragraphs[1].text = 'Specify : {}'.format('test_')
+
+
+from docx.oxml.ns import nsdecls
+from docx.oxml import parse_xml
+
+shading_elm_1 = parse_xml(r'<w:shd {} w:fill="1F5C8B"/>'.format(nsdecls('w')))
+shading_elm_2 = parse_xml(r'<w:shd {} w:fill="1F5C8B"/>'.format(nsdecls('w')))
+#table.rows[0].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
+
+
+if total==0:
+    document.tables[7].rows[1].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
+    document.tables[7].rows[1].cells[1]._tc.get_or_add_tcPr().append(shading_elm_2)
+elif total==1: 
+    document.tables[7].rows[2].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
+    document.tables[7].rows[2].cells[1]._tc.get_or_add_tcPr().append(shading_elm_2) 
+elif total>=2 and total<=4: 
+    document.tables[7].rows[3].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
+    document.tables[7].rows[3].cells[1]._tc.get_or_add_tcPr().append(shading_elm_2)
+else:
+    document.tables[7].rows[4].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
+    document.tables[7].rows[4].cells[1]._tc.get_or_add_tcPr().append(shading_elm_2)
 
 document.save('tes2t.docx')
