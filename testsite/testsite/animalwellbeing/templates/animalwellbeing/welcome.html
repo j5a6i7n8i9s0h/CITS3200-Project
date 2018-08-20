@@ -1,0 +1,14 @@
+{% extends "./index.html" %}
+{% block title %} {{user.username}}'s Profile {% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+	<h1> Hey {{user.username}} </h1>
+	<p>
+		Welcome to UWA's animal well being app 
+	</p>
+		<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button>
+	</a>
+	<br>
+	</div>
+{% endblock %}

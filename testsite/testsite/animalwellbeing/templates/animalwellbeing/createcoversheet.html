@@ -1,0 +1,117 @@
+{% extends "./index.html" %}
+{% block title %} {{user.username}} CoverSheet Creation {% endblock %}
+{% block content %}
+<form>
+    {% csrf_token %}
+<!-- this stuff expands navbar for some reason -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div class="container">
+  <h2>Monitoring Cover Sheet</h2>
+  <p class="mt-5 mb-3 text-muted">
+      a.	Each animal is examined and observed for abnormalities at each monitoring point. <br>
+      b.	Each criterion is scored and the score marked on the recording sheet. Training is required to ensure all personnel are consistent in terms of scoring. <br>
+      c.	Scores are then added together and a Total Welfare Impact Score marked on the recording sheet. <br>
+      d.	Appropriate to the Total Welfare Impact Score, specific actions or interventions are undertaken. <br>
+      e.	Comments concerning abnormalities are recorded in the “Comments” section.<br>
+      f.	Any other abnormalities are recorded in the “Other” section.<br>
+      g.	Any abnormality that is observed to be of greater severity than the descriptions provided above will require immediate euthanasia of the animal.<br>
+      h.	All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
+        
+  </p>
+  <div class="panel-group">
+    <div class="panel panel-default">
+      <div class="panel-heading"  >Contact Details</div>
+      <div class="panel-body">
+              <div class="form-group">
+                    <label for="formGroupExampleInput">AEC Protocol #</label>
+                    <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="RA/3/" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="formGroupExampleInput">Protocol Title </label>
+                    <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" placeholder="Title">
+                  </div>
+                  <div class="form-group">
+                        <label for="formGroupExampleInput">Monitoring Start Date :</label>
+                        <input type="datetime"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Chief Investigator : </label>
+                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Emergency Contact :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <!-- HANDLE NAMES FOR FORM PROCESSING -->
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Monitor 1 :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Monitor 2 :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Monitor 3 :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Other experts :</label>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                  </div>
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Animal Welfare Officer </label>
+                      <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="AWO" readonly>
+                      <input type="number"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value=0428021529 readonly>
+                    </div>
+      </div>
+    </div>
+
+    <div class="panel panel-primary">
+      <div class="panel-heading">	Species / Phenotype / Model Issues</div>
+      <div class="panel-body">
+          <div class="form-group">
+              <input type="text"  name ="Protocol_Title" class="form-control" placeholder="species/phenotype/model issues">
+             </div>
+      </div>
+    </div>
+
+    <div class="panel panel-success">
+      <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
+      <div class="panel-body">Panel Content</div>
+    </div>
+
+    <div class="panel panel-info">
+      <div class="panel-heading">Panel with panel-info class</div>
+      <div class="panel-body">Panel Content</div>
+    </div>
+
+    <div class="panel panel-warning">
+      <div class="panel-heading">Panel with panel-warning class</div>
+      <div class="panel-body">Panel Content</div>
+    </div>
+
+    <div class="panel panel-danger">
+      <div class="panel-heading">Panel with panel-danger class</div>
+      <div class="panel-body">Panel Content</div>
+    </div>
+  </div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Create CoverSheet</button>
+</div>
+
+</form>
+{% endblock %}
