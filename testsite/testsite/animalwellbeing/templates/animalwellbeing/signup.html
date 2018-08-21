@@ -64,11 +64,11 @@ body {
 }
 </style>
 <body class="text">
-	<form method="POST" class="centered">
+  <div class="centered">
+	<form method="POST">
             {% csrf_token %}
             {% load static  %}
             <center><h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
-            
             <p class="mt-5 mb-3 text-muted">By signing up you follow xyz protocols etc </p></center>
 
         <div class="form-group">
@@ -92,7 +92,9 @@ body {
             <input type="password" class="form-control" name ="Password" id="formGroupExampleInput2">
           </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Create User </button>
-      </form>
-
-    </body>
+        </form>
+        <br>
+        <a href={% url 'awb:index' %}><button class="btn btn-lg btn-link btn-block">Go Back</button></a>
+      </div>
+      </body>
 </html>

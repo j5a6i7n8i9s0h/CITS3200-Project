@@ -35,7 +35,7 @@
                   </div>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Monitoring Start Date :</label>
-                        <input type="datetime"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy">
+                        <input type="date"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Chief Investigator : </label>
@@ -62,7 +62,8 @@
                       <label for="formGroupExampleInput">Monitor 3 :</label>
                       <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
                       <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
-                  </div>
+                      <div class="inline"><input type="checkbox" class="form-control" name="supervision" > <p class="text-muted">under supervision until competent</p></div>
+                    </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
                       <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
@@ -96,13 +97,27 @@
     </div>
 
     <div class="panel panel-info">
-      <div class="panel-heading">Panel with panel-info class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading">MONITORING FREQUENCY</div>
+      <div class="panel-body">
+            <div class="form-group">
+                <p class="text-muted" >Describe monitoring regime including frequency of animal assessment and weighing.  Select frequency that will adequately identify potential issues (including those described in section17D).</p>
+                    <input type="text" name ="monitoring_frequency" class="form-control">
+                   </div>
+      </div>
     </div>
 
     <div class="panel panel-warning">
-      <div class="panel-heading">Panel with panel-warning class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading">Type of Recording sheet</div>
+      <div class="panel-body">
+            <div class="form-group">
+              <select class="form-control">
+                        <option value="General">General</option>
+                        <option value="Anaesthesia">Anaesthesia</option>
+                        <option value="Post Procedure">Post Procedure</option>
+                        <option value="Other">Other</option>
+                </select>
+            </div>
+      </div>
     </div>
 
     <div class="panel panel-danger">

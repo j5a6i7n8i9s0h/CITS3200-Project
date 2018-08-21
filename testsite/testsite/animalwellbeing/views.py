@@ -11,7 +11,7 @@ from django.contrib.auth.models import User, Group
 # Create your views here.
 
 def index(request):
-		return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html',{'user':request.user})
+		return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html',{'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user) })
 	
 def logout_view(request):
 	logout(request)
