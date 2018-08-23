@@ -119,4 +119,4 @@ else:
     document.tables[7].rows[4].cells[0]._tc.get_or_add_tcPr().append(shading_elm_1)
     document.tables[7].rows[4].cells[1]._tc.get_or_add_tcPr().append(shading_elm_2)
 
-document.save('tes2t.docx')
+document.save('test2.docx')
