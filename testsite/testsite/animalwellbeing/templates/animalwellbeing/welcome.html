@@ -1,0 +1,13 @@
+{% extends "./index.html" %}
+{% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
+{% block content %}
+<div class="container-fluid">
+
+	<h1> Hey {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %} </h1>
+	<p>
+		Welcome to UWA's animal well being app 
+	</p>
+		<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button></a>
+	<br>
+	</div>
+{% endblock %}
