@@ -15,11 +15,11 @@ Syed Zulqarnain Gilani
 
 
 Standard :
-django 2.0 <- pip3 install django
-python 3 or up 
+- django 2.0 <- pip3 install django
+- python 3 or up 
 
 Additional libraries to add: 
-django pickledfield <- pip install django-picklefield
+- django pickledfield <- pip install django-picklefield
 
 PROCEDURE OF WORK: 
 
@@ -31,3 +31,11 @@ PROCEDURE OF WORK:
 - Review comments given by reviewer and make changes and create pull request
 - repeat until pull request is approved.
 - PLEASE FOLLOW THIS PROTOCOL WE DONT WANT TO BREAK OUR CURRENT CODEBASE
+
+
+To view on your mobile: 
+- For Android users: 
+    - install termux 
+    - clone this repo 
+    - install django and python + additional libraries 
+    - run as per usual 
