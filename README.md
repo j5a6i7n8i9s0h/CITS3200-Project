@@ -23,11 +23,11 @@ django pickledfield <- pip install django-picklefield
 
 PROCEDURE OF WORK: 
 
-Branch off master
-do your work
-test
-make pull request
-notify someone to review pull request to ensure correct procedures are implemented. DO NOT SELF APPROVE
-Review comments given by reviewer and make changes and create pull request
-repeat until pull request is approved.
-PLEASE FOLLOW THIS PROTOCOL WE DONT WANT TO BREAK OUR CURRENT CODEBASE
+- Branch off master
+- do your work
+- test
+- make pull request
+- notify someone to review pull request to ensure correct procedures are implemented. DO NOT SELF APPROVE
+- Review comments given by reviewer and make changes and create pull request
+- repeat until pull request is approved.
+- PLEASE FOLLOW THIS PROTOCOL WE DONT WANT TO BREAK OUR CURRENT CODEBASE
