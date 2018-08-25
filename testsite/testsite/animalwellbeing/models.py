@@ -12,11 +12,6 @@ class Researchers(models.Model):
 	def __str__(self):
 		return str(self.user)
 
-class Supervisors(models.Model):
-	user = models.OneToOneField(User, on_delete=models.PROTECT, default=None)
-	def __str__(self):
-		return str(self.user)
-
 class CoverSheetForm(models.Model):
 	creator = models.OneToOneField(Researchers, on_delete=models.PROTECT, default=None)
 	all_data = PickledObjectField(blank=True, null=True)
@@ -33,14 +28,11 @@ class CoverSheetForm(models.Model):
     'Person responsible for euthanasia :' : ['h3h3', ' 12'],
     'Other experts :' : ['voldemort', ' 2'],
 } '''
-	
-class ZeroDescriptor(models.Model):
-	pass
 
 class Criteria(models.Model):
 	is_general = models.BooleanField()
 	name = models.CharField(max_length=100)
-	zero_descriptor = models.ForeignKey(ZeroDescriptor, on_delete=models.PROTECT,)
+	#zero_descriptor = models.ForeignKey(ZeroDescriptor, on_delete=models.PROTECT,)
 
 class Species(models.Model):
 	#
