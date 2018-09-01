@@ -64,7 +64,7 @@ body {
 }
 </style>
 <body class="text">
-  <div class="centered">
+  <div class="form-signin">
 	<form method="POST">
             {% csrf_token %}
             {% load static  %}
@@ -94,7 +94,7 @@ body {
           <button class="btn btn-lg btn-primary btn-block" type="submit">Create User </button>
         </form>
         <br>
-        <a href={% url 'awb:index' %}><button class="btn btn-lg btn-link btn-block">Go Back</button></a>
+                  <a href={% url 'awb:index' %}><button class="btn btn-lg btn-link btn-block">Go Back</button></a>
       </div>
       </body>
 </html>

@@ -44,7 +44,14 @@ def create_researcher(request):
 
 @login_required
 def form_creation(request):
-	return render(request, 'animalwellbeing/createcoversheet.html')
+	return render(request, 'animalwellbeing/createcoversheet.html', 
+	{
+		'general_criterea':{
+		'1':' Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)', 
+		'2':'Body Posture',
+		'3':'Social Behaviour (only relevant for group housed animals)', 
+		}	
+	})
 
 def login_view(request):
 	context = {}
