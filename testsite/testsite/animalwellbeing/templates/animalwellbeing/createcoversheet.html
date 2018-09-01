@@ -1,7 +1,7 @@
 {% extends "./index.html" %}
 {% block title %} {{user.username}} CoverSheet Creation {% endblock %}
 {% block content %}
-<form>
+<form method="POST">
     {% csrf_token %}
 <!-- this stuff expands navbar for some reason -->
 
@@ -33,7 +33,7 @@
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput">Protocol Title </label>
-                    <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" placeholder="Title">
+                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title">
                   </div>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Monitoring Start Date :</label>
@@ -52,29 +52,29 @@
                   <!-- HANDLE NAMES FOR FORM PROCESSING -->
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 1 :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 2 :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 3 :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
                       <div class="inline"><input type="checkbox" class="form-control" name="supervision" > <p class="text-muted">under supervision until competent</p></div>
                     </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Other experts :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
+                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Animal Welfare Officer </label>
@@ -88,7 +88,7 @@
       <div class="panel-heading">	Species / Phenotype / Model Issues</div>
       <div class="panel-body">
           <div class="form-group">
-              <input type="text"  name ="Protocol_Title" class="form-control" placeholder="species/phenotype/model issues">
+              <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues">
              </div>
       </div>
     </div>
@@ -100,7 +100,7 @@
               <div class="panel-heading">	Standard AEC recommended criteria </div>
               <div class="panel-body">
                 {% for key,value in general_criterea.items %}
-                <div class="inline" id={{key}}>
+                <div class="form-group" id={{key}}>
                   {{value}}
                 <select  id="value">
                     <option value="0">0</option>
@@ -116,7 +116,7 @@
                 <div class="panel-heading">	Project specific criteria </div>
                 <div class="panel-body">
                   {% for key,value in general_criterea.items %}
-                  <div class="inline" id={{key}}>
+                  <div  class="form-group" id={{key}}>
                     {{value}}
                   <select  id="value">
                       <option value="0">0</option>
@@ -145,7 +145,7 @@
       <div class="panel-heading">Type of Recording sheet</div>
       <div class="panel-body">
             <div class="form-group">
-              <select onchange="ifother()" class="form-control" id="typeofsheet">
+              <select onchange="ifother()" class="form-control" name ="typeofsheet" id="typeofsheet">
                         <option value="General">General</option>
                         <option value="Anaesthesia">Anaesthesia</option>
                         <option value="Post Procedure">Post Procedure</option>
@@ -159,8 +159,10 @@
     </div>
 
     <div class="panel panel-danger">
-      <div class="panel-heading">Panel with panel-danger class</div>
-      <div class="panel-body">Panel Content</div>
+      <div class="panel-heading">ACTIONS AND INTERVENTIONS</div>
+      <div class="panel-body">
+      
+      </div>
     </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Create CoverSheet</button>
 </div>

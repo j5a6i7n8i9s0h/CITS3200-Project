@@ -44,6 +44,22 @@ def create_researcher(request):
 
 @login_required
 def form_creation(request):
+	if request.method == 'POST':
+		form = CoverSheetForm(request.POST)
+		# print(form)
+		# if form.is_valid():
+		# 	print("GOT EHRE")
+		dictionary_data={
+			'contact_details':{},
+			'species_phenotype_issues':{},
+			'monitoring_criteria':{},
+			'monitoring_frequency':{},
+			'type_of_recording_sheet':{},
+			'actions_and_interventions':{}
+		}
+
+
+		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html', 
 	{
 		'general_criterea':{

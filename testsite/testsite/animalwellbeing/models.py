@@ -12,7 +12,7 @@ class Researchers(models.Model):
 	def __str__(self):
 		return str(self.user)
 
-class CoverSheetForm(models.Model):
+class CoverSheetFormModel(models.Model):
 	creator = models.OneToOneField(Researchers, on_delete=models.PROTECT, default=None)
 	all_data = PickledObjectField(blank=True, null=True)
 	created_at = models.DateField(default=datetime.datetime.now())
