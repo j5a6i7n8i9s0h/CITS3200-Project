@@ -8,7 +8,36 @@
 	<p>
 		Welcome to UWA's animal well being app 
 	</p>
+	{% if isResearcher %}
 		<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button></a>
+	{% endif %}
 	<br>
+	<br>
+	<table class="table">
+		<thead>
+		  <tr>
+			<th scope="col">#</th>
+			<th scope="col">Name</th>
+			<th scope="col">Created</th>
+			<th scope="col">Author</th>
+			{% if not isResearcher %}
+			<th scope="col">Approval</th>
+			{% endif %}
+		  </tr>
+		</thead>
+		<tbody>
+			{% for templ in templates %}
+		  <tr>
+			<th scope="row">{{templ.pk}}</th>
+			<td>{{templ.name}}</td>
+			<td>{{templ.created_at}}</td>
+			<td>{{templ.creator.firstname}}</td>
+			{% if not isResearcher %}
+			<td> <font color="red">Unapproved</font></td>
+			{% endif %}
+		  </tr>
+		  {% endfor %}
+		</tbody>
+	  </table>
 	</div>
 {% endblock %}
