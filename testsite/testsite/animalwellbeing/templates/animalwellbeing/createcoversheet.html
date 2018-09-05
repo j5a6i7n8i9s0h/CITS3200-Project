@@ -105,8 +105,9 @@
              </div>
       </div>
     </div>
+
     <div class="panel panel-success">
-      <div class="panel-heading"> MONITORING CRITERIA AND SCORING </div>
+      <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
       <div class="panel-body">
           <div class="panel panel-success">
             <div class="panel-heading"> Standard AEC Recommended Criteria </div>
@@ -118,7 +119,8 @@
                   <option value="1">Rat</option>
                   <option value="2">Sheep</option>
               </select>
-              <input type="button" value ="apply">
+              <input type="button" value ="apply" id="tempbutt">
+              <input type="button" value="save as preset">
               <br><br>
               <table id="sarcrit">
                 <tr>
@@ -130,34 +132,32 @@
                 </tr>
                 <tr>
                   <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal – mobile and active</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
-                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
                 </tr>
                 <tr>
                   <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
-                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
                 </tr>
                 <tr>
                   <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Completely separate or isolated from others</textarea></td>
-                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
                 </tr>
-
-
               </table>
-              <input type="button" value="add">
+              <input type="button" onclick="add1()" value="add">
             </div>
 
             <div class="panel panel-success">
-                <div class="panel-heading"> Project specific criteria </div>
-              <table class="entertable1">
+                <div class="panel-heading">	Project specific criteria </div>
+              <table id="pscrit">
                 <tr>
                   <th style="text-align: center;">Criteria</th>
                   <th style="text-align: center;">0</th>
@@ -170,21 +170,22 @@
                   <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
                   <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
                   <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
-                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                  <td><input type="button" value="X" class="del2" style="margin: 0 auto;"></td>
                 </tr>
             </table>
-            <input type="button" value="add">
+            <input type="button" value="add" onclick="add2()">
             </div>
           </div>
-          <p class="text-muted">Total : 0 </p>
+          <!--<p class="text-muted">Total : 0 </p>-->
       </div>
-
+  </div>
     <div class="panel panel-info">
       <div class="panel-heading">MONITORING FREQUENCY</div>
       <div class="panel-body">
             <div class="form-group">
-                <p class="text-muted" >Describe monitoring regime including frequency of animal assessment and weighing.  Select frequency that will adequately identify potential issues (including those described in section17D).</p>
-                    <input type="text" name ="monitoring_frequency" class="form-control">
+                <p class="text-muted">Describe monitoring regime including frequency of animal assessment and weighing.  Select frequency that will adequately identify potential issues (including those described in section17D).</p>
+
+                    <textarea name="monitoring_frequency" class="form-control"></textarea>
                    </div>
       </div>
     </div>
@@ -193,14 +194,14 @@
       <div class="panel-heading">Type of Recording sheet</div>
       <div class="panel-body">
             <div class="form-group">
-              <select onchange="ifother()" class="form-control" name ="typeofsheet" id="typeofsheet">
+              <select onchange="ifother()" class="form-control" name="typeofsheet" id="typeofsheet">
                         <option value="General">General</option>
                         <option value="Anaesthesia">Anaesthesia</option>
                         <option value="Post Procedure">Post Procedure</option>
                         <option value="Other">Other</option>
                 </select>
                 <div id="other_description" style="display:none">
-                <input type="text" placeholder="Please Specify" name ="other_description" class="form-control">
+                <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
                 </div>
             </div>
       </div>
@@ -210,11 +211,11 @@
       <div class="panel-heading">ACTIONS AND INTERVENTIONS</div>
       <div class="panel-body">
         <p>Add together all individual monitoring criteria scores for a Total Welfare Impact Score</p>
-      <table>
+      <table id="asint">
         <tr>
           <th>Total Welfare Impact Score</th>
           <th>Actions/Interventions</th>
-          <th>Delete</th>
+          
         </tr>
         <tr>
           <td>0</td>
@@ -228,7 +229,7 @@
               <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
             </ul>
           </td>
-          <td></td>
+          
         </tr>
         <tr>
           <td>2-4</td>
@@ -240,7 +241,7 @@
               <li>Assess for euthanasia</li>
             </ul>
           </td>
-          <td></td>
+          
         </tr>
         <tr>
           <td>5<br>Humane end-point</td>
@@ -250,20 +251,20 @@
               <li>Complete reporting documentation and submit to facilities staff/manager andAWO if required</li>
             </ul>
           </td>
-          <td></td>
+          
         </tr>
         <tr>
           <th>Additional Specific Interventions</th>
           <th></th>
-          <th></th>
+          <th>Delete</th>
         </tr>
         <tr>
           <td><textarea placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
           <td><textarea style="width:100%;"></textarea></td>
-          <td><input type="button" value="X"></td>
+          <td><input type="button" value="X" class="del3"></td>
         </tr>
       </table>
-      <input type="button" value="add">
+      <input type="button" value="add" onclick="add3()">
       </div>
     </div>
 
@@ -328,34 +329,8 @@
   </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Create CoverSheet</button>
 </div>
-
-<script type="text/javascript">
-  function ifother()
-  {
-     if(document.getElementById("typeofsheet").value=='Other')
-     {
-      document.getElementById("other_description").style.display = "block";
-     }
-     else
-     {
-      document.getElementById("other_description").style.display = "none";
-     }
-  }
-
-  function total_count()
-  {
-
-  }
-
-  function delete1(a)
-  {
-
-  }
-
-  function add1()
-  {
-  }
-
+{% load static %}
+<script src="{% static "animalwellbeing/coversheet.js" %}">
 </script>
 </form>
 {% endblock %}
