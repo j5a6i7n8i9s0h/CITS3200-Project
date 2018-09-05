@@ -10,6 +10,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 
+      <style>
+        table, td, th {    
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+
+      </style>
+
 <div class="container">
   <h2>Monitoring Cover Sheet</h2>
   <p class="mt-5 mb-3 text-muted">
@@ -93,7 +107,7 @@
       </div>
     </div>
 
-    <div class="panel panel-success">
+<!--     <div class="panel panel-success">
       <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
       <div class="panel-body">
           <div class="panel panel-success">
@@ -129,6 +143,79 @@
               </div>
           </div>
           <p class="text-muted">Total : 0 </p>
+      </div> -->
+          <div class="panel panel-success">
+      <div class="panel-heading"> MONITORING CRITERIA AND SCORING </div>
+      <div class="panel-body">
+          <div class="panel panel-success">
+            <div class="panel-heading"> Standard AEC Recommended Criteria </div>
+            <br>
+              Select criteria from template:
+              <select id="template">
+                <!-- fill from templates -->
+                  <option value="0">Mouse</option>
+                  <option value="1">Rat</option>
+                  <option value="2">Sheep</option>
+              </select>
+              <input type="button" value ="apply">
+              <br><br>
+              <table id="sarcrit">
+                <tr>
+                  <th style="text-align: center;">Criteria</th>
+                  <th style="text-align: center;">0</th>
+                  <th style="text-align: center;">1</th>
+                  <th style="text-align: center;">2</th>
+                  <th style="text-align: center;">Delete</th>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal – mobile and active</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
+                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
+                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Action to Take" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                </tr>
+
+
+              </table>
+              <input type="button" value="add">
+            </div>
+
+            <div class="panel panel-success">
+                <div class="panel-heading"> Project specific criteria </div>
+              <table class="entertable1">
+                <tr>
+                  <th style="text-align: center;">Criteria</th>
+                  <th style="text-align: center;">0</th>
+                  <th style="text-align: center;">1</th>
+                  <th style="text-align: center;">2</th>
+                  <th style="text-align: center;">Delete</th>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><input type="button" value="X" style="margin: 0 auto;"></td>
+                </tr>
+            </table>
+            <input type="button" value="add">
+            </div>
+          </div>
+          <p class="text-muted">Total : 0 </p>
       </div>
 
     <div class="panel panel-info">
@@ -161,9 +248,123 @@
     <div class="panel panel-danger">
       <div class="panel-heading">ACTIONS AND INTERVENTIONS</div>
       <div class="panel-body">
-      
+        <p>Add together all individual monitoring criteria scores for a Total Welfare Impact Score</p>
+      <table>
+        <tr>
+          <th>Total Welfare Impact Score</th>
+          <th>Actions/Interventions</th>
+          <th>Delete</th>
+        </tr>
+        <tr>
+          <td>0</td>
+          <td><ul><li>No interventions required</li></ul></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>
+            <ul>
+              <li>Monitor once daily</li>
+              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
+            </ul>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2-4</td>
+          <td>
+            <ul>
+              <li>Monitor twice daily</li>
+              <li>Weigh</li>
+              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
+              <li>Assess for euthanasia</li>
+            </ul>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>5<br>Humane end-point</td>
+          <td>
+              <ul>
+              <li>Immediate euthanasia</li>
+              <li>Complete reporting documentation and submit to facilities staff/manager andAWO if required</li>
+            </ul>
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Additional Specific Interventions</th>
+          <th></th>
+          <th></th>
+        </tr>
+        <tr>
+          <td><textarea placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
+          <td><textarea style="width:100%;"></textarea></td>
+          <td><input type="button" value="X"></td>
+        </tr>
+      </table>
+      <input type="button" value="add">
       </div>
     </div>
+
+
+    <div class="panel panel-danger">
+      <div class="panel-heading">AEC INTERVENTIONS for body weight loss and subcutaneous tumor size</div>
+      <div class="panel-body">
+        <p>Please referto Guidelines on the Induction of Tumours and Monitoring of Animal Welfare and Guidelines on Body Weight Deficit and Monitoring of Animal Welfare documents at: www.research.uwa.edu.au/staff/forms/animals</p>
+        <p>NB. When body weight loss Threshold 2 is set at 10% the AEC does not require a dual threshold. ThereforeThreshold 1 should read N/A</p>
+        <table>
+          <tr>
+            <th>Criteria</th>
+            <th>Thresholds</th>
+            <th>Actions</th>
+          </tr>
+          <tr>
+            <th>Weight Loss %*</th>
+            <td>Threshold 1:<br><input type="text"></td>
+            <td>
+              <ul>
+                <li>Increase welfare monitoring frequency to: <input type="text"></li>
+                <li>Measure weight at a frequency of: <input type="text"></li>
+                <li>Notify the AWO or other approved reviewer</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Threshold 2:<br><input type="text"></td>
+            <td>
+              <ul>
+                <li>If the body weight deficit in any animal reaches this approved second threshold euthanasia must be performed</li>
+                <li>Complete reporting documentation and submit to facilities staff/manager and AWO if required</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Tumor size</th>
+            <td>Threshold 1:<br><input type="text"></td>
+            <td>
+              <ul>
+                <li>Increase welfare monitoring frequency to: <input type="text"></li>
+                <li>Measure tumours at a frequency of: <input type="text"></li>
+                <li>Notify the AWO or other approved reviewer</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>Threshold 2:<br><input type="text"></td>
+            <td>
+              <ul>
+                <li>Immediate euthanasia</li>
+                <li>Complete reporting documentation and submit to facilities staff/manager and AWO if required</li>
+              </ul>
+            </td>
+          </tr>
+        </table>
+        <p style="background-color:yellow;">*“In immature animals the assessment of a body weight deficit, as a manifestation of failure to thrive, may be based on a comparison with body weight in a comparable group of control animals or predicted body weight for age derived from a species-specific growth chart."</p
+      </div>
+    </div>
+  </div>
   <button class="btn btn-lg btn-primary btn-block" type="submit">Create CoverSheet</button>
 </div>
 
@@ -183,6 +384,16 @@
   {
 
   }
+
+  function delete1(a)
+  {
+
+  }
+
+  function add1()
+  {
+
+
 </script>
 
 </form>
