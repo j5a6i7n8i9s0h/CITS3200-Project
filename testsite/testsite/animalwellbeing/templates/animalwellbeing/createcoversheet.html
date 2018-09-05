@@ -1,10 +1,6 @@
 {% extends "./index.html" %}
 {% block title %} {{user.username}} CoverSheet Creation {% endblock %}
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-<!-- this stuff expands navbar for some reason -->
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -23,6 +19,9 @@
 
 
       </style>
+<form method="POST">
+    {% csrf_token %}
+<!-- this stuff expands navbar for some reason -->
 
 <div class="container">
   <h2>Monitoring Cover Sheet</h2>
@@ -106,45 +105,7 @@
              </div>
       </div>
     </div>
-
-<!--     <div class="panel panel-success">
-      <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
-      <div class="panel-body">
-          <div class="panel panel-success">
-              <div class="panel-heading">	Standard AEC recommended criteria </div>
-              <div class="panel-body">
-                {% for key,value in general_criterea.items %}
-                <div class="form-group" id={{key}}>
-                  {{value}}
-                <select  id="value">
-                    <option value="0">0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                </select>
-                </div>
-                {% endfor %}
-              </div>
-            </div>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">	Project specific criteria </div>
-                <div class="panel-body">
-                  {% for key,value in general_criterea.items %}
-                  <div  class="form-group" id={{key}}>
-                    {{value}}
-                  <select  id="value">
-                      <option value="0">0</option>
-                      <option value="1">1</option>
-                      <option value="2">2</option>
-                  </select>
-                  </div>
-                  {% endfor %}
-                </div>
-              </div>
-          </div>
-          <p class="text-muted">Total : 0 </p>
-      </div> -->
-          <div class="panel panel-success">
+    <div class="panel panel-success">
       <div class="panel-heading"> MONITORING CRITERIA AND SCORING </div>
       <div class="panel-body">
           <div class="panel panel-success">
@@ -380,6 +341,7 @@
       document.getElementById("other_description").style.display = "none";
      }
   }
+
   function total_count()
   {
 
@@ -392,9 +354,8 @@
 
   function add1()
   {
-
+  }
 
 </script>
-
 </form>
 {% endblock %}
