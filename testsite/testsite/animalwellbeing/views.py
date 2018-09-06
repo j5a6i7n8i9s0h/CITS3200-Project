@@ -102,12 +102,20 @@ def form_creation(request):
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html')
 
+import subprocess
+import json
 @login_required
 def download_cs(request, coversheet_id):
 	coversheetmodel = None
 	try:
-		coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
-		response = FileResponse(open('animalwellbeing/static/animalwellbeing/coversheets/test.docx', 'rb'), as_attachment=True)
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		script = ["python2.7", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data), coversheetmodel.name] 
+		process = subprocess.Popen(script, stdout=subprocess.PIPE)
+		output,error = process.communicate()
+		response = FileResponse(open('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(coversheetmodel.name), 'rb'), as_attachment=True)
 		return response
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
