@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login, logout, update_session_auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
 
+#downloading files
+from django.http import FileResponse
 # Create your views here.
 
 def index(request):
@@ -99,6 +101,16 @@ def form_creation(request):
 		csfm.save() 
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html')
+
+@login_required
+def download_cs(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		response = FileResponse(open('animalwellbeing/static/animalwellbeing/coversheets/test.docx', 'rb'), as_attachment=True)
+		return response
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
 
 def login_view(request):
 	context = {}

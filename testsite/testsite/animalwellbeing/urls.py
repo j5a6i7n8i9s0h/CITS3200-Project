@@ -9,4 +9,5 @@ urlpatterns = [
     path('createcoversheet',views.form_creation, name='createcoversheet'),
     path('<int:coversheet_id>/', views.view_coversheet, name='detail'),
     path('accounts/createresearcher', views.create_researcher, name='create_researcher'),
+    path('download/<int:coversheet_id>/', views.download_cs, name='download')
 ]

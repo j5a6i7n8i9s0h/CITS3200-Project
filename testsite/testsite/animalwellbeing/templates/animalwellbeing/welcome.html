@@ -23,6 +23,7 @@
 			{% if not isResearcher %}
 			<th scope="col">Approval</th>
 			{% endif %}
+			<th scope="col"></th>
 		  </tr>
 		</thead>
 		<tbody>
@@ -35,6 +36,7 @@
 			{% if not isResearcher %}
 			<td> <font color="red">Unapproved</font></td>
 			{% endif %}
+			<td><a href={% url 'awb:download' templ.pk %}><button type="button" class="btn btn-link">Download</button></a> </td>
 		  </tr>
 		  {% endfor %}
 		</tbody>
