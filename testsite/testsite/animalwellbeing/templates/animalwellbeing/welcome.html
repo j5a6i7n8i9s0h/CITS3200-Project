@@ -31,7 +31,7 @@
 			{% for templ in templates %}
 		  <tr>
 			<th scope="row">{{templ.pk}}</th>
-			<td>{{templ.name}}</td>
+			<td> <a href={% url 'awb:edit_cs' templ.pk %}>{{templ.name}}</a> </td>
 			<td>{{templ.created_at}}</td>
 			<td>{{templ.creator.firstname}}</td>
 			{% if not isResearcher %}
