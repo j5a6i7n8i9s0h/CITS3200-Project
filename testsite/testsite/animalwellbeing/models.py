@@ -18,6 +18,7 @@ class CoverSheetFormModel(models.Model):
 	all_data = PickledObjectField(blank=True, null=True)
 	created_at = models.DateField(default=datetime.datetime.now())
 	name = models.CharField(max_length=30, default="{}_#{}".format("coversheetform","test"))
+	approved = models.BooleanField(default=False)
 
 	'''dictionary ={
 		'contact details' : {Protocol Title :' : 'ironman',

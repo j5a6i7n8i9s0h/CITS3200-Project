@@ -29,6 +29,7 @@ def logout_view(request):
 def view_coversheet(request, coversheet_id):
 	coversheetmodel = None
 	try:
+		#improve this later on
 		coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
 		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
 	except CoverSheetFormModel.DoesNotExist:
