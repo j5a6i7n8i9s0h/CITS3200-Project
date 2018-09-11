@@ -31,7 +31,11 @@ def view_coversheet(request, coversheet_id):
 	try:
 		#improve this later on
 		coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
-		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
+		context = {
+			'sheet': coversheetmodel.all_data,
+			'sheetid' : coversheetmodel.id
+		}
+		return render(request, 'animalwellbeing/view_coversheet.html', context)
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
 	
@@ -76,19 +80,19 @@ def edit_form(request, coversheet_id):
 		form = CoverSheetForm(request.POST)
 		dictionary_data={
 			'contact_details':{
-				'Protocol Title :' : '' or form['protocol_title'].value(),
-				'Monitoring Start Date :':'' or form['start_date'].value(),
-				'Chief Investigator :' :[form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
-				'Emergency Contact :': [form['emergency_investigator'].value(), form['emergency_investigator_phone'].value()],
-				'Monitor 1 :': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
-				'Monitor 2 :': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
-				'Monitor 3 :': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
-				'Supervisor :': form['supervision'].value(),
-				'Person responsible for euthanasia :': [form['euthanasia_person'].value(), form['euthanasia_phone'].value()],
-				'Other experts :': [form['other_experts'].value(), form['other_experts_phone'].value()],
+				'protocol_title' : '' or form['protocol_title'].value(),
+				'start_date':'' or form['start_date'].value(),
+				'chief_investigator' :[form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
+				'emergency_contact': [form['emergency_investigator'].value(), form['emergency_investigator_phone'].value()],
+				'monitor_1': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
+				'monitor_2': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
+				'monitor_3': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
+				'supervisor': form['supervision'].value(),
+				'euth_officer': [form['euthanasia_person'].value(), form['euthanasia_phone'].value()],
+				'other': [form['other_experts'].value(), form['other_experts_phone'].value()],
 			},
 			'species_phenotype_issues':{
-				'Species' : form['species_phenotype_issues'].value()
+				'species' : form['species_phenotype_issues'].value()
 			},
 			'monitoring_criteria':{},
 			'monitoring_frequency':{},
@@ -115,19 +119,19 @@ def form_creation(request):
 		print(form['protocol_title'].value())
 		dictionary_data={
 			'contact_details':{
-				'Protocol Title :' : '' or form['protocol_title'].value(),
-				'Monitoring Start Date :':'' or form['start_date'].value(),
-				'Chief Investigator :' :[form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
-				'Emergency Contact :': [form['emergency_investigator'].value(), form['emergency_investigator_phone'].value()],
-				'Monitor 1 :': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
-				'Monitor 2 :': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
-				'Monitor 3 :': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
-				'Supervisor :': form['supervision'].value(),
-				'Person responsible for euthanasia :': [form['euthanasia_person'].value(), form['euthanasia_phone'].value()],
-				'Other experts :': [form['other_experts'].value(), form['other_experts_phone'].value()],
+				'protocol_title' : '' or form['protocol_title'].value(),
+				'start_date':'' or form['start_date'].value(),
+				'chief_investigator' :[form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
+				'emergency_contact': [form['emergency_investigator'].value(), form['emergency_investigator_phone'].value()],
+				'monitor_1': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
+				'monitor_2': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
+				'monitor_3': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
+				'supervisor': form['supervision'].value(),
+				'euth_officer': [form['euthanasia_person'].value(), form['euthanasia_phone'].value()],
+				'other': [form['other_experts'].value(), form['other_experts_phone'].value()],
 			},
 			'species_phenotype_issues':{
-				'Species' : form['species_phenotype_issues'].value()
+				'species' : form['species_phenotype_issues'].value()
 			},
 			'monitoring_criteria':{},
 			'monitoring_frequency':{},
@@ -139,7 +143,8 @@ def form_creation(request):
 			creator = creator_, 
 			all_data = dictionary_data, 
 			created_at = datetime.datetime.now(),
-			name = "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
+			#name = "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
+			name=form['protocol_title'].value() or "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
 		)
 		creator_.number_of_coversheets+=1
 		creator_.save()
