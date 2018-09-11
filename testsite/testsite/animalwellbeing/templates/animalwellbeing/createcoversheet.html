@@ -44,7 +44,7 @@
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput">Protocol Title </label>
-                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title" value = {{ dictionary_data.contact_details.protocol_title}}>
+                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title" value = {{ dictionary_data.contact_details.protocol_title }}>
                   </div>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Monitoring Start Date :</label>
@@ -52,40 +52,40 @@
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Chief Investigator : </label>
-                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.chief_investigator.0 }}>
-                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.chief_investigator.1 }}>
+                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.chief_investigator.0 }}>
+                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.chief_investigator.1 }}>
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Emergency Contact :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name"  value = {{ dictionary_data.contact_details.emergency_contact.0 }}>
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.emergency_contact.1 }}>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name"  value = {{dictionary_data.contact_details.emergency_contact.0 }}>
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.emergency_contact.1 }}>
                   </div>
                   <!-- HANDLE NAMES FOR FORM PROCESSING -->
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 1 :</label>
-                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.monitor_1.0 }}>
-                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.monitor_1.1 }}>
+                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.monitor_1.0 }}>
+                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.monitor_1.1 }}>
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 2 :</label>
-                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.monitor_2.0 }}>
-                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.monitor_2.1 }}>
+                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.monitor_2.0 }}>
+                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.monitor_2.1 }}>
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 3 :</label>
-                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.monitor_3.0 }}>
-                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.monitor_3.1 }}>
+                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.monitor_3.0 }}>
+                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.monitor_3.1 }}>
                       <div class="inline"><input type="checkbox" class="form-control" name="supervision"  {% if dictionary_data.contact_details.supervisor %} checked {% endif %}> <p class="text-muted">under supervision until competent</p></div>
                     </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
-                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.euth_officer.0 }}>
-                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.euth_officer.1 }}>
+                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.euth_officer.0 }}>
+                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.euth_officer.1 }}>
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Other experts :</label>
-                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.other.0 }}>
-                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.other.1 }}>
+                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{dictionary_data.contact_details.other.0 }}>
+                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{dictionary_data.contact_details.other.1 }}>
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Animal Welfare Officer </label>
@@ -192,15 +192,10 @@
       <div class="panel-heading">Type of Recording sheet</div>
       <div class="panel-body">
             <div class="form-group">
-              <select onchange="ifother()" class="form-control" name="typeofsheet" id="typeofsheet">
-                        <option value="General">General</option>
-                        <option value="Anaesthesia">Anaesthesia</option>
-                        <option value="Post Procedure">Post Procedure</option>
-                        <option value="Other">Other</option>
-                </select>
-                <div id="other_description" style="display:none">
-                <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
-                </div>
+              <input type="checkbox" name="general">  General<br>
+              <input type="checkbox" name="general">  Anaesthesia<br>
+              <input type="checkbox" name="general">  Post Procedure<br>
+              <input type="checkbox" name="general">  Other  <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
             </div>
       </div>
     </div>
@@ -216,40 +211,34 @@
           
         </tr>
         <tr>
-          <td>0</td>
-          <td><ul><li>No interventions required</li></ul></td>
+          <td><textarea cols="30" rows="4" style="width:100%;">0</textarea></td>
+          <td><textarea cols="30" rows="4" style="width:100%;">No Interventions Required</textarea></td>
         </tr>
         <tr>
-          <td>1</td>
+          <td><textarea cols="30" rows="4" style="width:100%;">1</textarea></td>
           <td>
-            <ul>
-              <li>Monitor once daily</li>
-              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
-            </ul>
+            <textarea cols="30" rows="4" style="width:100%;">Monitor once daily
+Consider analgesia (as described in the approval or following veterinary authorisation)</textarea>
           </td>
           
         </tr>
         <tr>
-          <td>2-4</td>
+          <td><textarea cols="30" rows="4" style="width:100%;">2-4</textarea></td>
           <td>
-            <ul>
-              <li>Monitor twice daily</li>
-              <li>Weigh</li>
-              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
-              <li>Assess for euthanasia</li>
-            </ul>
+            <textarea cols="30" rows="4" style="width:100%;">Monitor twice daily
+Weigh
+Consider analgesia (as described in the approval or following veterinary authorisation)
+Assess for euthanasia</textarea>
           </td>
           
         </tr>
         <tr>
-          <td>5<br>Humane end-point</td>
+          <td><textarea cols="30" rows="4" style="width:100%;">5
+Humane end-point</textarea></td>
           <td>
-              <ul>
-              <li>Immediate euthanasia</li>
-              <li>Complete reporting documentation and submit to facilities staff/manager andAWO if required</li>
-            </ul>
+              <textarea cols="30" rows="4" style="width:100%;">Immediate euthanasia
+Complete reporting documentation and submit to facilities staff/manager andAWO if required</textarea>
           </td>
-          
         </tr>
         <tr>
           <th>Additional Specific Interventions</th>
@@ -272,6 +261,7 @@
       <div class="panel-body">
         <p>Please referto Guidelines on the Induction of Tumours and Monitoring of Animal Welfare and Guidelines on Body Weight Deficit and Monitoring of Animal Welfare documents at: www.research.uwa.edu.au/staff/forms/animals</p>
         <p>NB. When body weight loss Threshold 2 is set at 10% the AEC does not require a dual threshold. ThereforeThreshold 1 should read N/A</p>
+        <p>If Threshold criteria do not apply, leave threshold blank or write "N/A"</p>
         <table>
           <tr>
             <th>Criteria</th>
@@ -332,3 +322,5 @@
 </fieldset>
 </form>
 {% endblock %}
+
+<!-- NOTE: CONSIDER OPTION TO ATTACH IMAGES OR OTHER FILES AS PER THE EXAMPLE -->
