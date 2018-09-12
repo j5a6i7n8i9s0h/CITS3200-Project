@@ -13,6 +13,14 @@
 	{% endif %}
 	<br>
 	<br>
+
+	{%if request.user.is_superuser %}
+	  	<form method="get" action="{% url 'awb:search' %}">
+			<input type="text" name="q" placeholder="search_project"/>
+			<input type="submit" value="search"/>
+		</form>
+	{% endif %}
+
 	<table class="table">
 		<thead>
 		  <tr>
@@ -27,6 +35,22 @@
 		  </tr>
 		</thead>
 		<tbody>
+
+        {% if results %}
+        {% for templ in results %}
+		  <tr>
+			<th scope="row">{{templ.pk}}</th>
+			<td>{{templ.name}}</td>
+			<td>{{templ.created_at}}</td>
+			<td>{{templ.creator.firstname}}</td>
+              {% if not isResearcher %}
+			<td> <font color="red">Unapproved</font></td>
+              {% endif %}
+			<td><a href={% url 'awb:download' templ.pk %}><button type="button" class="btn btn-link">Download</button></a> </td>
+		  </tr>
+		  {% endfor %}
+        {% endif %}
+
 			{% for templ in templates %}
 		  <tr>
 			<th scope="row">{{templ.pk}}</th>
