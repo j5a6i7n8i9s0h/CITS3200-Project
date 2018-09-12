@@ -1,4 +1,5 @@
 from django.db import models
+
 from django.conf import settings 
 from django.contrib.auth.models import User
 from picklefield.fields import PickledObjectField
@@ -11,7 +12,7 @@ class Researchers(models.Model):
 	firstname = models.CharField(max_length=30, default="broken")
 	number_of_coversheets = models.IntegerField(default=0)
 	def __str__(self):
-		return str(self.user)
+		return str(self.firstname)
 
 class CoverSheetFormModel(models.Model):
 	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)
@@ -41,3 +42,4 @@ class Criteria(models.Model):
 class Species(models.Model):
 	#
 	name = models.CharField(max_length=100)
+
