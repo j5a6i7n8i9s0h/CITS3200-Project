@@ -136,6 +136,11 @@ def search(request):
             context = {'results':  CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(firstname__icontains=query))}
             return render(request, template, context)
         except:
-            return render(request, template)
+            if query is "":
+                context = {'results': CoverSheetFormModel.objects.all()}
+                return render(request, template, context)
+            else:
+                return render(request, template, {'Message': "Cant find the matching Query"})
+
     else:
         return render(request, template)
