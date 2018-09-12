@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 # will improve later down the line
-from .forms import * 
-from .models import * 
+from .forms import *
+from .models import *
+
 
 #user authentication
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -16,11 +17,11 @@ def index(request):
 	if request.user.is_authenticated and (request.user.is_superuser or Researchers.objects.filter(user=request.user).exists()):
 		context = {
 			'isResearcher': not request.user.is_superuser,
-			'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user), 
+			'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 			'templates':  CoverSheetFormModel.objects.all() if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user))
 			}
 	return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html', context)
-	
+
 def logout_view(request):
 	logout(request)
 	return redirect('/awb/')
@@ -33,7 +34,7 @@ def view_coversheet(request, coversheet_id):
 		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
-	
+
 def create_researcher(request):
 	if request.method=='POST':
 		form = SignUpForm(request.POST)
@@ -48,7 +49,7 @@ def create_researcher(request):
 				password=password,
 				email=email
 				)
-			user.save() 
+			user.save()
 			new_researcher = Researchers.objects.create(
 				user=user,
 				surname=surname,
@@ -91,14 +92,14 @@ def form_creation(request):
 		}
 		creator_ = Researchers.objects.get(user=request.user)
 		csfm = CoverSheetFormModel.objects.create(
-			creator = creator_, 
-			all_data = dictionary_data, 
+			creator = creator_,
+			all_data = dictionary_data,
 			created_at = datetime.datetime.now(),
 			name = "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
 		)
 		creator_.number_of_coversheets+=1
 		creator_.save()
-		csfm.save() 
+		csfm.save()
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html')
 
@@ -124,7 +125,7 @@ def login_view(request):
 	context = {}
 	if request.method=='POST':
 		form = LoginForm(request.POST)
-		if form.is_valid(): 
+		if form.is_valid():
 			username = form.cleaned_data['Username']
 			password = form.cleaned_data['Password']
 			user = authenticate(request, username=username, password=password)
@@ -134,3 +135,20 @@ def login_view(request):
 		return render(request, 'animalwellbeing/login.html',{'has_attempted':True})
 	return render(request, 'animalwellbeing/login.html',{'has_attempted':False})
 
+
+def search(request):
+    template = 'animalwellbeing/welcome.html'
+    if request.method == 'GET':
+        query = request.GET.get('q')
+        try:
+            context = {'results':  CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(firstname__icontains=query))}
+            return render(request, template, context)
+        except:
+            if query is "":
+                context = {'results': CoverSheetFormModel.objects.all()}
+                return render(request, template, context)
+            else:
+                return render(request, template, {'Message': "Cant find the matching Query"})
+
+    else:
+        return render(request, template)
