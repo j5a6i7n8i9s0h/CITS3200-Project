@@ -12,7 +12,7 @@ class SignUpForm(forms.Form):
 	Email = forms.EmailField(max_length=100)
 
 class CoverSheetForm(forms.Form):
-	protocol_title = forms.CharField(max_length=200)
+	protocol_title = forms.CharField(max_length=200, strip=False)
 	start_date = forms.DateField()
 	cheif_investigator = forms.CharField(max_length=30)
 	cheif_investigator_phone = forms.CharField(max_length=10)
