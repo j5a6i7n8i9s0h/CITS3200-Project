@@ -10,7 +10,11 @@ from django.contrib.auth.models import User, Group
 
 #downloading files
 from django.http import FileResponse
+import subprocess
+import json
 # Create your views here.
+
+from .additional_func import standardise_keys
 
 def index(request):
 	if request.user.is_authenticated and (request.user.is_superuser or Researchers.objects.filter(user=request.user).exists()):
@@ -60,7 +64,7 @@ def create_researcher(request):
 			return redirect('/awb/')
 	return render(request, 'animalwellbeing/signup.html')
 
-from .additional_func import standardise_keys
+
 @login_required
 def edit_form(request, coversheet_id):
 	coversheetmodel = None
@@ -95,6 +99,7 @@ def edit_form(request, coversheet_id):
 			'type_of_recording_sheet':{},
 			'actions_and_interventions':{}
 		}
+		coversheetmodel.name = form['protocol_title'].value() or coversheetmodel.name
 		coversheetmodel.all_data = dictionary_data
 		coversheetmodel.save()
 		return redirect('/awb/')
@@ -139,7 +144,7 @@ def form_creation(request):
 			creator = creator_, 
 			all_data = dictionary_data, 
 			created_at = datetime.datetime.now(),
-			name = "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
+			name = form['protocol_title'].value() or "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
 		)
 		creator_.number_of_coversheets+=1
 		creator_.save()
@@ -147,8 +152,7 @@ def form_creation(request):
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html')
 
-import subprocess
-import json
+
 @login_required
 def download_cs(request, coversheet_id):
 	coversheetmodel = None
