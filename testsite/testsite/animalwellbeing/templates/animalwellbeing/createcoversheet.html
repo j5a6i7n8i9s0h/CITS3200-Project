@@ -192,15 +192,11 @@
       <div class="panel-heading">Type of Recording sheet</div>
       <div class="panel-body">
             <div class="form-group">
-              <select onchange="ifother()" class="form-control" name="typeofsheet" id="typeofsheet">
-                        <option value="General">General</option>
-                        <option value="Anaesthesia">Anaesthesia</option>
-                        <option value="Post Procedure">Post Procedure</option>
-                        <option value="Other">Other</option>
-                </select>
-                <div id="other_description" style="display:none">
-                <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
-                </div>
+              <input type="checkbox" name="general" value="general">General
+              <input type="checkbox" name="anasthesia" value="anasthesia">Anaesthesia
+              <input type="checkbox" name="post_proc" value="post_proc">Post Procedure
+              <input type="checkbox" name="other" value="other">Other
+              <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
             </div>
       </div>
     </div>
@@ -216,38 +212,33 @@
           
         </tr>
         <tr>
-          <td>0</td>
-          <td><ul><li>No interventions required</li></ul></td>
+          <td><textarea cols="30" rows="5" style="width:100%;">0</textarea></td>
+          <td><textarea cols="30" rows="5" style="width:100%;">- No interventions required</textarea></td>
         </tr>
         <tr>
-          <td>1</td>
+          <td><textarea cols="30" rows="5" style="width:100%;">1</textarea></td>
           <td>
-            <ul>
-              <li>Monitor once daily</li>
-              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
-            </ul>
+            <textarea cols="30" rows="5" style="width:100%;">- Monitor once daily
+Consider analgesia (as described in the approval or following veterinary authorisation)</textarea>
           </td>
           
         </tr>
         <tr>
-          <td>2-4</td>
+          <td><textarea cols="30" rows="5" style="width:100%;">2-4</textarea></td>
           <td>
-            <ul>
-              <li>Monitor twice daily</li>
-              <li>Weigh</li>
-              <li>Consider analgesia (as described in the approval or following veterinary authorisation)</li>
-              <li>Assess for euthanasia</li>
-            </ul>
+<textarea cols="30" rows="5" style="width:100%;">- Monitor twice daily
+- Weigh
+- Consider analgesia (as described in the approval or following veterinary authorisation)
+- Assess for euthanasia</textarea>
           </td>
           
         </tr>
         <tr>
-          <td>5<br>Humane end-point</td>
+          <td><textarea cols="30" rows="5" style="width:100%;">5
+- Humane end-point</textarea></td>
           <td>
-              <ul>
-              <li>Immediate euthanasia</li>
-              <li>Complete reporting documentation and submit to facilities staff/manager andAWO if required</li>
-            </ul>
+              <textarea cols="30" rows="5" style="width:100%;">- Immediate euthanasia
+- Complete reporting documentation and submit to facilities staff/manager andAWO if required</textarea>
           </td>
           
         </tr>
