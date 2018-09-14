@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath '/testsite/testsite' testsite.wsgi
+web: gunicorn --chdir /testsite/testsite testsite.wsgi
