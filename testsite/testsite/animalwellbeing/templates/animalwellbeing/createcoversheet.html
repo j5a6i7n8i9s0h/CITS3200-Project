@@ -44,48 +44,48 @@
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput">Protocol Title </label>
-                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title" value = {{ dictionary_data.contact_details.ProtocolTitle }}>
+                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title" value = "{{ dictionary_data.contact_details.ProtocolTitle }}" required>
                   </div>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Monitoring Start Date :</label>
-                        <input type="date"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy" value = {{ dictionary_data.contact_details.MonitoringStartDate }}>
+                        <input type="date"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy" value = "{{ dictionary_data.contact_details.MonitoringStartDate }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Chief Investigator : </label>
-                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.ChiefInvestigator.0 }}>
-                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.ChiefInvestigator.1 }}>
+                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.ChiefInvestigator.0 }}">
+                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.ChiefInvestigator.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Emergency Contact :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name"  value = {{ dictionary_data.contact_details.EmergencyContact.0 }}>
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.EmergencyContact.1 }}>
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name"  value = "{{ dictionary_data.contact_details.EmergencyContact.0 }}">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.EmergencyContact.1 }}">
                   </div>
                   <!-- HANDLE NAMES FOR FORM PROCESSING -->
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 1 :</label>
-                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.Monitor1.0 }}>
-                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.Monitor1.1 }}>
+                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor1.0 }}">
+                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor1.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 2 :</label>
-                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.Monitor2.0 }}>
-                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.Monitor2.1 }}>
+                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor2.0 }}">
+                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor2.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 3 :</label>
-                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.Monitor3.0 }}>
-                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.Monitor3.1 }}>
+                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor3.0 }}">
+                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor3.1 }}">
                       <div class="inline"><input type="checkbox" class="form-control" name="supervision"  {% if dictionary_data.contact_details.Supervisor %} checked {% endif %}> <p class="text-muted">under supervision until competent</p></div>
                     </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
-                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.0 }}>
-                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.1 }}>
+                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.0 }}">
+                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Other experts :</label>
-                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = {{ dictionary_data.contact_details.OtherExperts.0 }}>
-                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = {{ dictionary_data.contact_details.OtherExperts.1 }}>
+                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.OtherExperts.0 }}">
+                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.OtherExperts.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Animal Welfare Officer </label>
@@ -99,7 +99,7 @@
       <div class="panel-heading">	Species / Phenotype / Model Issues</div>
       <div class="panel-body">
           <div class="form-group">
-              <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues" value = {{ dictionary_data.species_phenotype_issues.Species }} >
+              <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues" value = "{{dictionary_data.species_phenotype_issues.Species }}">
              </div>
       </div>
     </div>
