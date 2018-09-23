@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 # will improve later down the line
 from .forms import *
 from .models import *
-
+from django.db.models import Q
 
 #user authentication
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -186,18 +186,82 @@ def login_view(request):
 
 
 def search(request):
-    template = 'animalwellbeing/welcome.html'
-    if request.method == 'GET':
-        query = request.GET.get('q')
-        try:
-            context = {'results':  CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(firstname__icontains=query))}
-            return render(request, template, context)
-        except:
-            if query is "":
-                context = {'results': CoverSheetFormModel.objects.all()}
-                return render(request, template, context)
-            else:
-                return render(request, template, {'Message': "Cant find the matching Query"})
-
-    else:
-        return render(request, template)
+	template = 'animalwellbeing/welcome.html'
+	author = request.GET['author']
+	projectName = request.GET['projectName']
+	date = request.GET['date']
+	if author and projectName and date:
+		try:
+			match = CoverSheetFormModel.objects.filter(
+				Q(created_at=date) &
+				Q(creator=Researchers.objects.get(firstname__icontains=author)) &
+				Q(name__icontains=projectName))
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+		except:
+			return render(request, template, {'Message': "Cant find the matching Query"})
+	elif author and projectName:
+		try:
+			match = CoverSheetFormModel.objects.filter(
+				Q(creator=Researchers.objects.get(firstname__icontains=author)) &
+				Q(name__icontains=projectName))
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+		except:
+			return render(request, template, {'Message': "Cant find the matching Query"})
+	elif author and date:
+		try:
+			match = CoverSheetFormModel.objects.filter(Q(created_at=date) &
+				Q(creator=Researchers.objects.get(firstname__icontains=author)))
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+		except:
+			return render(request, template, {'Message': "Cant find the matching Query"})
+	elif projectName and date:
+		try:
+			match = CoverSheetFormModel.objects.filter(
+				Q(created_at=date) &
+				Q(name__icontains=projectName))
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+		except:
+			context = {'results': CoverSheetFormModel.objects.all()}
+			return render(request, template, context)
+	elif author:
+		try:
+			context = {'results': CoverSheetFormModel.objects.filter(
+				creator=Researchers.objects.get(firstname__icontains=author))}
+			return render(request, template, context)
+		except:
+			if author is "":
+				context = {'results': CoverSheetFormModel.objects.all()}
+				return render(request, template, context)
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+	elif projectName:
+			match = CoverSheetFormModel.objects.filter(name__icontains=projectName)
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+	elif date:
+		try:
+			match = CoverSheetFormModel.objects.filter(created_at=date)
+			if match:
+				return render(request, template, {'results': match})
+			else:
+				return render(request, template, {'Message': "Cant find the matching Query"})
+		except:
+			context = {'results': CoverSheetFormModel.objects.all()}
+			return render(request, template, context)
+	else:
+		context = {'results': CoverSheetFormModel.objects.all()}
+		return render(request, template, context)
