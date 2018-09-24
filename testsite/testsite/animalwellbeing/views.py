@@ -96,7 +96,9 @@ def edit_form(request, coversheet_id):
 				'Species' : form['species_phenotype_issues'].value()
 			},
 			'monitoring_criteria':{},
-			'monitoring_frequency':{},
+			'monitoring_frequency':{
+				'monitoring_frequency':form['monitoring_frequency'].value()
+			},
 			'type_of_recording_sheet':{},
 			'actions_and_interventions':{}
 		}
@@ -105,10 +107,11 @@ def edit_form(request, coversheet_id):
 		coversheetmodel.save()
 		return redirect('/awb/')
 	else:
-		if coversheetmodel.approved:
-			return redirect('/awb/')
-		else:
-			return render(request, 'animalwellbeing/createcoversheet.html',{'dictionary_data':standardise_keys(coversheetmodel.all_data)})
+		return render(request, 'animalwellbeing/createcoversheet.html',
+				{
+				'dictionary_data':standardise_keys(coversheetmodel.all_data),
+				'approved': coversheetmodel.approved
+				})
 
 @login_required
 def form_creation(request):
