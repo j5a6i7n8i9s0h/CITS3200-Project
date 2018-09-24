@@ -1,6 +1,11 @@
 {% extends "./index.html" %}
 {% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+<script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
 <div class="container-fluid">
 
 	<h1> Hey {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %} </h1>
@@ -24,17 +29,17 @@
 		<button type="submit" class="btn btn-default">Search</button>
 	 </form>
 	{% endif %}
-	<table class="table">
+	<table id="myTable" class="display nowrap dataTable dtr-inline collapsed">
 		<thead>
 		  <tr>
 			<th scope="col">#</th>
 			<th scope="col">Name</th>
 			<th scope="col">Created</th>
-			<th scope="col">Author</th>
 			{% if not isResearcher %}
-			<th scope="col">Approval</th>
+			<th scope="col">Author</th>
 			{% endif %}
-			<th scope="col"></th>
+			<th scope="col">Approval</th>
+			
 		  </tr>
 		</thead>
 		<tbody>
@@ -49,7 +54,6 @@
               {% if not isResearcher %}
 			<td> <font color="red">Unapproved</font></td>
               {% endif %}
-			<td><a href={% url 'awb:download' templ.pk %}><button type="button" class="btn btn-link">Download</button></a> </td>
 		  </tr>
 		  {% endfor %}
         {% else %}
@@ -61,15 +65,19 @@
 			<th scope="row">{{templ.pk}}</th>
 			<td> <a href={% url 'awb:edit_cs' templ.pk %}>{{templ.name}}</a> </td>
 			<td>{{templ.created_at}}</td>
-			<td>{{templ.creator.firstname}}</td>
 			{% if not isResearcher %}
-			<td> {% if templ.approved %} <font color="green"> Approved </font> {% else %} <font color="red"> Unapproved</font> {% endif %}</td>
+			<td>{{templ.creator.firstname}}</td>
 			{% endif %}
-			<td><a href={% url 'awb:download' templ.pk %}><button type="button" class="btn btn-link">Download</button></a> </td>
+			<td> {% if templ.approved %} <font color="green"> Approved </font> {% else %} <font color="red"> Unapproved</font> {% endif %}</td>
 		  </tr>
 		  {% endfor %}
 		</tbody>
 	  </table>
 	  {% endif %}
 	</div>
+	<script type="text/javascript">
+		$(document).ready( function () {
+    	$('#myTable').DataTable();
+		});
+	</script>
 {% endblock %}

@@ -20,7 +20,7 @@
 <form method="POST">
     {% csrf_token %}
 <!-- this stuff expands navbar for some reason -->
-<fieldset {% if request.user.is_superuser %} disabled {% endif %}>
+<fieldset {% if request.user.is_superuser or approved %} disabled {% endif %}>
 <div class="container">
   <h2>Monitoring Cover Sheet</h2>
   <p class="mt-5 mb-3 text-muted">
@@ -196,7 +196,9 @@
               <input type="checkbox" name="anasthesia" value="anasthesia">Anaesthesia
               <input type="checkbox" name="post_proc" value="post_proc">Post Procedure
               <input type="checkbox" name="other" value="other">Other
+              <div id="other_description">
               <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
+              </div>
             </div>
       </div>
     </div>
