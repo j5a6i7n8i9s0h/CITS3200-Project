@@ -2,9 +2,17 @@
 {% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
 {% block content %}
 
-<link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 
 <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 
 <div class="container-fluid">
 
@@ -29,10 +37,9 @@
 		<button type="submit" class="btn btn-default">Search</button>
 	 </form>
 	{% endif %}
-	<table id="myTable" class="display nowrap dataTable dtr-inline collapsed">
+	<table id="myTable" class="table table-striped table-bordered" style="width:100%">
 		<thead>
 		  <tr>
-			<th scope="col">#</th>
 			<th scope="col">Name</th>
 			<th scope="col">Created</th>
 			{% if not isResearcher %}
@@ -47,8 +54,7 @@
         {% if results %}
         {% for templ in results %}
 		  <tr>
-			<th scope="row">{{templ.pk}}</th>
-			<td>{{templ.name}}</td>
+			<td scope "row">{{templ.name}}</td>
 			<td>{{templ.created_at}}</td>
 			<td>{{templ.creator.firstname}}</td>
               {% if not isResearcher %}
@@ -62,8 +68,7 @@
 
 			{% for templ in templates %}
 		  <tr>
-			<th scope="row">{{templ.pk}}</th>
-			<td> <a href={% url 'awb:edit_cs' templ.pk %}>{{templ.name}}</a> </td>
+			<td scope="row"> <a href={% url 'awb:edit_cs' templ.pk %}>{{templ.name}}</a> </td>
 			<td>{{templ.created_at}}</td>
 			{% if not isResearcher %}
 			<td>{{templ.creator.firstname}}</td>
