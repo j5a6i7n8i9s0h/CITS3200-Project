@@ -21,6 +21,9 @@ class CoverSheetFormModel(models.Model):
 	name = models.CharField(max_length=30, default="{}_#{}".format("coversheetform","test"))
 	approved = models.BooleanField(default=False)
 
+	def __str__(self):
+		return str(self.name) 
+
 	'''dictionary ={
 		'contact details' : {Protocol Title :' : 'ironman',
 			'Monitoring Start Date :' : 'today' , 

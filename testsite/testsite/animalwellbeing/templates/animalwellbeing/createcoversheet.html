@@ -1,10 +1,10 @@
 {% extends "./index.html" %}
 {% block title %} {{user.username}}  {% if dictionary_data %} Edit Coversheet {% else %}CoverSheet Creation {% endif %}{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+   <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
 
       <style>
         table, td, th {    
@@ -34,10 +34,10 @@
       h.	All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
         
   </p>
-  <div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading"  >Contact Details</div>
-      <div class="panel-body">
+  <div class="card">
+    <div class="card-row">
+      <div class="card-header">Contact Details</div>
+      <div class="card-body">
               <div class="form-group">
                     <label for="formGroupExampleInput">AEC Protocol #</label>
                     <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="RA/3/" readonly>
@@ -91,24 +91,29 @@
                       <label for="formGroupExampleInput">Animal Welfare Officer </label>
                       <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="AWO" readonly>
                       <input type="number"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value=0428021529 readonly>
-                    </div>
+                  </div>
       </div>
     </div>
+  </div>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">	Species / Phenotype / Model Issues</div>
-      <div class="panel-body">
+  <br>
+
+    <div class="card">
+      <div class="card-header">	Species / Phenotype / Model Issues</div>
+      <div class="card-body">
           <div class="form-group">
               <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues" value = "{{dictionary_data.species_phenotype_issues.Species }}">
              </div>
       </div>
     </div>
+    <br>
 
-    <div class="panel panel-success">
-      <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
-      <div class="panel-body">
-          <div class="panel panel-success">
-            <div class="panel-heading"> Standard AEC Recommended Criteria </div>
+    <div class="card">
+      <div class="card-header">	MONITORING CRITERIA AND SCORING </div>
+      <div class="card-body">
+          <div class="card">
+            <div class="card-header"> Standard AEC Recommended Criteria </div>
+            <div class="card-body">
             <br>
               Select criteria from template:
               <select id="template">
@@ -152,9 +157,11 @@
               </table>
               <input type="button" onclick="add1()" value="add">
             </div>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">	Project specific criteria </div>
+          </div>
+          <br>
+            <div class="card">
+                <div class="card-header">	Project specific criteria </div>
+                <div class="card-body">
               <table id="pscrit">
                 <tr>
                   <th style="text-align: center;">Criteria</th>
@@ -177,35 +184,34 @@
           <!--<p class="text-muted">Total : 0 </p>-->
       </div>
   </div>
-    <div class="panel panel-info">
-      <div class="panel-heading">MONITORING FREQUENCY</div>
-      <div class="panel-body">
-            <div class="form-group">
+  <br>
+    <div class="card">
+      <div class="card-header">MONITORING FREQUENCY</div>
+      <div class="card-body">
+            <div class="card-group">
                 <p class="text-muted">Describe monitoring regime including frequency of animal assessment and weighing.  Select frequency that will adequately identify potential issues (including those described in section17D).</p>
 
                     <textarea name="monitoring_frequency" class="form-control"></textarea>
                    </div>
       </div>
     </div>
-
-    <div class="panel panel-warning">
-      <div class="panel-heading">Type of Recording sheet</div>
-      <div class="panel-body">
-            <div class="form-group">
-              <input type="checkbox" name="general" value="general">General
-              <input type="checkbox" name="anasthesia" value="anasthesia">Anaesthesia
-              <input type="checkbox" name="post_proc" value="post_proc">Post Procedure
+    <br>
+    <div class="card">
+      <div class="card-header">Type of Recording sheet</div>
+      <div class="card-body">
+              <input type="checkbox" name="general" value="general"> General
+              <input type="checkbox" name="anasthesia" value="anasthesia"> Anaesthesia
+              <input type="checkbox" name="post_proc" value="post_proc"> Post Procedure
               <input type="checkbox" name="other" value="other">Other
               <div id="other_description">
-              <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
-              </div>
+                <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
             </div>
       </div>
     </div>
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">ACTIONS AND INTERVENTIONS</div>
-      <div class="panel-body">
+    <br>
+    <div class="card">
+      <div class="card-header">ACTIONS AND INTERVENTIONS</div>
+      <div class="card-body">
         <p>Add together all individual monitoring criteria scores for a Total Welfare Impact Score</p>
       <table id="asint">
         <tr>
@@ -258,11 +264,11 @@ Consider analgesia (as described in the approval or following veterinary authori
       <input type="button" value="add" onclick="add3()">
       </div>
     </div>
+    <br>
 
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">AEC INTERVENTIONS for body weight loss and subcutaneous tumor size</div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header">AEC INTERVENTIONS for body weight loss and subcutaneous tumor size</div>
+      <div class="card-body">
         <p>Please referto Guidelines on the Induction of Tumours and Monitoring of Animal Welfare and Guidelines on Body Weight Deficit and Monitoring of Animal Welfare documents at: www.research.uwa.edu.au/staff/forms/animals</p>
         <p>NB. When body weight loss Threshold 2 is set at 10% the AEC does not require a dual threshold. ThereforeThreshold 1 should read N/A</p>
         <table>
@@ -317,7 +323,8 @@ Consider analgesia (as described in the approval or following veterinary authori
         <p style="background-color:yellow;">*“In immature animals the assessment of a body weight deficit, as a manifestation of failure to thrive, may be based on a comparison with body weight in a comparable group of control animals or predicted body weight for age derived from a species-specific growth chart."</p>
       </div>
     </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit"> {% if dictionary_data %}Edit Coversheet{% else %}Create CoverSheet{% endif %}</button>
+    <br>
+  <button class="btn btn-lg btn-outline-success btn-block" type="submit"> {% if dictionary_data %}Edit Coversheet{% else %}Create CoverSheet{% endif %}</button>
 </div>
 {% load static %}
 <script src="{% static "animalwellbeing/coversheet.js" %}">

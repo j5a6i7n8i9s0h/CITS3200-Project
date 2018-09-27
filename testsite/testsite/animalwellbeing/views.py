@@ -17,12 +17,13 @@ import json
 
 from .additional_func import standardise_keys
 
+
 def index(request):
 	if request.user.is_authenticated and (request.user.is_superuser or Researchers.objects.filter(user=request.user).exists()):
 		context = {
 			'isResearcher': not request.user.is_superuser,
 			'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
-			'templates':  CoverSheetFormModel.objects.all() if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user))
+			'templates':  CoverSheetFormModel.objects.all().order_by('-created_at') if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user)).order_by('-created_at')
 			}
 	return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html', context)
 
@@ -65,6 +66,19 @@ def create_researcher(request):
 			return redirect('/awb/')
 	return render(request, 'animalwellbeing/signup.html')
 
+
+@login_required
+def panel(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
+	return render(request,'animalwellbeing/coversheetpanel.html',{'coversheet':coversheetmodel})
 
 @login_required
 def edit_form(request, coversheet_id):
@@ -155,6 +169,25 @@ def form_creation(request):
 		csfm.save()
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html')
+
+
+@login_required
+def approve_or_disapprove_coversheet(request, coversheet_id):
+	if request.user.is_superuser:
+		coversheetmodel = None
+		try:
+			if request.user.is_superuser:
+				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+			else:
+				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+			coversheetmodel.approved = not coversheetmodel.approved
+			coversheetmodel.save()
+		except CoverSheetFormModel.DoesNotExist:
+			pass
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
+	
+
+
 
 
 @login_required

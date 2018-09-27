@@ -1,0 +1,66 @@
+{% extends "./index.html" %}
+
+{% block title %} CoverSheet {{coversheet.id}} Panel {% endblock %}
+{% block content %}
+
+<div class="container">
+<center><h1>Cover Sheet {{coversheet.id}} Panel</h1></center>
+
+<div class="card">
+	<div class="card-header"> 			
+		<a href={% url 'awb:edit_cs' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> {% if request.user.is_superuser or coversheet.approved %}View {% else %}Edit {% endif %}Coversheet</button></a>
+		<div class="float-sm-right"><a href={% url 'awb:download' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> Download Coversheet</button></a></div>
+	</div>
+	<br>
+		<div class="class-body">
+			<div class="container">
+			{% if request.user.is_superuser %}
+				{% if not coversheet.approved %}
+				<a href= {% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-success">Approve Coversheet</button></a>
+				{% else %}
+				<a href={% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Unapprove Coversheet</button></a>
+				{% endif %}
+			{% else %}
+				{% if not coversheet.approved  %}
+				<a href="#"><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
+				{% endif %}
+			{% endif %}
+			</div>
+			<br>
+			<div class="container">
+				<table class="table">
+				  <tbody>
+				    <tr>
+				      <th scope="row">Title</th>
+				      <td>{{coversheet.name}}</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Created</th>
+				      <td>{{coversheet.created_at}}</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Author</th>
+				      <td>{{coversheet.creator.firstname}} {{coversheet.creator.surname}}</td>
+				    </tr>
+					 <tr>
+				      <th scope="row">Approved</th>
+				      <td>{% if coversheet.approved %} Yes {% else %} No {% endif %}</td>
+				    </tr>
+
+				  </tbody>
+				</table>
+			</div>
+			
+			{% if coversheet.approved  %}
+			<div class="container">
+				<a href="#"><button type="button" class="btn btn-outline-success">Use for Recording Sheet</button></a>
+				</div>
+				<br>
+			{% endif %}
+			
+			
+		</div>
+	</div>
+</div>
+
+{% endblock %}
