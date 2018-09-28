@@ -78,7 +78,10 @@ def panel(request, coversheet_id):
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
 
-	return render(request,'animalwellbeing/coversheetpanel.html',{'coversheet':coversheetmodel})
+	return render(request,'animalwellbeing/coversheetpanel.html',{
+		'coversheet':coversheetmodel,
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		})
 
 @login_required
 def edit_form(request, coversheet_id):
@@ -124,7 +127,8 @@ def edit_form(request, coversheet_id):
 		return render(request, 'animalwellbeing/createcoversheet.html',
 				{
 				'dictionary_data':standardise_keys(coversheetmodel.all_data),
-				'approved': coversheetmodel.approved
+				'approved': coversheetmodel.approved,
+				'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 				})
 
 @login_required
@@ -168,7 +172,8 @@ def form_creation(request):
 		creator_.save()
 		csfm.save()
 		return redirect('/awb/')
-	return render(request, 'animalwellbeing/createcoversheet.html')
+	return render(request, 'animalwellbeing/createcoversheet.html',
+		{'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)})
 
 
 @login_required

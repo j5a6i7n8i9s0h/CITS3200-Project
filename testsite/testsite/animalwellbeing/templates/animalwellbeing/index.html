@@ -28,6 +28,9 @@
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href={% url 'awb:createcoversheet' %}>Create</a>
 	          <a class="dropdown-item" href={% url 'awb:index' %}>View All</a>
+	          {% if request.user.is_superuser %}
+				<a class="dropdown-item" href="#">Requests</a>
+	          {% endif %}
 	          <div class="dropdown-divider"></div>
 	          <a class="dropdown-item" href="#">Edit Criterea Settings</a>
 	        </div>
@@ -44,15 +47,17 @@
        
     </div>
     <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    	{% load static %}
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a href="#"><button type="button" class="btn btn-outline-success">FAQ</button></a>
-                <br>
-            </li>
-            <br>
-            <li class="nav-item">
-                <a href={% url 'awb:logout' %}><button type="button" class="btn btn-outline-danger">Logout</button></a>
-            </li>
+        	 <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if request.user.is_superuser %} <img src= "{% static 'animalwellbeing/adminprofile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.username}}{% else %}<img src= "{% static 'animalwellbeing/profile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.firstname}} {{user.surname}}{% endif %}</a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="#" %}>FAQ</a>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href={% url 'awb:logout' %}>
+	          	<button type="button" class="btn btn-outline-danger">Logout</button></a>
+	        </div>
+	      </li>
 
         </ul>
     </div>
@@ -101,7 +106,6 @@
 		</nav> -->
 <body>
 	{% block content %}{% endblock %}
-
 </body>
 
 
