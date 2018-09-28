@@ -13,7 +13,7 @@ class SignUpForm(forms.Form):
 
 class CoverSheetForm(forms.Form):
 	protocol_title = forms.CharField(max_length=200, strip=False)
-	start_date = forms.DateField()
+	start_date = forms.DateTimeField()
 	cheif_investigator = forms.CharField(max_length=30)
 	cheif_investigator_phone = forms.CharField(max_length=10)
 	emergency_investigator = forms.CharField(max_length=30)
@@ -34,7 +34,10 @@ class CoverSheetForm(forms.Form):
 	#MONITORING CRITERIA AND SCORING
 	
 	#monitory frequency
-	monitoring_frequency = forms.CharField(max_length=200)
+	monitoring_frequency = forms.CharField(max_length=200,widget=forms.Textarea)
 	#type of recording sheet
-	typeofsheet = forms.ChoiceField()
+	general = forms.BooleanField()	
+	anasthesia = forms.BooleanField()
+	post_proc = forms.BooleanField()
+	other = forms.BooleanField()
 	other_description = forms.CharField()

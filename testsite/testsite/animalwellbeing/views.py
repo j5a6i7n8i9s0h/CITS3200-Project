@@ -19,11 +19,12 @@ from .additional_func import standardise_keys
 
 
 def index(request):
+	context={}
 	if request.user.is_authenticated and (request.user.is_superuser or Researchers.objects.filter(user=request.user).exists()):
 		context = {
 			'isResearcher': not request.user.is_superuser,
 			'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
-			'templates':  CoverSheetFormModel.objects.all().order_by('-created_at') if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user)).order_by('-created_at')
+			'templates':  CoverSheetFormModel.objects.all().order_by('-updated_at') if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user)).order_by('-updated_at')
 			}
 	return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html', context)
 
@@ -59,7 +60,8 @@ def create_researcher(request):
 			new_researcher = Researchers.objects.create(
 				user=user,
 				surname=surname,
-				firstname=firstname
+				firstname=firstname,
+				email=email
 				)
 			new_researcher.save()
 			print('Successfully created researcher')
@@ -116,11 +118,19 @@ def edit_form(request, coversheet_id):
 			'monitoring_frequency':{
 				'monitoring_frequency':form['monitoring_frequency'].value()
 			},
-			'type_of_recording_sheet':{},
+			'type_of_recording_sheet':{
+				'general':form['general'].value(),
+				'anasthesia':form['anasthesia'].value(),
+				'post_proc':form['post_proc'].value(),
+				'other':form['other'].value(),
+				'other_description':form['other_description'].value(),
+			},
 			'actions_and_interventions':{}
 		}
+
 		coversheetmodel.name = form['protocol_title'].value() or coversheetmodel.name
 		coversheetmodel.all_data = dictionary_data
+		coversheetmodel.updated_at = datetime.datetime.utcnow()
 		coversheetmodel.save()
 		return redirect('/awb/')
 	else:
@@ -157,8 +167,16 @@ def form_creation(request):
 				'Species' : form['species_phenotype_issues'].value()
 			},
 			'monitoring_criteria':{},
-			'monitoring_frequency':{},
-			'type_of_recording_sheet':{},
+			'monitoring_frequency':{
+				'monitoring_frequency':form['monitoring_frequency'].value()
+			},
+			'type_of_recording_sheet':{
+				'general':form['general'].value(),
+				'anasthesia':form['anasthesia'].value(),
+				'post_proc':form['post_proc'].value(),
+				'other':form['other'].value(),
+				'other_description':form['other_description'].value(),
+			},
 			'actions_and_interventions':{}
 		}
 		creator_ = Researchers.objects.get(user=request.user)
