@@ -1,0 +1,35 @@
+{% extends "./index.html" %}
+{% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
+{% block content %}
+    <div class="container-fluid">
+        <h1> Hey {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %} </h1>
+        <p class="text-muted"><i> {% if request.user.is_superuser %} Superuser {% else %}Researcher {% endif %} </i></p>
+        <p>
+            Welcome to UWA's animal well being app
+        </p>
+    </div>
+    <br>
+    <br>
+
+    <table class="table">
+        <thead>
+          <tr>
+			  <th scope="col">Name</th>
+              <th scope="col">Created</th>
+			  <th scope="col">Status</th>
+              <th scope="col">Activate</th>
+		  </tr>
+        </thead>
+        <tbody>
+            {% for user in is_active %}
+                <tr>
+                    <td>{{user.username}}</td>
+                    <td>{{user.date_joined}}</td>
+                    <td>{{ user.is_active }}</td>
+                    <td><a href={% url 'awb:activate' name=user.username %}><button type="button" class="btn btn-link">Activate</button></a> </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

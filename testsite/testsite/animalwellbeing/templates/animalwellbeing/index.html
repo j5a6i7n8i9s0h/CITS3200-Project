@@ -33,6 +33,16 @@
 			  <li class="nav-item">
 				<a class="nav-link" href="#"> View all templates</a>
 			  </li>
+                {% if request.user.is_superuser %}
+              <li class="nav-item">
+				<a class="nav-link" href={% url 'awb:user_activation' %}> user_activation</a>
+			  </li>
+                {% endif %}
+                {% if isResearcher %}
+              <li class="nav-item">
+				<a class="nav-link" href={% url 'awb:view_profile' %}> Profile </a>
+			  </li>
+                {% endif %}
 			  <li class="nav-item">
 				<a class="nav-link" href="#">Policies</a>
 			  </li>

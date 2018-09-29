@@ -72,7 +72,8 @@ body {
       <a href={% url 'awb:create_researcher' %} > <button type="button" class="btn btn-light btn-link">Create Researcher</button></a>
       {%if has_attempted %}
       <p class="mt-5 mb-3 text-muted"> Inccorect username or password. If you dont have a account click  <a href={% url 'awb:create_researcher' %} >here </a> </p>
-      {% else %}
+      {% elif activation %}
+          <p class="mt-5 mb-3 text-muted"> New account need to be approval by Admin</p>
       <br>
       <br>
       {% endif %}

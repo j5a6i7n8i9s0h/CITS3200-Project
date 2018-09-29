@@ -74,6 +74,9 @@ body {
         <div class="form-group">
           <label for="formGroupExampleInput">Username</label>
           <input type="text"  name ="Username" class="form-control" id="formGroupExampleInput" placeholder="Signin username">
+            {%if user_exit %}
+                <p><span style="color: red; ">User_name already exits!</span></p>
+            {% endif %}
         </div>
         <div class="form-group">
             <label for="formGroupExampleInput">First Name</label>
