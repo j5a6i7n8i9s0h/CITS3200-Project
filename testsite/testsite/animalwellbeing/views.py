@@ -11,14 +11,20 @@ from django.contrib.auth.models import User, Group
 
 #downloading files
 from django.http import FileResponse
+import subprocess
+import json
 # Create your views here.
 
+from .additional_func import standardise_keys
+
+
 def index(request):
+	context={}
 	if request.user.is_authenticated and (request.user.is_superuser or Researchers.objects.filter(user=request.user).exists()):
 		context = {
 			'isResearcher': not request.user.is_superuser,
 			'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
-			'templates':  CoverSheetFormModel.objects.all() if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user))
+			'templates':  CoverSheetFormModel.objects.all().order_by('-updated_at') if request.user.is_superuser else CoverSheetFormModel.objects.filter(creator=Researchers.objects.get(user=request.user)).order_by('-updated_at')
 			}
 	return redirect('/awb/accounts/login') if not request.user.is_authenticated else render(request, 'animalwellbeing/welcome.html', context)
 
@@ -30,6 +36,7 @@ def logout_view(request):
 def view_coversheet(request, coversheet_id):
 	coversheetmodel = None
 	try:
+		#improve this later on
 		coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
 		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
 	except CoverSheetFormModel.DoesNotExist:
@@ -53,12 +60,86 @@ def create_researcher(request):
 			new_researcher = Researchers.objects.create(
 				user=user,
 				surname=surname,
-				firstname=firstname
+				firstname=firstname,
+				email=email
 				)
 			new_researcher.save()
 			print('Successfully created researcher')
 			return redirect('/awb/')
 	return render(request, 'animalwellbeing/signup.html')
+
+
+@login_required
+def panel(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
+	return render(request,'animalwellbeing/coversheetpanel.html',{
+		'coversheet':coversheetmodel,
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		})
+
+@login_required
+def edit_form(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
+	if request.method == 'POST': 
+		form = CoverSheetForm(request.POST)
+		dictionary_data={
+			'contact_details':{
+				'Protocol Title :' : '' or form['protocol_title'].value(),
+				'Monitoring Start Date :':'' or form['start_date'].value(),
+				'Chief Investigator :' :[form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
+				'Emergency Contact :': [form['emergency_investigator'].value(), form['emergency_investigator_phone'].value()],
+				'Monitor 1 :': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
+				'Monitor 2 :': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
+				'Monitor 3 :': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
+				'Supervisor :': form['supervision'].value(),
+				'Person responsible for euthanasia :': [form['euthanasia_person'].value(), form['euthanasia_phone'].value()],
+				'Other experts :': [form['other_experts'].value(), form['other_experts_phone'].value()],
+			},
+			'species_phenotype_issues':{
+				'Species' : form['species_phenotype_issues'].value()
+			},
+			'monitoring_criteria':{},
+			'monitoring_frequency':{
+				'monitoring_frequency':form['monitoring_frequency'].value()
+			},
+			'type_of_recording_sheet':{
+				'general':form['general'].value(),
+				'anasthesia':form['anasthesia'].value(),
+				'post_proc':form['post_proc'].value(),
+				'other':form['other'].value(),
+				'other_description':form['other_description'].value(),
+			},
+			'actions_and_interventions':{}
+		}
+
+		coversheetmodel.name = form['protocol_title'].value() or coversheetmodel.name
+		coversheetmodel.all_data = dictionary_data
+		coversheetmodel.updated_at = datetime.datetime.utcnow()
+		coversheetmodel.save()
+		return redirect('/awb/')
+	else:
+		return render(request, 'animalwellbeing/createcoversheet.html',
+				{
+				'dictionary_data':standardise_keys(coversheetmodel.all_data),
+				'approved': coversheetmodel.approved,
+				'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+				})
 
 @login_required
 def form_creation(request):
@@ -86,8 +167,16 @@ def form_creation(request):
 				'Species' : form['species_phenotype_issues'].value()
 			},
 			'monitoring_criteria':{},
-			'monitoring_frequency':{},
-			'type_of_recording_sheet':{},
+			'monitoring_frequency':{
+				'monitoring_frequency':form['monitoring_frequency'].value()
+			},
+			'type_of_recording_sheet':{
+				'general':form['general'].value(),
+				'anasthesia':form['anasthesia'].value(),
+				'post_proc':form['post_proc'].value(),
+				'other':form['other'].value(),
+				'other_description':form['other_description'].value(),
+			},
 			'actions_and_interventions':{}
 		}
 		creator_ = Researchers.objects.get(user=request.user)
@@ -95,16 +184,35 @@ def form_creation(request):
 			creator = creator_,
 			all_data = dictionary_data,
 			created_at = datetime.datetime.now(),
-			name = "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
+			name = form['protocol_title'].value() or "{}_{}_form#{}".format(creator_.firstname, creator_.surname , creator_.number_of_coversheets)
 		)
 		creator_.number_of_coversheets+=1
 		creator_.save()
 		csfm.save()
 		return redirect('/awb/')
-	return render(request, 'animalwellbeing/createcoversheet.html')
+	return render(request, 'animalwellbeing/createcoversheet.html',
+		{'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)})
 
-import subprocess
-import json
+
+@login_required
+def approve_or_disapprove_coversheet(request, coversheet_id):
+	if request.user.is_superuser:
+		coversheetmodel = None
+		try:
+			if request.user.is_superuser:
+				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+			else:
+				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+			coversheetmodel.approved = not coversheetmodel.approved
+			coversheetmodel.save()
+		except CoverSheetFormModel.DoesNotExist:
+			pass
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
+	
+
+
+
+
 @login_required
 def download_cs(request, coversheet_id):
 	coversheetmodel = None

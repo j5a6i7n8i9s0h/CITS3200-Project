@@ -1,6 +1,6 @@
-function ifother()
+function checkboxchange()
 {
-   if(document.getElementById("typeofsheet").value=='Other')
+   if(document.getElementById("other").checked)
    {
     document.getElementById("other_description").style.display = "block";
    }

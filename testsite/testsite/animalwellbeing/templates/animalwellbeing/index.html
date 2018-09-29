@@ -10,40 +10,74 @@
 				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 						
 		</head>
-		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
 			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-		
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarNav">
-			<ul class="navbar-nav">
-			  <li class="nav-item active">
-				{% load static %}
-				<a class="nav-link" href={% url 'awb:index' %}><img src= "{% static 'animalwellbeing/uwa-logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">
-				  Home <span class="sr-only">(current)</span></a>
-				</li>
-				{% if isResearcher%}
-			  <li class="nav-item">
-				<a class="nav-link" href={% url 'awb:createcoversheet' %}> Create a coversheet</a>
-				</li>
-				{% endif %}
-			  <li class="nav-item">
-				<a class="nav-link" href="#"> View all templates</a>
-			  </li>
-			  <li class="nav-item">
-				<a class="nav-link" href="#">Policies</a>
-			  </li>
-			</ul>
-			</div>
-		   <span class="navbar-text">
-				  <a  class="navbar-brand" href={% url 'awb:logout' %}> <button type="button" class="btn btn-danger">Logout</button></a>
-		  </span>
-		</nav>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Coversheets
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href={% url 'awb:createcoversheet' %}>Create</a>
+	          <a class="dropdown-item" href={% url 'awb:index' %}>View All</a>
+	          {% if request.user.is_superuser %}
+				<a class="dropdown-item" href="#">Requests</a>
+	          {% endif %}
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href="#">Edit Criterea Settings</a>
+	        </div>
+	      </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="#">Recording Sheets</a>
+            </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+    	{% load static %}
+        <a class="navbar-brand mx-auto" href={% url 'awb:index' %}><img src= "{% static 'animalwellbeing/uwa-logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">UWAWB</a>
+       
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    	{% load static %}
+        <ul class="navbar-nav ml-auto">
+        	 <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if request.user.is_superuser %} <img src= "{% static 'animalwellbeing/adminprofile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.username}}{% else %}<img src= "{% static 'animalwellbeing/profile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.firstname}} {{user.surname}}{% endif %}</a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href="#" %}>FAQ</a>
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href={% url 'awb:logout' %}>
+	          	<button type="button" class="btn btn-outline-danger">Logout</button></a>
+	        </div>
+	      </li>
+
+        </ul>
+    </div>
+</nav>
+
 <body>
 	{% block content %}{% endblock %}
-
 </body>
+
+
+<!-- Footer -->
+	<!-- need to get it sorted -->
+
+<!-- <footer style="bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  z-index: -1;">
+	stay at bottom
+</footer> -->
+  <!-- Footer -->
 </html>
