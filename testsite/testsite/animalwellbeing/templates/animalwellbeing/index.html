@@ -29,7 +29,7 @@
 	          <a class="dropdown-item" href={% url 'awb:createcoversheet' %}>Create</a>
 	          <a class="dropdown-item" href={% url 'awb:index' %}>View All</a>
 	          {% if request.user.is_superuser %}
-				<a class="dropdown-item" href="#">Requests</a>
+				<a class="dropdown-item" href={% url 'awb:cs_requests' %}>Requests</a>
 	          {% endif %}
 	          <div class="dropdown-divider"></div>
 	          <a class="dropdown-item" href="#">Edit Criterea Settings</a>

@@ -8,7 +8,7 @@
 
 <div class="card">
 	<div class="card-header"> 			
-		<a href={% url 'awb:edit_cs' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> {% if request.user.is_superuser or coversheet.approved %}View {% else %}Edit {% endif %}Coversheet</button></a>
+		<a href={% url 'awb:edit_cs' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> {% if request.user.is_superuser or coversheet.approved or coversheet.request_lodged %}View {% else %}Edit {% endif %}Coversheet</button></a>
 		<div class="float-sm-right"><a href={% url 'awb:download' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> Download Coversheet</button></a></div>
 	</div>
 	<br>
@@ -22,7 +22,11 @@
 				{% endif %}
 			{% else %}
 				{% if not coversheet.approved  %}
-				<a href="#"><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
+					{% if not coversheet.request_lodged %}
+					<a href= {% url 'awb:request_approval' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
+					{% else %}
+						Coversheet is currently under review with admin.
+					{% endif %}
 				{% endif %}
 			{% endif %}
 			</div>

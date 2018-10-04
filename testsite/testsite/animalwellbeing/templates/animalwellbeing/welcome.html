@@ -23,14 +23,14 @@
 	</p>
 
 	{% if templates or results%}
-	{%if request.user.is_superuser %}
+<!-- 	{%if request.user.is_superuser %}
 	 <form method="get" action="{% url 'awb:search' %}">
 	  	<div class="form-group">
 			<input type="text" class="w-auto" name="q" placeholder="search_project_by_name">
 		</div>
 		<button type="submit" class="btn btn-default">Search</button>
 	 </form>
-	{% endif %}
+	{% endif %} -->
 	<div class="card">
 	<div class="card-header">{% if request.user.is_superuser %} All Coversheets {% else %}{{user.firstname}}'s Coversheets {% endif %}</div>
 	<div class="card-body">

@@ -23,6 +23,7 @@ class CoverSheetFormModel(models.Model):
 	updated_at = models.DateTimeField(default=datetime.datetime.now(tz=pytz.timezone('Australia/Perth')))
 	name = models.CharField(max_length=30, default="{}_#{}".format("coversheetform","test"))
 	approved = models.BooleanField(default=False)
+	request_lodged = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.name) 

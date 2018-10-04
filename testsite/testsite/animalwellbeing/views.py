@@ -33,6 +33,17 @@ def logout_view(request):
 	return redirect('/awb/')
 
 @login_required
+def requests_approval_admin(request):
+	if not request.user.is_superuser:
+		return redirect('/awb/')
+	context = {
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		'templates': CoverSheetFormModel.objects.filter(request_lodged=True).order_by('-updated_at')
+	}
+	return render(request, 'animalwellbeing/requests.html',context)
+
+
+@login_required
 def view_coversheet(request, coversheet_id):
 	coversheetmodel = None
 	try:
@@ -41,6 +52,21 @@ def view_coversheet(request, coversheet_id):
 		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
+
+@login_required
+def request_approval(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		coversheetmodel.request_lodged = True
+		coversheetmodel.save()
+	except CoverSheetFormModel.DoesNotExist:
+		pass
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
+
 
 def create_researcher(request):
 	if request.method=='POST':
@@ -204,6 +230,8 @@ def approve_or_disapprove_coversheet(request, coversheet_id):
 			else:
 				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
 			coversheetmodel.approved = not coversheetmodel.approved
+			if coversheetmodel.approved: 
+				coversheetmodel.request_lodged = False
 			coversheetmodel.save()
 		except CoverSheetFormModel.DoesNotExist:
 			pass
