@@ -14,12 +14,14 @@
 	<br>
 		<div class="class-body">
 			<div class="container">
-			{% if request.user.is_superuser %}
+			{% if request.user.is_superuser  %}
 				{% if not coversheet.approved %}
 				<a href= {% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-success">Approve Coversheet</button></a>
 				{% else %}
 				<a href={% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Unapprove Coversheet</button></a>
 				{% endif %}
+				
+				
 			{% else %}
 				{% if not coversheet.approved  %}
 					{% if not coversheet.request_lodged %}
@@ -58,6 +60,10 @@
 				      <th scope="row">Approved</th>
 				      <td>{% if coversheet.approved %} Yes {% else %} No {% endif %}</td>
 				    </tr>
+				    <tr>
+				      <th scope="row">Request Made</th>
+				      <td>{% if coversheet.request_lodged %} Yes {% else %} No {% endif %}</td>
+				    </tr>
 
 				  </tbody>
 				</table>
@@ -68,9 +74,33 @@
 				<a href="#"><button type="button" class="btn btn-outline-success">Use for Recording Sheet</button></a>
 				</div>
 				<br>
+			{% else %}
+			{% if user.is_superuser %}
+			<div class="card">
+				<div class="card-header"> Review </div>
+				<div class="card-body">
+					<form method="POST">
+						{% csrf_token %}
+						<textarea name="comment" class="form-control" ></textarea>
+						<br>
+						<button class="btn btn-outline-danger" type="submit"> Submit comment and decline request</button>
+					</form>
+				</div>
+			</div>
 			{% endif %}
-			
-			
+			{% endif %}
+			{% if messagelist %}
+			<div class="card">
+				<div class="card-header"> Review Messages </div>
+				<div class="card-body">
+					{% for msg in messagelist %}
+						{{msg.author}}:  <div class="float-sm-right"> {{msg.date}}</div> <br>  <div style="padding-left:4em;">{{msg.message}}</div>
+						<br>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+
 		</div>
 	</div>
 </div>

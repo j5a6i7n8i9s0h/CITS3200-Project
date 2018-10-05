@@ -6,7 +6,7 @@ from .models import *
 
 #user authentication
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
 
 #downloading files
@@ -33,9 +33,8 @@ def logout_view(request):
 	return redirect('/awb/')
 
 @login_required
+@user_passes_test(lambda u:u.is_superuser)
 def requests_approval_admin(request):
-	if not request.user.is_superuser:
-		return redirect('/awb/')
 	context = {
 		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 		'templates': CoverSheetFormModel.objects.filter(request_lodged=True).order_by('-updated_at')
@@ -106,9 +105,15 @@ def panel(request, coversheet_id):
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
 
+	if request.method == 'POST': 
+		form = ReviewForm(request.POST)
+		msg = Message.objects.create(message=form['comment'].value(),date=datetime.datetime.now(),coversheet=coversheetmodel,author=request.user.username)
+		msg.save()
+
 	return render(request,'animalwellbeing/coversheetpanel.html',{
 		'coversheet':coversheetmodel,
 		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		'messagelist': Message.objects.filter(coversheet=coversheetmodel).order_by('-date'),
 		})
 
 @login_required
