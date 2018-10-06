@@ -170,7 +170,7 @@ def edit_form(request, coversheet_id):
 		return render(request, 'animalwellbeing/createcoversheet.html',
 				{
 				'dictionary_data':standardise_keys(coversheetmodel.all_data),
-				'approved': coversheetmodel.approved,
+				'approved': coversheetmodel.approved or coversheetmodel.request_lodged,
 				'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 				})
 

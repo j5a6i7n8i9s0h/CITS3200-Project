@@ -94,7 +94,7 @@
 				<div class="card-header"> Review Messages </div>
 				<div class="card-body">
 					{% for msg in messagelist %}
-						{{msg.author}}:  <div class="float-sm-right"> {{msg.date}}</div> <br>  <div style="padding-left:4em;">{{msg.message}}</div>
+						<b>{{msg.author}}:</b> <div class="float-sm-right"> <i>{{msg.date}} </i></div> <br>  <div style="padding-left:4em;">{{msg.message}}</div>
 						<br>
 					{% endfor %}
 				</div>
