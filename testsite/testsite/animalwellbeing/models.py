@@ -23,9 +23,17 @@ class CoverSheetFormModel(models.Model):
 	updated_at = models.DateTimeField(default=datetime.datetime.now(tz=pytz.timezone('Australia/Perth')))
 	name = models.CharField(max_length=30, default="{}_#{}".format("coversheetform","test"))
 	approved = models.BooleanField(default=False)
+	request_lodged = models.BooleanField(default=False)
 
 	def __str__(self):
 		return str(self.name) 
+
+class Message(models.Model):
+	message = models.TextField(default="Ignore message")
+	date = models.DateTimeField(default=datetime.datetime.now(tz=pytz.timezone('Australia/Perth')))
+	coversheet = models.ForeignKey(CoverSheetFormModel, on_delete=models.PROTECT, default=None) #BAD PRACATICEEC
+	author = models.CharField(max_length=30, default="admin") 
+
 
 class Criteria(models.Model):
 	is_general = models.BooleanField()

@@ -6,7 +6,7 @@ from .models import *
 
 #user authentication
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required,user_passes_test
 from django.contrib.auth.models import User, Group
 
 #downloading files
@@ -33,6 +33,16 @@ def logout_view(request):
 	return redirect('/awb/')
 
 @login_required
+@user_passes_test(lambda u:u.is_superuser)
+def requests_approval_admin(request):
+	context = {
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		'templates': CoverSheetFormModel.objects.filter(request_lodged=True).order_by('-updated_at')
+	}
+	return render(request, 'animalwellbeing/requests.html',context)
+
+
+@login_required
 def view_coversheet(request, coversheet_id):
 	coversheetmodel = None
 	try:
@@ -41,6 +51,21 @@ def view_coversheet(request, coversheet_id):
 		return render(request, 'animalwellbeing/view_coversheet.html', coversheetmodel.all_data)
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
+
+@login_required
+def request_approval(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		coversheetmodel.request_lodged = True
+		coversheetmodel.save()
+	except CoverSheetFormModel.DoesNotExist:
+		pass
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
+
 
 def create_researcher(request):
 	if request.method=='POST':
@@ -80,10 +105,32 @@ def panel(request, coversheet_id):
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
 
+	if request.method == 'POST': 
+		form = ReviewForm(request.POST)
+		msg = Message.objects.create(message=form['comment'].value(),date=datetime.datetime.now(),coversheet=coversheetmodel,author=request.user.username)
+		coversheetmodel.request_lodged = False
+		coversheetmodel.save()
+		msg.save()
+
 	return render(request,'animalwellbeing/coversheetpanel.html',{
 		'coversheet':coversheetmodel,
 		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+		'messagelist': Message.objects.filter(coversheet=coversheetmodel).order_by('-date'),
 		})
+
+@login_required
+def cancel_request(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+	coversheetmodel.request_lodged = False
+	coversheetmodel.save()
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
 
 @login_required
 def edit_form(request, coversheet_id):
@@ -137,7 +184,7 @@ def edit_form(request, coversheet_id):
 		return render(request, 'animalwellbeing/createcoversheet.html',
 				{
 				'dictionary_data':standardise_keys(coversheetmodel.all_data),
-				'approved': coversheetmodel.approved,
+				'approved': coversheetmodel.approved or coversheetmodel.request_lodged,
 				'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 				})
 
@@ -204,6 +251,8 @@ def approve_or_disapprove_coversheet(request, coversheet_id):
 			else:
 				coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
 			coversheetmodel.approved = not coversheetmodel.approved
+			if coversheetmodel.approved: 
+				coversheetmodel.request_lodged = False
 			coversheetmodel.save()
 		except CoverSheetFormModel.DoesNotExist:
 			pass

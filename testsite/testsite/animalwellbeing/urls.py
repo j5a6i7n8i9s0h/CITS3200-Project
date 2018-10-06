@@ -13,4 +13,7 @@ urlpatterns = [
     path('search', views.search, name='search'),
     path('panel/<int:coversheet_id>/', views.panel, name='panel_cs'),
     path('approve_or_disapprove_coversheet/<int:coversheet_id>/', views.approve_or_disapprove_coversheet, name='approve_or_disapprove_cs'),
+    path('request_approval/<int:coversheet_id>/', views.request_approval, name='request_approval'),
+    path('cs_requests/',views.requests_approval_admin, name='cs_requests'),
+    path('cancel_request/<int:coversheet_id>/', views.cancel_request, name='cancel_request')
 ]

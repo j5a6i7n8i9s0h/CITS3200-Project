@@ -11,6 +11,9 @@ class SignUpForm(forms.Form):
 	Surname = forms.CharField(max_length=30)
 	Email = forms.EmailField(max_length=100)
 
+class ReviewForm(forms.Form):
+	comment = forms.CharField(max_length=300,widget=forms.Textarea)
+
 class CoverSheetForm(forms.Form):
 	protocol_title = forms.CharField(max_length=200, strip=False)
 	start_date = forms.DateTimeField()

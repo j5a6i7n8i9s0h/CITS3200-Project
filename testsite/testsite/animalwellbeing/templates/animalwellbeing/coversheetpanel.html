@@ -8,21 +8,27 @@
 
 <div class="card">
 	<div class="card-header"> 			
-		<a href={% url 'awb:edit_cs' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> {% if request.user.is_superuser or coversheet.approved %}View {% else %}Edit {% endif %}Coversheet</button></a>
+		<a href={% url 'awb:edit_cs' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> {% if request.user.is_superuser or coversheet.approved or coversheet.request_lodged %}View {% else %}Edit {% endif %}Coversheet</button></a>
 		<div class="float-sm-right"><a href={% url 'awb:download' coversheet.pk %}><button type="button" class="btn btn-outline-primary"> Download Coversheet</button></a></div>
 	</div>
 	<br>
 		<div class="class-body">
 			<div class="container">
-			{% if request.user.is_superuser %}
+			{% if request.user.is_superuser  %}
 				{% if not coversheet.approved %}
 				<a href= {% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-success">Approve Coversheet</button></a>
 				{% else %}
 				<a href={% url 'awb:approve_or_disapprove_cs' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Unapprove Coversheet</button></a>
 				{% endif %}
+				
+				
 			{% else %}
 				{% if not coversheet.approved  %}
-				<a href="#"><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
+					{% if not coversheet.request_lodged %}
+					<a href= {% url 'awb:request_approval' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
+					{% else %}
+						Coversheet is currently under review with admin. Click <a href={% url 'awb:cancel_request' coversheet.pk %}>here</a>  to cancel request review
+					{% endif %}
 				{% endif %}
 			{% endif %}
 			</div>
@@ -54,6 +60,10 @@
 				      <th scope="row">Approved</th>
 				      <td>{% if coversheet.approved %} Yes {% else %} No {% endif %}</td>
 				    </tr>
+				    <tr>
+				      <th scope="row">Request Made</th>
+				      <td>{% if coversheet.request_lodged %} Yes {% else %} No {% endif %}</td>
+				    </tr>
 
 				  </tbody>
 				</table>
@@ -64,9 +74,33 @@
 				<a href="#"><button type="button" class="btn btn-outline-success">Use for Recording Sheet</button></a>
 				</div>
 				<br>
+			{% else %}
+			{% if user.is_superuser and coversheet.request_lodged %}
+			<div class="card">
+				<div class="card-header"> Review </div>
+				<div class="card-body">
+					<form method="POST">
+						{% csrf_token %}
+						<textarea name="comment" class="form-control" ></textarea>
+						<br>
+						<button class="btn btn-outline-danger" type="submit"> Submit comment and decline request</button>
+					</form>
+				</div>
+			</div>
 			{% endif %}
-			
-			
+			{% endif %}
+			{% if messagelist %}
+			<div class="card">
+				<div class="card-header"> Review Messages </div>
+				<div class="card-body">
+					{% for msg in messagelist %}
+						<b>{{msg.author}}:</b> <div class="float-sm-right"> <i>{{msg.date}} </i></div> <br>  <div style="padding-left:4em;">{{msg.message}}</div>
+						<br>
+					{% endfor %}
+				</div>
+			</div>
+			{% endif %}
+
 		</div>
 	</div>
 </div>
