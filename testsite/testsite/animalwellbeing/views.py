@@ -108,6 +108,8 @@ def panel(request, coversheet_id):
 	if request.method == 'POST': 
 		form = ReviewForm(request.POST)
 		msg = Message.objects.create(message=form['comment'].value(),date=datetime.datetime.now(),coversheet=coversheetmodel,author=request.user.username)
+		coversheetmodel.request_lodged = False
+		coversheetmodel.save()
 		msg.save()
 
 	return render(request,'animalwellbeing/coversheetpanel.html',{

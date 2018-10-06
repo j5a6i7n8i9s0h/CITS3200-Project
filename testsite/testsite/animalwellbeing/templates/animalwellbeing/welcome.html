@@ -37,6 +37,8 @@
 	{% if isResearcher %}
 		<a href={% url 'awb:createcoversheet' %}> <button type="button" class="btn btn-primary">Create CoverSheet form</button></a>
 		<br>
+	{% else %}
+		<a href={% url 'awb:cs_requests' %}> <button type="button" class="btn btn-primary">Coversheet Review Requests</button></a>
 	{% endif %}
 	<table id="myTable" class="table table-striped table-bordered" style="table-layout:fixed;
     width:100%;">

@@ -75,7 +75,7 @@
 				</div>
 				<br>
 			{% else %}
-			{% if user.is_superuser %}
+			{% if user.is_superuser and coversheet.request_lodged %}
 			<div class="card">
 				<div class="card-header"> Review </div>
 				<div class="card-body">
