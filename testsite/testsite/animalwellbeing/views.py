@@ -119,6 +119,20 @@ def panel(request, coversheet_id):
 		})
 
 @login_required
+def cancel_request(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+	coversheetmodel.request_lodged = False
+	coversheetmodel.save()
+	return redirect('/awb/panel/{}/'.format(coversheet_id))
+
+@login_required
 def edit_form(request, coversheet_id):
 	coversheetmodel = None
 	try:

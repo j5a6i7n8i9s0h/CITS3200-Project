@@ -27,7 +27,7 @@
 					{% if not coversheet.request_lodged %}
 					<a href= {% url 'awb:request_approval' coversheet.pk %}><button type="button" class="btn btn-outline-danger">Request Approval</button></a>
 					{% else %}
-						Coversheet is currently under review with admin.
+						Coversheet is currently under review with admin. Click <a href={% url 'awb:cancel_request' coversheet.pk %}>here</a>  to cancel request review
 					{% endif %}
 				{% endif %}
 			{% endif %}
