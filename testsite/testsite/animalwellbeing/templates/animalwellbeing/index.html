@@ -35,7 +35,7 @@
 			  </li>
                 {% if request.user.is_superuser %}
               <li class="nav-item">
-				<a class="nav-link" href={% url 'awb:user_activation' %}> user_activation</a>
+				<a class="nav-link" href={% url 'awb:user_activation' %}>Researcher Request</a>
 			  </li>
                 {% endif %}
                 {% if isResearcher %}

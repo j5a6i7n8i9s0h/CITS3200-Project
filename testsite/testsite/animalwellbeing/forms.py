@@ -1,6 +1,4 @@
 from django import forms
-from django.contrib.auth.forms import UserChangeForm
-from django.contrib.auth.models import User
 
 
 class LoginForm(forms.Form):
@@ -14,6 +12,8 @@ class SignUpForm(forms.Form):
     First_Name = forms.CharField(max_length=30)
     Surname = forms.CharField(max_length=30)
     Email = forms.EmailField(max_length=100)
+    Question = forms.CharField(max_length=150)
+    Answer = forms.CharField(max_length=50)
 
 
 class CoverSheetForm(forms.Form):
@@ -49,3 +49,10 @@ class EditProfileForm(forms.Form):
     First_Name = forms.CharField(max_length=30)
     Surname = forms.CharField(max_length=30)
     Email = forms.EmailField(max_length=100)
+
+
+class QuestionForm(forms.Form):
+    Username = forms.CharField(max_length=30,  widget=forms.TextInput(attrs={'readonly': 'readonly'}))
+    Question = forms.CharField(max_length=150,  widget=forms.TextInput(attrs={'readonly': 'readonly', 'size': 80}))
+    Answer = forms.CharField(max_length=50)
+    Password = forms.CharField(max_length=30)

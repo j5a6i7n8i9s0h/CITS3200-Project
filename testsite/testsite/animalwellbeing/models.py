@@ -1,6 +1,5 @@
 from django.db import models
 
-from django.conf import settings 
 from django.contrib.auth.models import User
 from picklefield.fields import PickledObjectField
 import datetime
@@ -13,6 +12,17 @@ class Researchers(models.Model):
 	number_of_coversheets = models.IntegerField(default=0)
 	def __str__(self):
 		return str(self.firstname)
+
+
+class Question(models.Model):
+	user_Q = models.CharField(max_length=100,default=None)
+	Question = models.CharField(max_length=150, default=None)
+	Answer = models.CharField(max_length=50, default=None)
+	def __str__(self):
+		return str(self.Question)
+	def __str__(self):
+		return str(self.Answer)
+
 
 class CoverSheetFormModel(models.Model):
 	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)

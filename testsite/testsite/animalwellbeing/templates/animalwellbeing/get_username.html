@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<head>
+ <title>verify your username</title>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action={% url 'awb:get_username' %}>
+            {% csrf_token %}
+            <label>Please Enter Your Username</label>
+            <br>
+            <br>
+            <input type="text" class="form-control" name ="search_name" placeholder="username">
+            <button type="submit">Submit</button>
+        </form>
+        {% if attempt %}
+            <P style="color: red"> can not find the username, please try again </P>
+        {% endif %}
+    </div>
+</body>

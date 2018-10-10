@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<head>
+ <title>Answer you Question</title>
+</head>
+<body>
+    <br>
+    <div class="container-fluid">
+        <form method="post" action={% url 'awb:validate_question' %} autocomplete="off">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {%if first or second or third %}
+                <ul style="color: red">
+                    <li>{{ first }}</li>
+                    <li>{{ second }}</li>
+                    <li>{{ third }}</li>
+                    <li>Please select a new one</li>
+                </ul>
+            {% endif %}
+            {% if answer_wrong %}
+                <p>{{ answer_wrong }} </p>
+            {% endif %}
+            <button type="submit">Submit</button>
+        </form>
+        <br>
+    </div>
+</body>

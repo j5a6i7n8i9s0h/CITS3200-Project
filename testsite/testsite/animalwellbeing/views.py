@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.forms import PasswordChangeForm
 
 # downloading files
 from django.http import FileResponse
@@ -49,6 +50,14 @@ def view_coversheet(request, coversheet_id):
         return redirect('/awb/')
 
 
+def password_validators(password):
+    if len(password) < 6 or \
+            all(char.isdigit() for char in password) or \
+            all(char.isalpha() for char in password) or \
+            all(char.islower() for char in password):
+        return True
+
+
 def create_researcher(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -58,6 +67,14 @@ def create_researcher(request):
             email = form.cleaned_data['Email']
             surname = form.cleaned_data['Surname']
             firstname = form.cleaned_data['First_Name']
+            input_question = form.cleaned_data['Question']
+            input_answer = form.cleaned_data['Answer']
+            a = password_validators(password)
+            if a:
+                data = {'first': "Your password must contain at least 6 characters",
+                        'second': "Your password must contain at least 1 uppercase letter",
+                        'third': "Your password must contain at least 1 number and 1 letter"}
+                return render(request, 'animalwellbeing/signup.html', data)
             try:
                 user = User.objects.create_user(
                     username=username,
@@ -72,10 +89,17 @@ def create_researcher(request):
                     firstname=firstname
                 )
                 new_researcher.save()
+                question = Question.objects.create(
+                    user_Q=username,
+                    Question=input_question,
+                    Answer=input_answer
+                )
+                question.save()
                 print('Successfully created researcher')
                 return redirect('/awb/')
             except:
-                return render(request, 'animalwellbeing/signup.html', {'user_exit': True})
+                data = {'user_exist': True, 'existed_username': username}
+                return render(request, 'animalwellbeing/signup.html', data)
     return render(request, 'animalwellbeing/signup.html')
 
 
@@ -99,6 +123,7 @@ def activate(request, name):
         return redirect('animalwellbeing/actvation.html')
 
 
+@login_required
 def view_profile(request):
     user = request.user
     args = {'user': user}
@@ -106,6 +131,7 @@ def view_profile(request):
     return render(request, 'animalwellbeing/profile.html', context, args)
 
 
+@login_required
 def edit_profile(request):
     if request.method == 'POST':
         form = EditProfileForm(request.POST)
@@ -123,10 +149,67 @@ def edit_profile(request):
             return redirect(reverse('awb:view_profile'))
     else:
         data = {'First_Name': Researchers.objects.get(user=request.user).firstname,
-                'Surname': Researchers.objects.get(user=request.user).surname, }
+                'Surname': Researchers.objects.get(user=request.user).surname,
+                'Email': User.objects.get(username=request.user).email}
         form = EditProfileForm(initial=data)
         args = {'form': form}
         return render(request, 'animalwellbeing/edit_profile.html', args)
+
+
+@login_required
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(data=request.POST, user=request.user)
+
+        if form.is_valid():
+            form.save()
+            update_session_auth_hash(request, form.user)
+            return redirect(reverse('awb:view_profile'))
+
+    else:
+        form = PasswordChangeForm(user=request.user)
+
+    args = {'form': form}
+    return render(request, 'animalwellbeing/change_password.html', args)
+
+
+def get_username(request):
+    if request.method == 'POST':
+        username = request.POST.get('search_name')
+        exist = User.objects.filter(username=username)
+        if exist and username:
+            data = {'Question': Question.objects.get(user_Q=username).Question,
+                    'Username': username}
+            form = QuestionForm(initial=data)
+            args = {'form': form}
+            return render(request, 'animalwellbeing/validate_question.html', args)
+        elif not exist:
+            return render(request, 'animalwellbeing/get_username.html', {'attempt': True})
+    return render(request, 'animalwellbeing/get_username.html')
+
+def validate_question(request):
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['Username']
+            answer = form.cleaned_data['Answer']
+            password = form.cleaned_data['Password']
+            a = password_validators(password)
+            if a:
+                data = {'first': "Your password must contain at least 6 characters",
+                        'second': "Your password must contain at least 1 uppercase letter",
+                        'third': "Your password must contain at least 1 number and 1 letter"}
+                return render(request, 'animalwellbeing/validate_question.html', data)
+
+            if answer == Question.objects.get(user_Q=username).Answer:
+                user = User.objects.get(username=username)
+                user.set_password(password)
+                user.save()
+                return redirect('/awb/accounts/login')
+            else:
+                return render(request, 'animalwellbeing/validate_question.html',
+                              {'answer_wrong': "Your answer was incorrect, please try again"})
+    return redirect('awb:get_username')
 
 
 @login_required

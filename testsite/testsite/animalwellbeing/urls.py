@@ -1,5 +1,4 @@
 from django.urls import path
-
 from . import views
 app_name = 'awb'
 urlpatterns = [
@@ -13,7 +12,11 @@ urlpatterns = [
     path('edit/<int:coversheet_id>/', views.edit_form, name='edit_cs'),
     path('search', views.search, name='search'),
     path('user_activation', views.user_activation, name='user_activation'),
-    path('activate/(?P<name>\w+)$', views.activate, name='activate'),
+    path('activate/<str:name>', views.activate, name='activate'),
     path('profile', views.view_profile, name='view_profile'),
-    path('edit_profile', views.edit_profile, name='edit_profile')
+    path('edit_profile', views.edit_profile, name='edit_profile'),
+    path('change_password', views.change_password, name='change_password'),
+    path('get_username', views.get_username, name='get_username'),
+    path('validate_question', views.validate_question, name='validate_question')
+
 ]
