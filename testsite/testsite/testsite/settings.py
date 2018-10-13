@@ -25,7 +25,11 @@ SECRET_KEY = '$^^ejnl+^0r5un4cyzq5e^%4g*3z@5f3m-lm0cxu&=!_%kx(_h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'telos-uwa.heroku.com',
+    'telos-uwa-staging.heroku.com',
+    'telos-uwa-dev.heroku.com',
+]
 
 
 # Application definition
@@ -42,6 +46,8 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    # Middleware to enable whitenoise to serve static files, disable if not running on heroku
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

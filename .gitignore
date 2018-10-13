@@ -3,6 +3,6 @@
 # Ignore Mac .DS_Store system files
 .DS_Store
 
-# Ignore .pyc files created by compiling .py files
-*.pyc
-
+# Ignore python compiled binary files
+*.py[cod]
+__pycache__/
