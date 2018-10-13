@@ -2,7 +2,7 @@
 
 TEAM MEMBERS TEAM U
 
-- Geoffrey	Davis	20743192@student.uwa.edu.au
+- Andrew	Davis	20743192@student.uwa.edu.au
 - Joshua ChunHui	Goh	21978677@student.uwa.edu.au
 - Dan Hua	Jiang	21982063@student.uwa.edu.au
 - Jonathan YeeLeong	Kok	20744321@student.uwa.edu.au
@@ -20,6 +20,10 @@ Standard :
 
 Additional libraries to add: 
 - django pickledfield <- pip install django-picklefield
+
+Additional dependency for heroku
+- whitenoise: used to serve static files on the server, not needed if hosting locally, need to uncomment the middleware in settings.py when hosted on heroku.
+install: pip install whitenoise
 
 PROCEDURE OF WORK: 
 
