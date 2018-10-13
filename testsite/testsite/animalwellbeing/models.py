@@ -38,6 +38,9 @@ class Message(models.Model):
 class Criteria(models.Model):
 	is_general = models.BooleanField()
 	name = models.CharField(max_length=100)
+	zero_descriptor = models.CharField(max_length=1000)
+	one_descriptor = models.CharField(max_length=1000)
+	two_descriptor = models.CharField(max_length=1000)
 	#zero_descriptor = models.ForeignKey(ZeroDescriptor, on_delete=models.PROTECT,)
 
 class Species(models.Model):

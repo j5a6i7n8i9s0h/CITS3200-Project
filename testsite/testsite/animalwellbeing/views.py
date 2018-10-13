@@ -309,3 +309,10 @@ def search(request):
 
     else:
         return render(request, template)
+
+@login_required
+def criterea_settings(request): 
+	context={
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+	}
+	return render(request, 'animalwellbeing/criterea_settings.html', context)

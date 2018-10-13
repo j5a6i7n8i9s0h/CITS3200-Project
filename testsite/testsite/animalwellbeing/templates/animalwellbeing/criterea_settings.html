@@ -1,0 +1,49 @@
+{% extends "./index.html" %}
+{% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %} Criterea Settings {% endblock %}
+{% block content %}
+<div class="container">
+	<br>
+<div class = "card">
+	<div class="card-header">Criterea Settings</div>
+	<div class="card-body">
+		Your criterea groups
+		<div class="form-signin">
+			<form method="POST">	
+				<table id="sarcrit">
+                <tr>
+                  <th style="text-align: center;">Criteria</th>
+                  <th style="text-align: center;">0</th>
+                  <th style="text-align: center;">1</th>
+                  <th style="text-align: center;">2</th>
+                  <th style="text-align: center;">Delete</th>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
+                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+              </table>
+
+			</form>
+		</div>
+	</div>
+
+</div>
+</div>
+{% endblock %}
