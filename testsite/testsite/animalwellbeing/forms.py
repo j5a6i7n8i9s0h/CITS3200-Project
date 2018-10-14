@@ -35,6 +35,8 @@ class CoverSheetForm(forms.Form):
 	#species/phenotype/issues
 	species_phenotype_issues = forms.CharField(max_length=30)
 	#MONITORING CRITERIA AND SCORING
+	scrit = forms.CharField()
+	pcrit = forms.CharField()
 	
 	#monitory frequency
 	monitoring_frequency = forms.CharField(max_length=200,widget=forms.Textarea)

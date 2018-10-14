@@ -64,10 +64,10 @@ function add1()
 	var cell3 = srcrow.insertCell(3);
 	var cell4 = srcrow.insertCell(4);
 
-	cell0.innerHTML += '<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>';
-	cell1.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
-	cell2.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
-	cell3.innerHTML+='<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell0.innerHTML += '<textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>';
+	cell1.innerHTML += '<textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell2.innerHTML += '<textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell3.innerHTML+='<textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
 	cell4.innerHTML+='<input type="button" value="X" class="del1" style="margin: 0 auto;">';
 
 	delbutinit()
@@ -84,10 +84,10 @@ function add2()
 	var cell3 = srcrow.insertCell(3);
 	var cell4 = srcrow.insertCell(4);
 
-	cell0.innerHTML += '<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>';
-	cell1.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
-	cell2.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
-	cell3.innerHTML+='<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell0.innerHTML += '<textarea class="pcrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>';
+	cell1.innerHTML += '<textarea class="pcrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell2.innerHTML += '<textarea class="pcrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
+	cell3.innerHTML += '<textarea class="pcrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea>';
 	cell4.innerHTML+='<input type="button" value="X" class="del2" style="margin: 0 auto;">';
 
 	delbutinit()

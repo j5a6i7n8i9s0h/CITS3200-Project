@@ -161,7 +161,10 @@ def edit_form(request, coversheet_id):
 			'species_phenotype_issues':{
 				'Species' : form['species_phenotype_issues'].value()
 			},
-			'monitoring_criteria':{},
+			'monitoring_criteria':{
+				'standard_criteria' : form['scrit'].value(),
+				'project_criteria' : form['pcrit'].value(),
+			},
 			'monitoring_frequency':{
 				'monitoring_frequency':form['monitoring_frequency'].value()
 			},
@@ -213,7 +216,10 @@ def form_creation(request):
 			'species_phenotype_issues':{
 				'Species' : form['species_phenotype_issues'].value()
 			},
-			'monitoring_criteria':{},
+			'monitoring_criteria':{
+				'standard_criteria' : form['scrit'].value(),
+				'project_criteria' : form['pcrit'].value(),
+			},
 			'monitoring_frequency':{
 				'monitoring_frequency':form['monitoring_frequency'].value()
 			},
