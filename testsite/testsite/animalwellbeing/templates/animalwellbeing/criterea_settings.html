@@ -6,9 +6,11 @@
 <div class = "card">
 	<div class="card-header">Criterea Settings</div>
 	<div class="card-body">
-		Your criterea groups
-		<div class="form-signin">
-			<form method="POST">	
+    <a href={% url 'awb:create_criteria' %}><button class="btn btn btn-outline-success">Create a criterea</button></a>
+    <br>
+    Your criterea groups
+    <br>
+			<!-- <form method="POST">	 -->
 				<table id="sarcrit">
                 <tr>
                   <th style="text-align: center;">Criteria</th>
@@ -40,8 +42,7 @@
                 </tr>
               </table>
 
-			</form>
-		</div>
+			<!-- </form> -->
 	</div>
 
 </div>

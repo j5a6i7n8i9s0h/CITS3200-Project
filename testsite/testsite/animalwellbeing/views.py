@@ -316,3 +316,10 @@ def criterea_settings(request):
 		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
 	}
 	return render(request, 'animalwellbeing/criterea_settings.html', context)
+
+@login_required
+def create_criteria(request):
+	context={
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+	}
+	return render(request,'animalwellbeing/create_criteria.html', context)

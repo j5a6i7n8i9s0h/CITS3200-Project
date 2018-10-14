@@ -1,0 +1,24 @@
+{% extends "./index.html" %}
+{% block title %}Create Criteria{% endblock %}
+{% block content %}
+<div class="container">
+	<br>
+<div class = "card">
+	<div class="card-header">Create Criteria</div>
+	<div class="card-body">
+		<form method="POST">
+			{% csrf_token %}
+			<h1>Criteria Name</h1>
+			<input type="text" name=""><br>
+			<h1>Zero Discritor</h1>
+			<textarea cols="30" rows="4" placeholder="Zero Descriptor" style="width:100%;"></textarea>
+			<h1>One Discritor</h1>
+			<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>
+			<h1>Two Discritor</h1>
+			<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea>
+			<button class="btn btn btn-outline-success btn-block" type="submit">Create Criterea</button>
+
+		</form>
+	</div>
+</div>
+{% endblock %}

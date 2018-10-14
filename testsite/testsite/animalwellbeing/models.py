@@ -36,14 +36,23 @@ class Message(models.Model):
 
 
 class Criteria(models.Model):
-	is_general = models.BooleanField()
-	name = models.CharField(max_length=100)
-	zero_descriptor = models.CharField(max_length=1000)
-	one_descriptor = models.CharField(max_length=1000)
-	two_descriptor = models.CharField(max_length=1000)
+	species = models.ForeignKey("Species", default=1, on_delete=models.CASCADE)
+	name = models.CharField("Criteria Name", max_length=100)
+	zero_descriptor = models.TextField("Score 0", default="" , max_length=1000)
+	one_descriptor = models.TextField("Score 1", default="", max_length=1000)
+	two_descriptor = models.TextField("Score 2", default="", max_length=1000)
+	is_general = models.BooleanField(default=True)
+	created_at = models.DateTimeField(default=datetime.datetime.now(tz=pytz.timezone('Australia/Perth')))
 	#zero_descriptor = models.ForeignKey(ZeroDescriptor, on_delete=models.PROTECT,)
+	class Meta:
+		verbose_name_plural = "criteria"
+	def __str__(self):
+		return self.name
 
 class Species(models.Model):
-	#
-	name = models.CharField(max_length=100)
+	name = models.CharField("Species", max_length=100, unique=True, default="species") 
+	class Meta:
+		verbose_name_plural = "species"
+	def __str__(self):
+		return self.name
 

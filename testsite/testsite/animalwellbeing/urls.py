@@ -16,5 +16,6 @@ urlpatterns = [
     path('request_approval/<int:coversheet_id>/', views.request_approval, name='request_approval'),
     path('cs_requests/',views.requests_approval_admin, name='cs_requests'),
     path('cancel_request/<int:coversheet_id>/', views.cancel_request, name='cancel_request'),
-    path('criterea_settings/', views.criterea_settings, name='criterea_settings')
+    path('criterea_settings/', views.criterea_settings, name='criterea_settings'),
+    path('criterea_settings/create_criteria', views.create_criteria, name='create_criteria')
 ]
