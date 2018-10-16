@@ -265,7 +265,20 @@ def approve_or_disapprove_coversheet(request, coversheet_id):
 	return redirect('/awb/panel/{}/'.format(coversheet_id))
 	
 
-
+@login_required
+def criteria(request):
+	if request.method == 'POST':
+		form = CriteriaTemplateForm(request.POST)
+		creator_ = Researchers.objects.get(user=request.user)
+		ctm = CriteriaTemplateFormModel.objects.create(
+			is_general = True,
+			name = form['name'].value(),
+			data = form['scrit'].value(),
+			creator = creator_
+			)
+		ctm.save()
+		return redirect('/awb/')
+	return render(request,'animalwellbeing/createcriteria.html')
 
 
 @login_required

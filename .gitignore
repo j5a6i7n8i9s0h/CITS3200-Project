@@ -2,3 +2,4 @@ migrations
 __pycache__
 testsite/testsite/animalwellbeing/static/animalwellbeing/Thumbs.db
 testsite/testsite/run.bat
+*.bat

@@ -1,0 +1,73 @@
+{% extends "./index.html" %}
+
+{% block title %} Standard Criteria Template Editing {% endblock %}
+{% block content %}
+
+<div class="container">
+<center><h1>Edit Standard Criteria Templates</h1></center>
+<br>
+<form method="POST">
+    {% csrf_token %}
+ <div class="card">
+      <div class="card-header">	MONITORING CRITERIA AND SCORING </div>
+      <div class="card-body">
+          <div class="card">
+            <div class="card-header"> Standard AEC Recommended Criteria </div>
+            <div class="card-body">
+            	<label for="templatename">Criteria Template Name:</label>   <input required type="text" size="50" id="templatename" name="name" class="form-control">
+            <br>
+              Select criteria from template:
+              <select id="template">
+                <!-- fill from templates -->
+                  <option value="0">Mouse</option>
+                  <option value="1">Rat</option>
+                  <option value="2">Sheep</option>
+              </select>
+              <input type="button" value ="apply" id="tempbutt">
+              <input type="button" value="save as preset">
+              <br><br>
+              <table id="sarcrit">
+                <tr>
+                  <th style="text-align: center;">Criteria</th>
+                  <th style="text-align: center;">0</th>
+                  <th style="text-align: center;">1</th>
+                  <th style="text-align: center;">2</th>
+                  <th style="text-align: center;">Delete</th>
+                </tr>
+                <tr>
+                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
+                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea></td>
+                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
+                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
+                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
+                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+                <tr>
+                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
+                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
+                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
+                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
+                </tr>
+              </table>
+              <input type="button" onclick="add1()" value="add">
+            </div>
+          </div>
+          <!--THIS IS USED FOR STANDARD CRITERIA-->
+          <textarea id="scrit-output" name="scrit" class="form-control"></textarea>
+          <input type="button" value="test" id="test" > 
+  </div>
+  <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
+  <br>
+  <br>
+</form>
+{% load static %}
+<script src="{% static "animalwellbeing/criteriatemplate.js" %}"></script>   
+</div>
+{% endblock %}

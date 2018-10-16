@@ -46,3 +46,7 @@ class CoverSheetForm(forms.Form):
 	post_proc = forms.BooleanField()
 	other = forms.BooleanField()
 	other_description = forms.CharField()
+
+class CriteriaTemplateForm(forms.Form):
+	name = forms.CharField()
+	scrit = forms.CharField()

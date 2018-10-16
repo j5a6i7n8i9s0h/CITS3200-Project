@@ -35,9 +35,11 @@ class Message(models.Model):
 	author = models.CharField(max_length=30, default="admin") 
 
 
-class Criteria(models.Model):
+class CriteriaTemplateFormModel(models.Model):
 	is_general = models.BooleanField()
 	name = models.CharField(max_length=100)
+	data = models.TextField(default=" @ @ @ ")
+	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)
 	#zero_descriptor = models.ForeignKey(ZeroDescriptor, on_delete=models.PROTECT,)
 
 class Species(models.Model):
