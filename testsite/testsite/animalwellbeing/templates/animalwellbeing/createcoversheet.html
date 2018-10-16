@@ -350,8 +350,10 @@ function tempsel()
   {% endfor %}
 
   var a = document.getElementById("template").value-1;
-  document.getElementById("scrit-output").value=alltemplates[a][1];
-  scheck();
+  if(alltemplates !='')//if there are no templates
+  {
+    document.getElementById("scrit-output").value=alltemplates[a][1];
+  }
 }
 </script>
 {% load static %}
