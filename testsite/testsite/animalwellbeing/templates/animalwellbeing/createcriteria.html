@@ -1,5 +1,5 @@
 {% extends "./index.html" %}
-
+<!-- 'templates' contains all the loaded templates -->
 {% block title %} Standard Criteria Template Editing {% endblock %}
 {% block content %}
 
@@ -19,12 +19,12 @@
               Select criteria from template:
               <select id="template">
                 <!-- fill from templates -->
-                  <option value="0">Mouse</option>
-                  <option value="1">Rat</option>
-                  <option value="2">Sheep</option>
+                {% for templ in templates %}
+                  <option value="{{ templ.id }}">{{ templ.name }}</option>
+                {% endfor %}
               </select>
               <input type="button" value ="apply" id="tempbutt">
-              <input type="button" value="save as preset">
+              <input hidden type="button" value="save as preset">
               <br><br>
               <table id="sarcrit">
                 <tr>
@@ -60,13 +60,33 @@
             </div>
           </div>
           <!--THIS IS USED FOR STANDARD CRITERIA-->
-          <textarea id="scrit-output" name="scrit" class="form-control"></textarea>
-          <input type="button" value="test" id="test" > 
+          <textarea hidden id="scrit-output" name="scrit" class="form-control"></textarea>
+          <input hidden type="button" value="test" id="test" > 
   </div>
   <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
   <br>
   <br>
 </form>
+<script>
+
+document.getElementById("tempbutt").onclick = tempsel;
+function tempsel()
+{
+	var alltemplates = [];
+	var temptemplate;
+	//template IDs start at 1, so ID==1 means index==0
+	{% for tempa in templates %}
+		temptemplate=[];
+		temptemplate.push("{{ tempa.name }}");
+		temptemplate.push("{{ tempa.data }}");
+		alltemplates.push(temptemplate);
+	{% endfor %}
+
+	var a = document.getElementById("template").value-1;
+	document.getElementById("scrit-output").value=alltemplates[a][1];
+	scheck();
+}
+</script>
 {% load static %}
 <script src="{% static "animalwellbeing/criteriatemplate.js" %}"></script>   
 </div>

@@ -134,6 +134,17 @@ def cancel_request(request, coversheet_id):
 
 @login_required
 def edit_form(request, coversheet_id):
+
+	criteriamodel = None
+	try:
+		if request.user.is_superuser:
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+		else:
+			#criteriamodel = CriteriaTemplateFormModel.objects.get(pk=id, creator=Researchers.objects.get(user=request.user))
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
 	coversheetmodel = None
 	try:
 		if request.user.is_superuser:
@@ -189,10 +200,22 @@ def edit_form(request, coversheet_id):
 				'dictionary_data':standardise_keys(coversheetmodel.all_data),
 				'approved': coversheetmodel.approved or coversheetmodel.request_lodged,
 				'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),
+				'templates': criteriamodel,
 				})
 
 @login_required
 def form_creation(request):
+
+	criteriamodel = None
+	try:
+		if request.user.is_superuser:
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+		else:
+			#criteriamodel = CriteriaTemplateFormModel.objects.get(pk=id, creator=Researchers.objects.get(user=request.user))
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
 	if request.method == 'POST':
 		form = CoverSheetForm(request.POST)
 		# print(form)
@@ -244,7 +267,7 @@ def form_creation(request):
 		csfm.save()
 		return redirect('/awb/')
 	return render(request, 'animalwellbeing/createcoversheet.html',
-		{'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)})
+		{'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),'templates': criteriamodel})
 
 
 @login_required
@@ -267,6 +290,17 @@ def approve_or_disapprove_coversheet(request, coversheet_id):
 
 @login_required
 def criteria(request):
+
+	criteriamodel = None
+	try:
+		if request.user.is_superuser:
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+		else:
+			#criteriamodel = CriteriaTemplateFormModel.objects.get(pk=id, creator=Researchers.objects.get(user=request.user))
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
 	if request.method == 'POST':
 		form = CriteriaTemplateForm(request.POST)
 		creator_ = Researchers.objects.get(user=request.user)
@@ -278,7 +312,7 @@ def criteria(request):
 			)
 		ctm.save()
 		return redirect('/awb/')
-	return render(request,'animalwellbeing/createcriteria.html')
+	return render(request,'animalwellbeing/createcriteria.html',{'templates': criteriamodel})
 
 
 @login_required

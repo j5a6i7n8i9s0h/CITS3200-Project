@@ -52,64 +52,7 @@ function add1()
 	//console.log(srtable.rows.length);
 }
 
-//document.getElementById("tempbutt").onclick = tempsel;
-function tempsel()
-{
-	var a = document.getElementById("template").value;
-	var b;
-	var i;
-	//console.log(a);
 
-	b = document.getElementById("sarcrit");
-	//repopulate table with pre-defined elements
-	//first: delete all heading rows
-	for(i=b.rows.length-1;i>0;i--)
-	{
-		b.deleteRow(i);
-	}
-	//this deletes all rows larger than row 0
-
-	if(a==0)//if mouse template selected
-	{
-		var srcrow1 = b.insertRow(-1);
-		var cell0 = srcrow1.insertCell(0);
-		var cell1 = srcrow1.insertCell(1);
-		var cell2 = srcrow1.insertCell(2);
-		var cell3 = srcrow1.insertCell(3);
-		var cell4 = srcrow1.insertCell(4);
-		cell0.innerHTML += '<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea>';
-		cell1.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea>';
-		cell2.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea>';
-		cell3.innerHTML+='<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea>';
-		cell4.innerHTML+='<input type="button" value="X" class="del1" style="margin: 0 auto;">';
-
-		var srcrow2 = b.insertRow(-1);
-		cell0 = srcrow2.insertCell(0);
-		cell1 = srcrow2.insertCell(1);
-		cell2 = srcrow2.insertCell(2);
-		cell3 = srcrow2.insertCell(3);
-		cell4 = srcrow2.insertCell(4);
-		cell0.innerHTML += '<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea>';
-		cell1.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea>';
-		cell2.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea>';
-		cell3.innerHTML+='<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea>';
-		cell4.innerHTML+='<input type="button" value="X" class="del1" style="margin: 0 auto;">';
-
-		var srcrow3 = b.insertRow(-1);
-		cell0 = srcrow3.insertCell(0);
-		cell1 = srcrow3.insertCell(1);
-		cell2 = srcrow3.insertCell(2);
-		cell3 = srcrow3.insertCell(3);
-		cell4 = srcrow3.insertCell(4);
-		cell0.innerHTML += '<textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea>';
-		cell1.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea>';
-		cell2.innerHTML += '<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea>';
-		cell3.innerHTML+='<textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea>';
-		cell4.innerHTML+='<input type="button" value="X" class="del1" style="margin: 0 auto;">';
-		delbutinit()
-		//NOTE: In the final version this would be populated from templates stored in a model, obvs
-	}
-}
 
 init();
 function init()
@@ -151,12 +94,14 @@ function scrit2string()
 	document.getElementById("scrit-output").value = res;
 	//and now this field is accessible by the server backend
 }
-
-
 function criteriaprocess()
 {
 	scrit2string();
 }
+
+
+
+
 
 function string2scrit()
 //takes the string that gets put in scrit-output and turns it back into cover sheet
@@ -199,9 +144,6 @@ function string2scrit()
 	}
 
 }
-
-
-
 function scheck()
 {
 	var s = document.getElementById("scrit-output");
