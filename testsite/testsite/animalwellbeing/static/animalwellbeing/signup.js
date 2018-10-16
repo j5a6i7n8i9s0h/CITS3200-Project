@@ -21,14 +21,6 @@ function validateForm()
         return false;
     }
 
-    var emailpat = /[^!#$%&'*+-/=?^_`{|}~]+@[^!#$%&'*+-/=?^_`{|}~]+/;
-    var email = document.forms["loginForm"]["Email"].value;
-    if(emailpat.test(email)==false)
-    {
-    	alert("Email must be in the format 'examplename@examplehost");
-    	return false;
-    }
-
     var passlower = /[a-z]/g;
     var passupper = /[A-Z]/g;
     var passnumer = /[0-9]/g;

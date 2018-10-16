@@ -23,7 +23,7 @@
                   <option value="{{ templ.id }}">{{ templ.name }}</option>
                 {% endfor %}
               </select>
-              <input type="button" value ="apply" id="tempbutt">
+              <input type="button" value ="apply" id="tempbutt" onclick = "tempsel()">
               <input hidden type="button" value="save as preset">
               <br><br>
               <table id="sarcrit">
@@ -69,7 +69,6 @@
 </form>
 <script>
 
-document.getElementById("tempbutt").onclick = tempsel;
 function tempsel()
 {
 	var alltemplates = [];

@@ -1,13 +1,6 @@
 function checkboxchange()
 {
-   if(document.getElementById("other").checked)
-   {
-    document.getElementById("other_description").style.display = "block";
-   }
-   else
-   {
-    document.getElementById("other_description").style.display = "none";
-   }
+    document.getElementById("other_description").style.display = document.getElementById("other").checked? "block" : "none" ;
 }
 
 function delbutinit(){

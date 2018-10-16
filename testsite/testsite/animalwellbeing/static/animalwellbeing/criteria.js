@@ -4,11 +4,11 @@ function scrit2string()
 //scrub them of our used characters
 //add them into one string
 {
-	var s0 = document.getElementsByClassName("scrit0");
-	var s1 = document.getElementsByClassName("scrit1");
-	var s2 = document.getElementsByClassName("scrit2");
-	var s3 = document.getElementsByClassName("scrit3");
-	var res ="";
+	let s0 = document.getElementsByClassName("scrit0");
+	let s1 = document.getElementsByClassName("scrit1");
+	let s2 = document.getElementsByClassName("scrit2");
+	let s3 = document.getElementsByClassName("scrit3");
+	let res ="";
 
 	//scrub them and add them using separator char 1=@
 	//add the rows together using separator char 2=#
@@ -35,11 +35,11 @@ function pcrit2string()
 //scrub them of our used characters
 //add them into one string
 {
-	var p0 = document.getElementsByClassName("pcrit0");
-	var p1 = document.getElementsByClassName("pcrit1");
-	var p2 = document.getElementsByClassName("pcrit2");
-	var p3 = document.getElementsByClassName("pcrit3");
-	var res ="";
+	let p0 = document.getElementsByClassName("pcrit0");
+	let p1 = document.getElementsByClassName("pcrit1");
+	let p2 = document.getElementsByClassName("pcrit2");
+	let p3 = document.getElementsByClassName("pcrit3");
+	let res ="";
 
 	//scrub them and add them using separator char 1=@
 	//add the rows together using separator char 2=#
@@ -70,15 +70,15 @@ function string2scrit()
 //then fill them in
 {
 	var s = document.getElementById("scrit-output");
-	var sar = s.value;
+	let sar = s.value;
 	//s.value="";
-	var sar2 = sar.split("#");
+	let sar2 = sar.split("#");
 
-	var s0;
-	var s1;
-	var s2;
-	var s3;
-	var temp;
+	let s0;
+	let s1;
+	let s2;
+	let s3;
+	let temp;
 
 	var srtable = document.getElementById("sarcrit");
 	//first empty out sarcrit until only the headers remain
@@ -90,10 +90,10 @@ function string2scrit()
 	{
 		add1();
 	}
-	var s0 = document.getElementsByClassName("scrit0");
-	var s1 = document.getElementsByClassName("scrit1");
-	var s2 = document.getElementsByClassName("scrit2");
-	var s3 = document.getElementsByClassName("scrit3");
+	s0 = document.getElementsByClassName("scrit0");
+	s1 = document.getElementsByClassName("scrit1");
+	s2 = document.getElementsByClassName("scrit2");
+	s3 = document.getElementsByClassName("scrit3");
 
 	for(var i = 0; i < sar2.length; i++)
 	{
@@ -113,15 +113,15 @@ function string2pcrit()
 //then fill them in
 {
 	var p = document.getElementById("pcrit-output");
-	var par = p.value;
+	let par = p.value;
 	//p.value="";
-	var par2 = par.split("#");
+	let par2 = par.split("#");
 
-	var p0;
-	var p1;
-	var p2;
-	var p3;
-	var temp;
+	let p0;
+	let p1;
+	let p2;
+	let p3;
+	let temp;
 
 	var prtable = document.getElementById("pscrit");
 	//first empty out sarcrit until only the headers remain
@@ -133,10 +133,10 @@ function string2pcrit()
 	{
 		add2();
 	}
-	var p0 = document.getElementsByClassName("pcrit0");
-	var p1 = document.getElementsByClassName("pcrit1");
-	var p2 = document.getElementsByClassName("pcrit2");
-	var p3 = document.getElementsByClassName("pcrit3");
+	p0 = document.getElementsByClassName("pcrit0");
+	p1 = document.getElementsByClassName("pcrit1");
+	p2 = document.getElementsByClassName("pcrit2");
+	p3 = document.getElementsByClassName("pcrit3");
 
 	for(var i = 0; i < par2.length; i++)
 	{
