@@ -122,7 +122,7 @@
                   <option value="{{ templ.id }}">{{ templ.name }}</option>
                 {% endfor %}
               </select>
-              <input type="button" value ="apply" id="tempbutt" onclick = "tempsel()">
+              <input type="button" value ="apply" id="tempbutt" onclick="tempsel()">
               <input type="button" value="save as preset">
               <br><br>
               <table id="sarcrit">
@@ -350,8 +350,7 @@ function tempsel()
   {% endfor %}
 
   var a = document.getElementById("template").value-1;
-  //if(alltemplates !='')//if there are no templates
-  if(alltemplates.length ==0)
+  if(alltemplates !='')//if there are no templates
   {
     document.getElementById("scrit-output").value=alltemplates[a][1];
   }
