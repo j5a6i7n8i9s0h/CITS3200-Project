@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<head>
+    <title>verify your username</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <form method="POST" action={% url 'awb:get_username' %}>
+            {% csrf_token %}
+            <br>
+              <div class="form-group">
+                <label for="search_name">Please enter your username</label>
+                <input style="max-width: 330px" type="text" class="form-control" id="search_name" name="search_name" placeholder="Username">
+              </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {% if attempt %}
+            <P style="color: red"> can not find the username, please try again </P>
+        {% endif %}
+        <br>
+        <br>
+        <a href={% url 'awb:index'%}><button type="button" class="btn btn-outline-primary">Go Back</button></a>
+    </div>
+</body>

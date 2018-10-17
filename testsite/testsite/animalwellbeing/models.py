@@ -16,6 +16,17 @@ class Researchers(models.Model):
 	def __str__(self):
 		return str(self.firstname)
 
+
+class Question(models.Model):
+	user_Q = models.CharField(max_length=100,default=None)
+	Question = models.CharField(max_length=150, default=None)
+	Answer = models.CharField(max_length=50, default=None)
+	def __str__(self):
+		return str(self.Question)
+	def __str__(self):
+		return str(self.Answer)
+
+
 class CoverSheetFormModel(models.Model):
 	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)
 	all_data = PickledObjectField(blank=True, null=True)

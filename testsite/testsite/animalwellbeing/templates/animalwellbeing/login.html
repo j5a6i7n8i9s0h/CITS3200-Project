@@ -69,10 +69,16 @@ body {
        <p class="mt-5 mb-3 text-muted"> Please Sign In to continue</p>
       <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       <br>
-      <a href={% url 'awb:create_researcher' %} > <button type="button" class="btn btn-light btn-link">Create Researcher</button></a>
+        <div>
+        <a href={% url 'awb:create_researcher' %} > <button type="button" class="btn btn-light btn-link">Create Researcher</button></a>
+        </div>
+        <div>
+          <a href={% url 'awb:get_username' %}>Forgot Password?</a>
+        </div>
       {%if has_attempted %}
-      <p class="mt-5 mb-3 text-muted"> Inccorect username or password. If you dont have a account click  <a href={% url 'awb:create_researcher' %} >here </a> </p>
-      {% else %}
+          <p class="mt-5 mb-3 text-muted"> Inccorect username or password. If you dont have a account click  <a href={% url 'awb:create_researcher' %} >here </a> </p>
+      {% elif activation %}
+          <p class="mt-5 mb-3 text-muted"> New account need to be approval by Admin</p>
       <br>
       <br>
       {% endif %}

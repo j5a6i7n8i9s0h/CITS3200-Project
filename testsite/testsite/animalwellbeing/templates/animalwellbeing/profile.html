@@ -1,0 +1,19 @@
+{% extends "./index.html" %}
+{% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
+{% block content %}
+
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+          <h5 class="card-header"><h1>Profile</h1></h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><p>Username: {{ user }}</p></li>
+        <li class="list-group-item"><p>First name: {{ researchers_infor.firstname }}</p></li>
+        <li class="list-group-item"><p>Email: {{ user.email }}</p></li>
+      </ul>
+      <div class="card-body">
+        <a href={% url 'awb:edit_profile' %} class="card-link">Edit Profile</a>
+      </div>
+    </div>
+
+{% endblock %}

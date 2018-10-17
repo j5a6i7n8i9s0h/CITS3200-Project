@@ -72,25 +72,45 @@ body {
             <p class="mt-5 mb-3 text-muted">By signing up you follow xyz protocols etc </p></center>
 
         <div class="form-group">
-          <label for="formGroupExampleInput">Username</label>
-          <input type="text"  name ="Username" class="form-control" id="formGroupExampleInput" placeholder="Signin username">
+          <label for="user_name">Username</label>
+          <input type="text"  name ="Username" class="form-control" id="user_name" placeholder="Signin username">
+            {%if user_exist %}
+                <p><span style="color: red; ">Username "{{ existed_username }}" already exits! <br>
+                Please select a new one.</span></p>
+            {% endif %}
         </div>
         <div class="form-group">
-            <label for="formGroupExampleInput">First Name</label>
-            <input type="text"  name ="First_Name" class="form-control" id="formGroupExampleInput">
+            <label for="First_Name">First Name</label>
+            <input type="text"  name ="First_Name" class="form-control" id="First_Name">
           </div>
           <div class="form-group">
-            <label for="formGroupExampleInput">Surname</label>
-            <input type="text"  name ="Surname" class="form-control" id="formGroupExampleInput">
+            <label for="Surname">Surname</label>
+            <input type="text"  name ="Surname" class="form-control" id="Surname">
           </div>
         <div class="form-group">
-          <label for="formGroupExampleInput2">Email</label>
-          <input type="text" class="form-control" name ="Email" id="formGroupExampleInput2" placeholder="UWA pheme email">
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name ="Email" id="email" placeholder="UWA pheme email">
         </div>
         <div class="form-group">
-            <label for="formGroupExampleInput2">Password</label>
-            <input type="password" class="form-control" name ="Password" id="formGroupExampleInput2">
+            <label for="password">Password</label>
+            <input type="password" class="form-control" name ="Password" id="password">
+            {%if first or second or third %}
+                <ul style="color: red">
+                    <li>{{ first }}</li>
+                    <li>{{ second }}</li>
+                    <li>{{ third }}</li>
+                    <li>Please select a new one</li>
+                </ul>
+            {% endif %}
           </div>
+        <div class="form-group">
+          <label for="Question">Question for resetting your password</label>
+          <input type="text" class="form-control" name ="Question" id="Question" placeholder="Make your Question">
+        </div>
+        <div class="form-group">
+          <label for="email">Answer</label>
+          <input type="text" class="form-control" name ="Answer" id="Answer" placeholder="Answer">
+        </div>
           <button class="btn btn-lg btn-primary btn-block" type="submit">Create User </button>
         </form>
         <br>
