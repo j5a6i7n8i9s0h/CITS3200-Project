@@ -46,12 +46,12 @@
         <a class="navbar-brand mx-auto" href={% url 'awb:index' %}><img src= "{% static 'animalwellbeing/uwa-logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">UWAWB</a>
        
     </div>
-    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 dropdown-pull-left">
     	{% load static %}
         <ul class="navbar-nav ml-auto">
         	 <li class="nav-item dropdown">
 	        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{% if request.user.is_superuser %} <img src= "{% static 'animalwellbeing/adminprofile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.username}}{% else %}<img src= "{% static 'animalwellbeing/profile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.firstname}} {{user.surname}}{% endif %}</a>
-	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	        <div class="dropdown-menu dropdown-pull-right" aria-labelledby="navbarDropdown">
 	          <a class="dropdown-item" href="#" %}>FAQ</a>
             {% if request.user.is_superuser %}
             <a class="dropdown-item" href={% url 'awb:user_activation' %}>Researcher Request</a>

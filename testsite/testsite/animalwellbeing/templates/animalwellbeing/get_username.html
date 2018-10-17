@@ -17,5 +17,8 @@
         {% if attempt %}
             <P style="color: red"> can not find the username, please try again </P>
         {% endif %}
+        <br>
+        <br>
+        <a href={% url 'awb:index'%}><button type="button" class="btn btn-outline-primary">Go Back</button></a>
     </div>
 </body>

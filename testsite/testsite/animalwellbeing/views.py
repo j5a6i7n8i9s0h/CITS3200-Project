@@ -137,18 +137,20 @@ def user_activation(request):
     }
     return render(request, 'animalwellbeing/activation.html', context)
 
-
-def activate(request, name):
-    if request.user.is_superuser:
-        user_need_activation = User.objects.get(username=name)
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def activate(request, username):
+    try:
+        user_need_activation = User.objects.get(username=username)
         user_need_activation.is_active = True
         user_need_activation.save()
         context = {
             'is_active': User.objects.filter(is_active=False)
         }
         return render(request, 'animalwellbeing/activation.html', context)
-    else:
-        return redirect('animalwellbeing/activation.html')
+    except User.DoesNotExist:
+        return redirect('/awb/')
+        
 
 
 @login_required
@@ -549,3 +551,37 @@ def search(request):
     else:
         context = {'results': CoverSheetFormModel.objects.all()}
         return render(request, template, context)
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def activate_detail(request,username):
+    try:
+        user_need_activation = Researchers.objects.get(user=User.objects.get(username=username))
+        return render(request, 'animalwellbeing/activation-detail.html', 
+            {
+            'usertoactivate':user_need_activation,
+            'user': request.user
+            }
+            )
+    except User.DoesNotExist:
+        return redirect('/awb/')
+
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
+def decline_user(request,username):
+    try:
+        user = User.objects.get(username=username)
+        researcher = Researchers.objects.get(user=user)
+        question = Question.objects.get(user_Q=username)
+        researcher.delete()
+        user.delete()
+        question.delete()
+    except User.DoesNotExist:
+        pass
+    return user_activation(request)
+
+        
+
+
+
+
