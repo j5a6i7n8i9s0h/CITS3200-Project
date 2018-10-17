@@ -1,19 +1,37 @@
 {% extends "./index.html" %}
 {% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
 {% block content %}
+<br>
+    <div class="container">
+    <div class="card">
+      <div class="card-header">Profile</div>
+      <div class="card-body">
+      <div class="container">
+        <table class="table">
+          <tbody>
+            <tr>
+              <th scope="row">Username</th>
+              <td>{{ user }}</td>
+            </tr>
+            <tr>
+              <th scope="row">First name</th>
+              <td>{{ researchers_infor.firstname }}</td>
+            </tr>
+            <tr>
+              <th scope="row">Email</th>
+              <td>{{ user.email }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
 
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-          <h5 class="card-header"><h1>Profile</h1></h5>
-      </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><p>Username: {{ user }}</p></li>
-        <li class="list-group-item"><p>First name: {{ researchers_infor.firstname }}</p></li>
-        <li class="list-group-item"><p>Email: {{ user.email }}</p></li>
-      </ul>
-      <div class="card-body">
-        <a href={% url 'awb:edit_profile' %} class="card-link">Edit Profile</a>
-      </div>
+
+
+      <br>
+        <a href={% url 'awb:edit_profile' %} class="card-link"> <button type="button" class="btn btn-outline-primary">Edit Profile 
+        </button></a>
+        </div>
     </div>
+  </div>
 
 {% endblock %}
