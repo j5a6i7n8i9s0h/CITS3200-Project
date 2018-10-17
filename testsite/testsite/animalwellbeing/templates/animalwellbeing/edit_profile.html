@@ -8,7 +8,7 @@
             {% csrf_token %}
             {{ form.as_p }}
             <button type="submit">Submit</button>
-            <p> If you wan to change the password for security purpose, please click
+            <p> If you would like to change your password, please click
             <a href={% url 'awb:change_password' %}><button type="button" class="btn btn-link">Here</button></a></p>
         </form>
         <br>

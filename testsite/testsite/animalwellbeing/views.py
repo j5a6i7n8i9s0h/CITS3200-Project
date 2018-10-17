@@ -107,7 +107,7 @@ def user_activation(request):
     context = {
         'is_active': User.objects.filter(is_active=False)
     }
-    return render(request, 'animalwellbeing/actvation.html', context)
+    return render(request, 'animalwellbeing/activation.html', context)
 
 
 def activate(request, name):
@@ -118,16 +118,17 @@ def activate(request, name):
         context = {
             'is_active': User.objects.filter(is_active=False)
         }
-        return render(request, 'animalwellbeing/actvation.html', context)
+        return render(request, 'animalwellbeing/activation.html', context)
     else:
-        return redirect('animalwellbeing/actvation.html')
+        return redirect('animalwellbeing/activation.html')
 
 
 @login_required
 def view_profile(request):
     user = request.user
     args = {'user': user}
-    context = {'researchers_infor': Researchers.objects.get(user=user)}
+    context = {'researchers_infor': Researchers.objects.get(user=user),
+               'user': request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)}
     return render(request, 'animalwellbeing/profile.html', context, args)
 
 
@@ -152,7 +153,8 @@ def edit_profile(request):
                 'Surname': Researchers.objects.get(user=request.user).surname,
                 'Email': User.objects.get(username=request.user).email}
         form = EditProfileForm(initial=data)
-        args = {'form': form}
+        args = {'form': form,
+                'user': request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)}
         return render(request, 'animalwellbeing/edit_profile.html', args)
 
 
@@ -196,9 +198,13 @@ def validate_question(request):
             password = form.cleaned_data['Password']
             a = password_validators(password)
             if a:
+                data = {'Question': Question.objects.get(user_Q=username).Question,
+                        'Username': username}
+                form = QuestionForm(initial=data)
                 data = {'first': "Your password must contain at least 6 characters",
                         'second': "Your password must contain at least 1 uppercase letter",
-                        'third': "Your password must contain at least 1 number and 1 letter"}
+                        'third': "Your password must contain at least 1 number and 1 letter",
+                        'form': form}
                 return render(request, 'animalwellbeing/validate_question.html', data)
 
             if answer == Question.objects.get(user_Q=username).Answer:
@@ -207,8 +213,11 @@ def validate_question(request):
                 user.save()
                 return redirect('/awb/accounts/login')
             else:
-                return render(request, 'animalwellbeing/validate_question.html',
-                              {'answer_wrong': "Your answer was incorrect, please try again"})
+                data = {'Question': Question.objects.get(user_Q=username).Question,
+                        'Username': username}
+                form = QuestionForm(initial=data)
+                args = {'form': form, 'answer_wrong': "Your answer was incorrect, please try again"}
+                return render(request, 'animalwellbeing/validate_question.html', args)
     return redirect('awb:get_username')
 
 
