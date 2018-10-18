@@ -55,3 +55,8 @@ class Species(models.Model):
 	#
 	name = models.CharField(max_length=100)
 
+class CriteriaTemplateFormModel(models.Model):
+	is_general = models.BooleanField()
+	name = models.CharField(max_length=100)
+	data = models.TextField(default=" @ @ @ ")
+	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)

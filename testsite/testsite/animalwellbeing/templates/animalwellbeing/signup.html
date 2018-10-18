@@ -64,46 +64,36 @@ body {
 }
 </style>
 <body class="text">
-  <div class="form-signin">
-	<form method="POST">
+  <div class="form-signin" >
+	<form method="POST" name="signup" onsubmit="return validateForm({{ usernames }})" > 
             {% csrf_token %}
             {% load static  %}
             <center><h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
             <p class="mt-5 mb-3 text-muted">By signing up you follow xyz protocols etc </p></center>
 
         <div class="form-group">
-          <label for="user_name">Username</label>
-          <input type="text"  name ="Username" class="form-control" id="user_name" placeholder="Signin username">
-            {%if user_exist %}
-                <p><span style="color: red; ">Username "{{ existed_username }}" already exits! <br>
-                Please select a new one.</span></p>
-            {% endif %}
+          <label for="formGroupExampleInput">Username</label>
+          <input type="text"  name ="Username" class="form-control" id="formGroupExampleInput" placeholder="Signin username" required>
         </div>
+        <div class="form-group" style="display: none;" id="username_error">
+             <p class="mt-5 mb-3 text-muted">Username already taken, please choose another one. </p>
+           </div>
         <div class="form-group">
-            <label for="First_Name">First Name</label>
-            <input type="text"  name ="First_Name" class="form-control" id="First_Name">
+            <label for="formGroupExampleInput">First Name</label>
+            <input type="text"  name ="First_Name" class="form-control" id="formGroupExampleInput" required>
           </div>
           <div class="form-group">
-            <label for="Surname">Surname</label>
-            <input type="text"  name ="Surname" class="form-control" id="Surname">
+            <label for="formGroupExampleInput">Surname</label>
+            <input type="text"  name ="Surname" class="form-control" id="formGroupExampleInput" required>
           </div>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text" class="form-control" name ="Email" id="email" placeholder="UWA pheme email">
+          <label for="formGroupExampleInput2">Email</label>
+          <input type="text" class="form-control" name ="Email" id="formGroupExampleInput2" placeholder="UWA pheme email" required>
         </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name ="Password" id="password">
-            {%if first or second or third %}
-                <ul style="color: red">
-                    <li>{{ first }}</li>
-                    <li>{{ second }}</li>
-                    <li>{{ third }}</li>
-                    <li>Please select a new one</li>
-                </ul>
-            {% endif %}
-          </div>
-        <div class="form-group">
+        <div class="form-group" style="display: none;" id="email_err">
+             <p class="mt-5 mb-3 text-muted">Invalid email, please check value provided is valid</p>
+           </div>
+      <div class="form-group">
           <label for="Question">Question for resetting your password</label>
           <input type="text" class="form-control" name ="Question" id="Question" placeholder="Make your Question">
         </div>
@@ -111,10 +101,20 @@ body {
           <label for="email">Answer</label>
           <input type="text" class="form-control" name ="Answer" id="Answer" placeholder="Answer">
         </div>
-          <button class="btn btn-lg btn-primary btn-block" type="submit">Create User </button>
+        <div class="form-group">
+            <label for="formGroupExampleInput2">Password</label>
+            <input type="password" class="form-control" name ="Password" id="formGroupExampleInput2" required>
+          </div>
+           <div class="form-group" style="display: none;" id="password_error">
+             <p class="mt-5 mb-3 text-muted">Please choose a more secure password. Ensure that it has a minimum length of 8 characters and contains at least one lowercase letter, uppercase letter and one digit </p>
+           </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">Create User</button>
         </form>
         <br>
                   <a href={% url 'awb:index' %}><button class="btn btn-lg btn-link btn-block">Go Back</button></a>
       </div>
       </body>
+	
 </html>
+<script src={% static 'animalwellbeing/signup.js' %}>
+</script>

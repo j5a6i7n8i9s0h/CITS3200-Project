@@ -89,47 +89,39 @@ def request_approval(request, coversheet_id):
 def create_researcher(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        if form.is_valid():
-            username = form.cleaned_data['Username']
-            password = form.cleaned_data['Password']
-            email = form.cleaned_data['Email']
-            surname = form.cleaned_data['Surname']
-            firstname = form.cleaned_data['First_Name']
-            input_question = form.cleaned_data['Question']
-            input_answer = form.cleaned_data['Answer']
-            a = password_validators(password)
-            if a:
-                data = {'first': "Your password must contain at least 6 characters",
-                        'second': "Your password must contain at least 1 uppercase letter",
-                        'third': "Your password must contain at least 1 number and 1 letter"}
-                return render(request, 'animalwellbeing/signup.html', data)
-            try:
-                user = User.objects.create_user(
+        username = form['Username'].value()
+        password = form['Password'].value()
+        email = form['Email'].value()
+        surname = form['Surname'].value()
+        firstname = form['First_Name'].value()
+        input_question = form['Question'].value()
+        input_answer = form['Answer'].value()
+        try:
+            user = User.objects.create_user(
                     username=username,
                     password=password,
                     email=email,
                     is_active=False
                 )
-                user.save()
-                new_researcher = Researchers.objects.create(
+            user.save()
+            new_researcher = Researchers.objects.create(
                     user=user,
                     surname=surname,
                     firstname=firstname
                 )
-                new_researcher.save()
-                question = Question.objects.create(
+            new_researcher.save()
+            question = Question.objects.create(
                     user_Q=username,
                     Question=input_question,
                     Answer=input_answer
                 )
-                question.save()
-                print('Successfully created researcher')
-                return redirect('/awb/')
-            except:
-                data = {'user_exist': True, 'existed_username': username}
-                return render(request, 'animalwellbeing/signup.html', data)
-    return render(request, 'animalwellbeing/signup.html')
-
+            question.save()
+            print('Successfully created researcher')
+        except:
+            pass
+        return redirect('/awb/')
+    usernames = json.dumps([user.username for user in User.objects.all()])
+    return render(request, 'animalwellbeing/signup.html',{'usernames':usernames})
 
 def user_activation(request):
     context = {
@@ -201,7 +193,7 @@ def change_password(request):
     else:
         form = PasswordChangeForm(user=request.user)
 
-    args = {'form': form}
+    args = {'form': form, 'user': request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)}
     return render(request, 'animalwellbeing/change_password.html', args)
 
 
@@ -297,14 +289,16 @@ def cancel_request(request, coversheet_id):
 
 @login_required
 def edit_form(request, coversheet_id):
+    criteriamodel = None
     coversheetmodel = None
     try:
         if request.user.is_superuser:
             coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+            criteriamodel = CriteriaTemplateFormModel.objects.all()
         else:
-            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
-                                                              creator=Researchers.objects.get(user=request.user))
-    except CoverSheetFormModel.DoesNotExist:
+            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+            criteriamodel = CriteriaTemplateFormModel.objects.all()
+    except CoverSheetFormModel.DoesNotExist or CriteriaTemplateFormModel.DoesNotExist:
         return redirect('/awb/')
 
     if request.method == 'POST':
@@ -327,7 +321,10 @@ def edit_form(request, coversheet_id):
             'species_phenotype_issues': {
                 'Species': form['species_phenotype_issues'].value()
             },
-            'monitoring_criteria': {},
+            'monitoring_criteria':{
+				'standard_criteria' : form['scrit'].value(),
+				'project_criteria' : form['pcrit'].value(),
+			},
             'monitoring_frequency': {
                 'monitoring_frequency': form['monitoring_frequency'].value()
             },
@@ -353,11 +350,20 @@ def edit_form(request, coversheet_id):
                           'approved': coversheetmodel.approved or coversheetmodel.request_lodged,
                           'user': request.user if request.user.is_superuser else Researchers.objects.get(
                               user=request.user),
+                          'templates': criteriamodel,
                       })
 
 
 @login_required
 def form_creation(request):
+    criteriamodel = None
+    try:
+        if request.user.is_superuser:
+            criteriamodel = CriteriaTemplateFormModel.objects.all()
+        else:
+            criteriamodel = CriteriaTemplateFormModel.objects.all()
+    except CriteriaTemplateFormModel.DoesNotExist:
+        return redirect('/awb/')
     if request.method == 'POST':
         form = CoverSheetForm(request.POST)
         # print(form)
@@ -383,7 +389,10 @@ def form_creation(request):
             'species_phenotype_issues': {
                 'Species': form['species_phenotype_issues'].value()
             },
-            'monitoring_criteria': {},
+            'monitoring_criteria':{
+				'standard_criteria' : form['scrit'].value(),
+				'project_criteria' : form['pcrit'].value(),
+			},
             'monitoring_frequency': {
                 'monitoring_frequency': form['monitoring_frequency'].value()
             },
@@ -409,7 +418,7 @@ def form_creation(request):
         csfm.save()
         return redirect('/awb/')
     return render(request, 'animalwellbeing/createcoversheet.html',
-                  {'user': request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)})
+                  {'user': request.user if request.user.is_superuser else Researchers.objects.get(user=request.user),'templates': criteriamodel})
 
 
 @login_required
@@ -580,8 +589,31 @@ def decline_user(request,username):
         pass
     return user_activation(request)
 
-        
+@login_required
+def criteria(request):
 
+	criteriamodel = None
+	try:
+		if request.user.is_superuser:
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+		else:
+			#criteriamodel = CriteriaTemplateFormModel.objects.get(pk=id, creator=Researchers.objects.get(user=request.user))
+			criteriamodel = CriteriaTemplateFormModel.objects.all()
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
 
-
-
+	if request.method == 'POST':
+		form = CriteriaTemplateForm(request.POST)
+		creator_ = Researchers.objects.get(user=request.user)
+		ctm = CriteriaTemplateFormModel.objects.create(
+			is_general = True,
+			name = form['name'].value(),
+			data = form['scrit'].value(),
+			creator = creator_
+			)
+		ctm.save()
+	return render(request,'animalwellbeing/createcriteria.html',
+		{
+		'templates': criteriamodel,
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)
+		})

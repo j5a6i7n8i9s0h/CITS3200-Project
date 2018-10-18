@@ -23,5 +23,6 @@ urlpatterns = [
     path('cs_requests/',views.requests_approval_admin, name='cs_requests'),
     path('cancel_request/<int:coversheet_id>/', views.cancel_request, name='cancel_request'),
     path('activate_detail/<str:username>/', views.activate_detail, name='activate_detail'),
-    path('decline_user/<str:username>/',views.decline_user,name='decline_user')
+    path('decline_user/<str:username>/',views.decline_user,name='decline_user'),
+    path('criteria', views.criteria, name='criteria')
 ]
