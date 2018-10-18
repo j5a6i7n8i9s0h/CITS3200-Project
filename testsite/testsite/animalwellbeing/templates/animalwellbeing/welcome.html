@@ -22,13 +22,17 @@
 		Welcome to UWA's animal well being app 
 	</p>
 
+
 	{% if templates or results%}
 <!-- 	{%if request.user.is_superuser %}
 	 <form method="get" action="{% url 'awb:search' %}">
-	  	<div class="form-group">
-			<input type="text" class="w-auto" name="q" placeholder="search_project_by_name">
-		</div>
-		<button type="submit" class="btn btn-default">Search</button>
+            <label>Author: </label>
+			<input type="text" class="w-auto" name="author" placeholder="search_by_author" >
+            <label>Project-name: </label>
+            <input type="text" class="w-auto" name="projectName" placeholder="search_project_by_name" >
+            <label>Date: </label>
+            <input type="date" class="w-auto" name="date" placeholder="Year-month-day" >
+		    <button type="submit">Search</button>
 	 </form>
 	{% endif %} -->
 	<div class="card">
