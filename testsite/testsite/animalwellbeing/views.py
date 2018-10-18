@@ -70,28 +70,27 @@ def request_approval(request, coversheet_id):
 def create_researcher(request):
 	if request.method=='POST':
 		form = SignUpForm(request.POST)
-		if form.is_valid():
-			username = form.cleaned_data['Username']
-			password = form.cleaned_data['Password']
-			email = form.cleaned_data['Email']
-			surname = form.cleaned_data['Surname']
-			firstname = form.cleaned_data['First_Name']
-			user = User.objects.create_user(
+		username = form['Username'].value()
+		password = form['Password'].value()
+		email = form['Email'].value()
+		surname = form['Surname'].value()
+		firstname = form['First_Name'].value()
+		user = User.objects.create_user(
 				username=username,
 				password=password,
 				email=email
 				)
-			user.save()
-			new_researcher = Researchers.objects.create(
+		user.save()
+		new_researcher = Researchers.objects.create(
 				user=user,
 				surname=surname,
 				firstname=firstname,
 				email=email
 				)
-			new_researcher.save()
-			print('Successfully created researcher')
-			return redirect('/awb/')
-	return render(request, 'animalwellbeing/signup.html')
+		new_researcher.save()
+		print('Successfully created researcher')
+		return redirect('/awb/')
+	return render(request, 'animalwellbeing/signup.html', {'usernames':json.dumps([user.username for user in User.objects.all()])})
 
 
 @login_required
@@ -311,8 +310,11 @@ def criteria(request):
 			creator = creator_
 			)
 		ctm.save()
-		return redirect('/awb/')
-	return render(request,'animalwellbeing/createcriteria.html',{'templates': criteriamodel})
+	return render(request,'animalwellbeing/createcriteria.html',
+		{
+		'templates': criteriamodel,
+		'user':request.user if request.user.is_superuser else Researchers.objects.get(user=request.user)
+		})
 
 
 @login_required

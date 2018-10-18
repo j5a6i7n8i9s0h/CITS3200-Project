@@ -59,15 +59,19 @@
               <input type="button" onclick="add1()" value="add">
             </div>
           </div>
+        </div>
           <!--THIS IS USED FOR STANDARD CRITERIA-->
           <textarea hidden id="scrit-output" name="scrit" class="form-control"></textarea>
           <input hidden type="button" value="test" id="test" > 
+          <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
+
   </div>
-  <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
-  <br>
+    <br>
   <br>
 </form>
+</div>
 <script>
+
 
 function tempsel()
 {
@@ -91,5 +95,5 @@ function tempsel()
 </script>
 {% load static %}
 <script src="{% static "animalwellbeing/criteriatemplate.js" %}"></script>   
-</div>
+
 {% endblock %}
