@@ -3,3 +3,4 @@ __pycache__
 testsite/testsite/animalwellbeing/static/animalwellbeing/Thumbs.db
 testsite/testsite/run.bat
 *.bat
+testsite/testsite/db.sqlite3

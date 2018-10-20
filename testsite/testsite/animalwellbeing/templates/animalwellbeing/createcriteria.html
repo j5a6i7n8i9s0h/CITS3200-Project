@@ -14,6 +14,8 @@
           <div class="card">
             <div class="card-header"> Standard AEC Recommended Criteria </div>
             <div class="card-body">
+              This is the criteria management panel: Over here you can see both general and criteria's created by you. You can replicate old criteria's by selecting a criteria, loading it by clicking apply followed by adjustments you would like to make. If the criteria you are editing or cloning is 
+              <br> 
             	<label for="templatename">Criteria Template Name:</label>   <input required type="text" size="50" id="templatename" name="name" class="form-control">
             <br>
               Select criteria from template:
@@ -63,6 +65,9 @@
           <!--THIS IS USED FOR STANDARD CRITERIA-->
           <textarea hidden id="scrit-output" name="scrit" class="form-control"></textarea>
           <input hidden type="button" value="test" id="test" > 
+          {% if message %}
+            <p>{{ message }}</p>
+          {% endif %}
           <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
 
   </div>
@@ -75,20 +80,21 @@
 
 function tempsel()
 {
-	var alltemplates = [];
+	var alltemplates = {};
 	var temptemplate;
 	//template IDs start at 1, so ID==1 means index==0
 	{% for tempa in templates %}
 		temptemplate=[];
 		temptemplate.push("{{ tempa.name }}");
-		temptemplate.push("{{ tempa.data }}");
-		alltemplates.push(temptemplate);
-	{% endfor %}
-
-	var a = document.getElementById("template").value-1;
+    temptemplate.push("{{ tempa.data }}");
+		alltemplates["{{ tempa.name }}"] = temptemplate;
+  {% endfor %}
+  var sel = document.getElementById("template");
+  var a= sel.options[sel.selectedIndex].text;
 	if(alltemplates !='')//if there are no templates
 	{
 		document.getElementById("scrit-output").value=alltemplates[a][1];
+    document.getElementById("templatename").value=alltemplates[a][0];
 	}
 	scheck();
 }

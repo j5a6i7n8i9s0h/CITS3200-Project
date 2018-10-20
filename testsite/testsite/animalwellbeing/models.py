@@ -59,4 +59,4 @@ class CriteriaTemplateFormModel(models.Model):
 	is_general = models.BooleanField()
 	name = models.CharField(max_length=100)
 	data = models.TextField(default=" @ @ @ ")
-	creator = models.ForeignKey(Researchers, on_delete=models.PROTECT, default=None)
+	creator = models.ForeignKey(User, on_delete=models.PROTECT, default=None)
