@@ -26,9 +26,7 @@ SECRET_KEY = '$^^ejnl+^0r5un4cyzq5e^%4g*3z@5f3m-lm0cxu&=!_%kx(_h'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'telos-uwa.heroku.com',
-    'telos-uwa-staging.heroku.com',
-    'telos-uwa-dev.heroku.com',
+    'telos-uwa.herokuapp.com',
 ]
 
 

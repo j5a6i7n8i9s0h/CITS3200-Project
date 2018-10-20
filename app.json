@@ -2,6 +2,14 @@
   "name": "Telos-UWA",
   "description": "Telos is an app to streamline the process of creating documentation for animal research",
   "image": "heroku/python",
+  "scripts": {
+    "postdeploy": "python manage.py makemigrations",
+    "postdeploy": "python manage.py migrate",
+    "postdeploy": "python manage.py collectstatic",
+  },
+  "addons": [
+      "heroku-postgresql"
+  ],
   "env": {
     "SECRET_TOKEN": {
       "description": "The secret key for the Django application.",

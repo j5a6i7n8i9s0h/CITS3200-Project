@@ -6,3 +6,4 @@
 # Ignore python compiled binary files
 *.py[cod]
 __pycache__/
+testsite/testsite/.DS_Store
