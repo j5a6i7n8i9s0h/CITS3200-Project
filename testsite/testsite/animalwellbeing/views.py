@@ -107,7 +107,8 @@ def create_researcher(request):
             new_researcher = Researchers.objects.create(
                     user=user,
                     surname=surname,
-                    firstname=firstname
+                    firstname=firstname,
+                    email=email
                 )
             new_researcher.save()
             question = Question.objects.create(
@@ -364,6 +365,7 @@ def form_creation(request):
             criteriamodel = CriteriaTemplateFormModel.objects.all()
     except CriteriaTemplateFormModel.DoesNotExist:
         return redirect('/awb/')
+    print(criteriamodel)
     if request.method == 'POST':
         form = CoverSheetForm(request.POST)
         # print(form)
