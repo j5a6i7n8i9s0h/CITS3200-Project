@@ -68,7 +68,24 @@ class CoverSheetForm(forms.Form):
     #species/phenotype/issues
     species_phenotype_issues = forms.CharField(max_length=30)
     #MONITORING CRITERIA AND SCORING
-
+    actions1a = forms.CharField()
+    actions1b = forms.CharField()
+    actions2a = forms.CharField()
+    actions2b = forms.CharField()
+    actions3a = forms.CharField()
+    actions3b = forms.CharField()
+    actions4a = forms.CharField()
+    actions4b = forms.CharField()
+    additional = forms.CharField()
+    #AEC interventions
+    aec1 = forms.CharField()
+    aec2 = forms.CharField()
+    aec3 = forms.CharField()
+    aec4 = forms.CharField()
+    aec5 = forms.CharField()
+    aec6 = forms.CharField()
+    aec7 = forms.CharField()
+    aec8 = forms.CharField()
     #monitory frequency
     monitoring_frequency = forms.CharField(max_length=200,widget=forms.Textarea)
     #type of recording sheet

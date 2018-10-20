@@ -94,8 +94,8 @@ function add3()
 	var cell1 = srcrow.insertCell(1);
 	var cell2 = srcrow.insertCell(2);
 
-	cell0.innerHTML += '<textarea placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea>';
-	cell1.innerHTML += '<textarea style="width:100%;"></textarea>';
+	cell0.innerHTML += '<textarea class="addfield1" placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea>';
+	cell1.innerHTML += '<textarea class="addfield2" style="width:100%;"></textarea>';
 	cell2.innerHTML += '<input type="button" value="X" class="del3">';
 
 	delbutinit()
