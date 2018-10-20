@@ -107,7 +107,8 @@ def create_researcher(request):
             new_researcher = Researchers.objects.create(
                     user=user,
                     surname=surname,
-                    firstname=firstname
+                    firstname=firstname,
+                    email=email
                 )
             new_researcher.save()
             question = Question.objects.create(

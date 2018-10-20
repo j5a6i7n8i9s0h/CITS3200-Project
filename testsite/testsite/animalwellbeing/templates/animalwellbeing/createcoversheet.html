@@ -155,7 +155,7 @@
                 <tr>
                   <th style="text-align: center;">Criteria</th>
                   <th style="text-align: center;">0</th>
-                  <th style="text-align: center;">1</th><!--FUCK--->
+                  <th style="text-align: center;">1</th>
                   <th style="text-align: center;">2</th>
                   <th style="text-align: center;">Delete</th>
                 </tr>
@@ -213,20 +213,20 @@
           
         </tr>
         <tr>
-          <td><textarea name="actions1a" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions1a == null %}0{% else %}{{dictionary_data.actions_and_interventions.actions1a}}{% endif %}</textarea></td>
-          <td><textarea name="actions1b" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions1b == null %}- No interventions required{% else %}{{dictionary_data.actions_and_interventions.actions1b}}{% endif %}</textarea></td>
+          <td><textarea name="actions1a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1a %}0{% else %}{{dictionary_data.actions_and_interventions.actions1a}}{% endif %}</textarea></td>
+          <td><textarea name="actions1b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1b %}- No interventions required{% else %}{{dictionary_data.actions_and_interventions.actions1b}}{% endif %}</textarea></td>
         </tr>
         <tr>
-          <td><textarea name="actions2a" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions2a == null %}1{% else %}{{dictionary_data.actions_and_interventions.actions2a}}{% endif %}</textarea></td>
+          <td><textarea name="actions2a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2a %}1{% else %}{{dictionary_data.actions_and_interventions.actions2a}}{% endif %}</textarea></td>
           <td>
-            <textarea name="actions2b" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions2b == null %}- Monitor once daily
+            <textarea name="actions2b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2b %}- Monitor once daily
 Consider analgesia (as described in the approval or following veterinary authorisation){% else %}{{dictionary_data.actions_and_interventions.actions2b}}{% endif %}</textarea>
           </td>
           
         </tr>
         <tr>
-          <td><textarea name="actions3a" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions3a == null %}2-4{% else %}{{dictionary_data.actions_and_interventions.actions3a}}{% endif %}</textarea></td>
-          <td><textarea name="actions3b" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions3b == null %}- Monitor twice daily
+          <td><textarea name="actions3a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3a %}2-4{% else %}{{dictionary_data.actions_and_interventions.actions3a}}{% endif %}</textarea></td>
+          <td><textarea name="actions3b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3b %}- Monitor twice daily
 - Weigh
 - Consider analgesia (as described in the approval or following veterinary authorisation)
 - Assess for euthanasia{% else %}{{dictionary_data.actions_and_interventions.actions3b}}{% endif %}</textarea>
@@ -234,10 +234,10 @@ Consider analgesia (as described in the approval or following veterinary authori
           
         </tr>
         <tr>
-          <td><textarea name="actions4a" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions4a == null %}5
+          <td><textarea name="actions4a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4a %}5
 - Humane end-point{% else %}{{dictionary_data.actions_and_interventions.actions4a}}{% endif %}</textarea></td>
           <td>
-              <textarea name="actions4b" class="form-control" cols="30" rows="5" style="width:100%;">{% if dictionary_data.actions_and_interventions.actions4b == null %}- Immediate euthanasia
+              <textarea name="actions4b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4b %}- Immediate euthanasia
 - Complete reporting documentation and submit to facilities staff/manager andAWO if required{% else %}{{dictionary_data.actions_and_interventions.actions4b}}{% endif %}</textarea>
           </td>
           
