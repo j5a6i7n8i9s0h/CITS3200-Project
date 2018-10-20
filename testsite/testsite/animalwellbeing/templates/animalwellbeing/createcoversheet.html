@@ -24,14 +24,14 @@
 <div class="container">
   <h2>Monitoring Cover Sheet</h2>
   <p class="mt-5 mb-3 text-muted">
-      a.	Each animal is examined and observed for abnormalities at each monitoring point. <br>
-      b.	Each criterion is scored and the score marked on the recording sheet. Training is required to ensure all personnel are consistent in terms of scoring. <br>
-      c.	Scores are then added together and a Total Welfare Impact Score marked on the recording sheet. <br>
-      d.	Appropriate to the Total Welfare Impact Score, specific actions or interventions are undertaken. <br>
-      e.	Comments concerning abnormalities are recorded in the “Comments” section.<br>
-      f.	Any other abnormalities are recorded in the “Other” section.<br>
-      g.	Any abnormality that is observed to be of greater severity than the descriptions provided above will require immediate euthanasia of the animal.<br>
-      h.	All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
+      a.  Each animal is examined and observed for abnormalities at each monitoring point. <br>
+      b.  Each criterion is scored and the score marked on the recording sheet. Training is required to ensure all personnel are consistent in terms of scoring. <br>
+      c.  Scores are then added together and a Total Welfare Impact Score marked on the recording sheet. <br>
+      d.  Appropriate to the Total Welfare Impact Score, specific actions or interventions are undertaken. <br>
+      e.  Comments concerning abnormalities are recorded in the “Comments” section.<br>
+      f.  Any other abnormalities are recorded in the “Other” section.<br>
+      g.  Any abnormality that is observed to be of greater severity than the descriptions provided above will require immediate euthanasia of the animal.<br>
+      h.  All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
         
   </p>
   <div class="card">
@@ -99,7 +99,7 @@
   <br>
 
     <div class="card">
-      <div class="card-header">	Species / Phenotype / Model Issues</div>
+      <div class="card-header"> Species / Phenotype / Model Issues</div>
       <div class="card-body">
           <div class="form-group">
               <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues" value = "{{dictionary_data.species_phenotype_issues.Species }}">
@@ -109,7 +109,7 @@
     <br>
 
     <div class="card">
-      <div class="card-header">	MONITORING CRITERIA AND SCORING </div>
+      <div class="card-header"> MONITORING CRITERIA AND SCORING </div>
       <div class="card-body">
           <div class="card">
             <div class="card-header"> Standard AEC Recommended Criteria </div>
@@ -134,24 +134,10 @@
                   <th style="text-align: center;">Delete</th>
                 </tr>
                 <tr>
-                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
-                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea></td>
-                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
-                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
-                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
-                </tr>
-                <tr>
-                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
-                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
-                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
-                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
-                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
-                </tr>
-                <tr>
-                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
-                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
-                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
-                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
                   <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
                 </tr>
               </table>
@@ -163,7 +149,7 @@
           <input hidden type="button" value="test" onclick="criteriaprocess()" >
           <br>
             <div class="card">
-                <div class="card-header">	Project specific criteria </div>
+                <div class="card-header"> Project specific criteria </div>
                 <div class="card-body">
               <table id="pscrit">
                 <tr>
@@ -227,33 +213,32 @@
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">0</textarea></td>
-          <td><textarea cols="30" rows="5" style="width:100%;">- No interventions required</textarea></td>
+          <td><textarea name="actions1a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1a %}0{% else %}{{dictionary_data.actions_and_interventions.actions1a}}{% endif %}</textarea></td>
+          <td><textarea name="actions1b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1b %}- No interventions required{% else %}{{dictionary_data.actions_and_interventions.actions1b}}{% endif %}</textarea></td>
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">1</textarea></td>
+          <td><textarea name="actions2a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2a %}1{% else %}{{dictionary_data.actions_and_interventions.actions2a}}{% endif %}</textarea></td>
           <td>
-            <textarea cols="30" rows="5" style="width:100%;">- Monitor once daily
-Consider analgesia (as described in the approval or following veterinary authorisation)</textarea>
+            <textarea name="actions2b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2b %}- Monitor once daily
+Consider analgesia (as described in the approval or following veterinary authorisation){% else %}{{dictionary_data.actions_and_interventions.actions2b}}{% endif %}</textarea>
           </td>
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">2-4</textarea></td>
-          <td>
-<textarea cols="30" rows="5" style="width:100%;">- Monitor twice daily
+          <td><textarea name="actions3a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3a %}2-4{% else %}{{dictionary_data.actions_and_interventions.actions3a}}{% endif %}</textarea></td>
+          <td><textarea name="actions3b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3b %}- Monitor twice daily
 - Weigh
 - Consider analgesia (as described in the approval or following veterinary authorisation)
-- Assess for euthanasia</textarea>
+- Assess for euthanasia{% else %}{{dictionary_data.actions_and_interventions.actions3b}}{% endif %}</textarea>
           </td>
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">5
-- Humane end-point</textarea></td>
+          <td><textarea name="actions4a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4a %}5
+- Humane end-point{% else %}{{dictionary_data.actions_and_interventions.actions4a}}{% endif %}</textarea></td>
           <td>
-              <textarea cols="30" rows="5" style="width:100%;">- Immediate euthanasia
-- Complete reporting documentation and submit to facilities staff/manager andAWO if required</textarea>
+              <textarea name="actions4b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4b %}- Immediate euthanasia
+- Complete reporting documentation and submit to facilities staff/manager andAWO if required{% else %}{{dictionary_data.actions_and_interventions.actions4b}}{% endif %}</textarea>
           </td>
           
         </tr>
@@ -263,12 +248,14 @@ Consider analgesia (as described in the approval or following veterinary authori
           <th>Delete</th>
         </tr>
         <tr>
-          <td><textarea placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
-          <td><textarea style="width:100%;"></textarea></td>
+          <td><textarea class="addfield1" placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
+          <td><textarea class="addfield2" style="width:100%;"></textarea></td>
           <td><input type="button" value="X" class="del3"></td>
         </tr>
       </table>
-      <input type="button" value="add" onclick="add3()">
+      <textarea hidden id="additional-output" name="additional" class="form-control">{{ dictionary_data.actions_and_interventions.additional }}</textarea>
+      <input hidden type="button" value="test" onclick="add2string()">
+      <input type="button" value="add interventions" onclick="add3()">
       </div>
     </div>
     <br>
@@ -286,18 +273,18 @@ Consider analgesia (as described in the approval or following veterinary authori
           </tr>
           <tr>
             <th>Weight Loss %*</th>
-            <td>Threshold 1:<br><input type="text"></td>
+            <td>Threshold 1:<br><input name="aec1" class="form-control" type="text" value="{{ dictionary_data.aec.aec1 }}"></td>
             <td>
               <ul>
-                <li>Increase welfare monitoring frequency to: <input type="text"></li>
-                <li>Measure weight at a frequency of: <input type="text"></li>
+                <li>Increase welfare monitoring frequency to: <input name="aec2" class="form-control" type="text" value="{{ dictionary_data.aec.aec2 }}"></li>
+                <li>Measure weight at a frequency of: <input name="aec3" class="form-control" type="text" value="{{ dictionary_data.aec.aec3 }}"></li>
                 <li>Notify the AWO or other approved reviewer</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>Threshold 2:<br><input type="text"></td>
+            <td>Threshold 2:<br><input name="aec4" class="form-control" type="text" value="{{ dictionary_data.aec.aec4 }}"></td>
             <td>
               <ul>
                 <li>If the body weight deficit in any animal reaches this approved second threshold euthanasia must be performed</li>
@@ -307,18 +294,18 @@ Consider analgesia (as described in the approval or following veterinary authori
           </tr>
           <tr>
             <th>Tumor size</th>
-            <td>Threshold 1:<br><input type="text"></td>
+            <td>Threshold 1:<br><input name="aec5" class="form-control" type="text" value="{{ dictionary_data.aec.aec5 }}"></td>
             <td>
               <ul>
-                <li>Increase welfare monitoring frequency to: <input type="text"></li>
-                <li>Measure tumours at a frequency of: <input type="text"></li>
+                <li>Increase welfare monitoring frequency to: <input name="aec6" class="form-control" type="text" value="{{ dictionary_data.aec.aec6 }}"></li>
+                <li>Measure tumours at a frequency of: <input name="aec7" class="form-control" type="text" value="{{ dictionary_data.aec.aec7 }}"></li>
                 <li>Notify the AWO or other approved reviewer</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>Threshold 2:<br><input type="text"></td>
+            <td>Threshold 2:<br><input name="aec8" class="form-control" type="text" value="{{ dictionary_data.aec.aec8 }}"></td>
             <td>
               <ul>
                 <li>Immediate euthanasia</li>

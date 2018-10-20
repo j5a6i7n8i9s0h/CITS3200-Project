@@ -1,3 +1,53 @@
+function add2string()
+{
+	let a = document.getElementsByClassName("addfield1");
+	let b = document.getElementsByClassName("addfield2");
+	let res = "";
+	for(var i = 0; i < a.length; i++)
+	{
+		a[i].value.replace(/@|#/g,"");
+		b[i].value.replace(/@|#/g,"");
+		res+=a[i].value+"@"+b[i].value;
+		if(i<a.length-1)
+		{
+			res+="#";
+		}
+		document.getElementById("additional-output").value = res;
+	}
+}
+function string2add()
+//takes the string that gets put in scrit-output and turns it back into cover sheet
+//how about, wipe out the existing sarcrit table, then create new rows using existing functions
+//then fill them in
+{
+	var x = document.getElementById("additional-output");
+	let aar = x.value;
+	let aar2 = aar.split("#");
+
+	let a;
+	let b;
+	let temp;
+
+	var atable = document.getElementById("asint");
+	//first empty out addutuibak until only the headers remain
+	//there's only one by default
+	atable.deleteRow(6);
+	for(var y=0;y<aar2.length;y++)
+	{
+		add3();
+	}
+	a = document.getElementsByClassName("addfield1");
+	b = document.getElementsByClassName("addfield2");
+
+	for(var i = 0; i < aar2.length; i++)
+	{
+		temp = aar2[i].split("@");
+		a[i].value = temp[0];
+		b[i].value = temp[1];
+	}
+
+}
+
 function scrit2string()
 //DOM the class of scrit
 //scrit0 -> scrit3 are arrays of every row in the 4 columns, should be in order
@@ -62,6 +112,7 @@ function criteriaprocess()
 {
 	scrit2string();
 	pcrit2string();
+	add2string();
 }
 
 function string2scrit()
@@ -161,6 +212,11 @@ function scheck()
 	if(p.value!="")
 	{
 		string2pcrit();
+	}
+	var a = document.getElementById("additional-output");
+	if(a.value!="")
+	{
+		string2add();
 	}
 }
 scheck();
