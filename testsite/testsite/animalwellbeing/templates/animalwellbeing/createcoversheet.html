@@ -1,10 +1,10 @@
 {% extends "./index.html" %}
-{% block title %} {{user.username}} CoverSheet Creation {% endblock %}
+{% block title %} {% if dictionary_data %} {% if approved %} View Coversheet {% else %}Edit Coversheet {% endif %} {% else %}CoverSheet Creation {% endif %}{% endblock %}
 {% block content %}
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+   <!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+ -->
 
       <style>
         table, td, th {    
@@ -20,104 +20,109 @@
 <form method="POST">
     {% csrf_token %}
 <!-- this stuff expands navbar for some reason -->
-
+<fieldset {% if request.user.is_superuser or approved %} disabled {% endif %}>
 <div class="container">
   <h2>Monitoring Cover Sheet</h2>
   <p class="mt-5 mb-3 text-muted">
-      a.	Each animal is examined and observed for abnormalities at each monitoring point. <br>
-      b.	Each criterion is scored and the score marked on the recording sheet. Training is required to ensure all personnel are consistent in terms of scoring. <br>
-      c.	Scores are then added together and a Total Welfare Impact Score marked on the recording sheet. <br>
-      d.	Appropriate to the Total Welfare Impact Score, specific actions or interventions are undertaken. <br>
-      e.	Comments concerning abnormalities are recorded in the “Comments” section.<br>
-      f.	Any other abnormalities are recorded in the “Other” section.<br>
-      g.	Any abnormality that is observed to be of greater severity than the descriptions provided above will require immediate euthanasia of the animal.<br>
-      h.	All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
+      a.  Each animal is examined and observed for abnormalities at each monitoring point. <br>
+      b.  Each criterion is scored and the score marked on the recording sheet. Training is required to ensure all personnel are consistent in terms of scoring. <br>
+      c.  Scores are then added together and a Total Welfare Impact Score marked on the recording sheet. <br>
+      d.  Appropriate to the Total Welfare Impact Score, specific actions or interventions are undertaken. <br>
+      e.  Comments concerning abnormalities are recorded in the “Comments” section.<br>
+      f.  Any other abnormalities are recorded in the “Other” section.<br>
+      g.  Any abnormality that is observed to be of greater severity than the descriptions provided above will require immediate euthanasia of the animal.<br>
+      h.  All reporting documentation will be completed and submitted to facilities staff/manager and AWO if required. 
         
   </p>
-  <div class="panel-group">
-    <div class="panel panel-default">
-      <div class="panel-heading"  >Contact Details</div>
-      <div class="panel-body">
+  <div class="card">
+    <div class="card-row">
+      <div class="card-header">Contact Details</div>
+      <div class="card-body">
               <div class="form-group">
                     <label for="formGroupExampleInput">AEC Protocol #</label>
                     <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="RA/3/" readonly>
                   </div>
                   <div class="form-group">
                     <label for="formGroupExampleInput">Protocol Title </label>
-                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title">
+                    <input type="text"  name ="protocol_title" class="form-control" id="formGroupExampleInput" placeholder="Title" value = "{{ dictionary_data.contact_details.ProtocolTitle }}" required>
                   </div>
                   <div class="form-group">
                         <label for="formGroupExampleInput">Monitoring Start Date :</label>
-                        <input type="date"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy">
+                        <input type="date"  name ="start_date" class="form-control" id="formGroupExampleInput" placeholder="dd/mm/yyyy" value = "{{ dictionary_data.contact_details.MonitoringStartDate }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Chief Investigator : </label>
-                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="cheif_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.ChiefInvestigator.0 }}">
+                      <input type="number"  name ="cheif_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.ChiefInvestigator.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Emergency Contact :</label>
-                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="emergency_investigator" class="form-control" id="formGroupExampleInput" placeholder="Full Name"  value = "{{ dictionary_data.contact_details.EmergencyContact.0 }}">
+                      <input type="number"  name ="emergency_investigator_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.EmergencyContact.1 }}">
                   </div>
                   <!-- HANDLE NAMES FOR FORM PROCESSING -->
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 1 :</label>
-                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="monitor_1" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor1.0 }}">
+                      <input type="number"  name ="monitor_1_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor1.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 2 :</label>
-                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="monitor_2" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor2.0 }}">
+                      <input type="number"  name ="monitor_2_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor2.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Monitor 3 :</label>
-                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
-                      <div class="inline"><input type="checkbox" class="form-control" name="supervision" > <p class="text-muted">under supervision until competent</p></div>
+                      <input type="text"  name ="monitor_3" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.Monitor3.0 }}">
+                      <input type="number"  name ="monitor_3_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.Monitor3.1 }}">
+                      <div class="inline"><input type="checkbox" class="form-control" name="supervision"  {% if dictionary_data.contact_details.Supervisor %} checked {% endif %}> <p class="text-muted">under supervision until competent</p></div>
                     </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Person responsible for euthanasia :</label>
-                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="euthanasia_person" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.0 }}">
+                      <input type="number"  name ="euthanasia_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.PersonResponsibleForEuthanasia.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Other experts :</label>
-                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name">
-                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number">
+                      <input type="text"  name ="other_experts" class="form-control" id="formGroupExampleInput" placeholder="Full Name" value = "{{ dictionary_data.contact_details.OtherExperts.0 }}">
+                      <input type="number"  name ="other_experts_phone" class="form-control" id="formGroupExampleInput" placeholder="Phone Number" value = "{{ dictionary_data.contact_details.OtherExperts.1 }}">
                   </div>
                   <div class="form-group">
                       <label for="formGroupExampleInput">Animal Welfare Officer </label>
                       <input type="text"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value="AWO" readonly>
                       <input type="number"  name ="Protocol_Title" class="form-control" id="formGroupExampleInput" value=0428021529 readonly>
-                    </div>
+                  </div>
       </div>
     </div>
+  </div>
 
-    <div class="panel panel-primary">
-      <div class="panel-heading">	Species / Phenotype / Model Issues</div>
-      <div class="panel-body">
+  <br>
+
+    <div class="card">
+      <div class="card-header"> Species / Phenotype / Model Issues</div>
+      <div class="card-body">
           <div class="form-group">
-              <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues">
+              <input type="text"  name ="species_phenotype_issues" class="form-control" placeholder="species/phenotype/model issues" value = "{{dictionary_data.species_phenotype_issues.Species }}">
              </div>
       </div>
     </div>
+    <br>
 
-    <div class="panel panel-success">
-      <div class="panel-heading">	MONITORING CRITERIA AND SCORING </div>
-      <div class="panel-body">
-          <div class="panel panel-success">
-            <div class="panel-heading"> Standard AEC Recommended Criteria </div>
+    <div class="card">
+      <div class="card-header"> MONITORING CRITERIA AND SCORING </div>
+      <div class="card-body">
+          <div class="card">
+            <div class="card-header"> Standard AEC Recommended Criteria </div>
+            <div class="card-body">
             <br>
               Select criteria from template:
               <select id="template">
                 <!-- fill from templates -->
-                  <option value="0">Mouse</option>
-                  <option value="1">Rat</option>
-                  <option value="2">Sheep</option>
+                {% for templ in templates %}
+                  <option value="{{ templ.id }}">{{ templ.name }}</option>
+                {% endfor %}
               </select>
-              <input type="button" value ="apply" id="tempbutt">
+              <input type="button" value ="apply" id="tempbutt" onclick="tempsel()">
               <input type="button" value="save as preset">
               <br><br>
               <table id="sarcrit">
@@ -129,32 +134,23 @@
                   <th style="text-align: center;">Delete</th>
                 </tr>
                 <tr>
-                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Activity – i.e. movement around the cageBright, Alert, Responsive (BAR)</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal – mobile and active</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent stillness as compared to others</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Will only move if approached or reluctant to move when touched.  Moderately reduced activity, dull, lethargic</textarea></td>
-                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
-                </tr>
-                <tr>
-                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Body Posture</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat and/or intermittent hunched appearance</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Moderate/continuous hunching and still</textarea></td>
-                  <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
-                </tr>
-                <tr>
-                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;">Social Behaviour (only relevant for group housed animals)</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Normal</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Somewhat or intermittently separate from others</textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;">Completely separate or isolated from others</textarea></td>
+                  <td><textarea class="scrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="scrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
                   <td><input type="button" value="X" class="del1" style="margin: 0 auto;"></td>
                 </tr>
               </table>
               <input type="button" onclick="add1()" value="add">
             </div>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">	Project specific criteria </div>
+          </div>
+          <!--THIS IS USED FOR STANDARD CRITERIA-->
+          <textarea hidden id="scrit-output" name="scrit" class="form-control">{{ dictionary_data.monitoring_criteria.standard_criteria }}</textarea>
+          <input hidden type="button" value="test" onclick="criteriaprocess()" >
+          <br>
+            <div class="card">
+                <div class="card-header"> Project specific criteria </div>
+                <div class="card-body">
               <table id="pscrit">
                 <tr>
                   <th style="text-align: center;">Criteria</th>
@@ -164,10 +160,10 @@
                   <th style="text-align: center;">Delete</th>
                 </tr>
                 <tr>
-                  <td><textarea cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
-                  <td><textarea cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="pcrit0" cols="30" rows="4" placeholder="Criteria Description" style="width:100%;"></textarea></td>
+                  <td><textarea class="pcrit1" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="pcrit2" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
+                  <td><textarea class="pcrit3" cols="30" rows="4" placeholder="Severity indicator description" style="width:100%;"></textarea></td>
                   <td><input type="button" value="X" class="del2" style="margin: 0 auto;"></td>
                 </tr>
             </table>
@@ -177,33 +173,38 @@
           <!--<p class="text-muted">Total : 0 </p>-->
       </div>
   </div>
-    <div class="panel panel-info">
-      <div class="panel-heading">MONITORING FREQUENCY</div>
-      <div class="panel-body">
-            <div class="form-group">
+  <!--THIS IS USED FOR PROJECT CRITERIA-->
+  <textarea hidden id="pcrit-output" name="pcrit" class="form-control">{{ dictionary_data.monitoring_criteria.project_criteria }}</textarea>
+  <br>
+    <div class="card">
+      <div class="card-header">MONITORING FREQUENCY</div>
+      <div class="card-body">
+            <div class="card-group">
                 <p class="text-muted">Describe monitoring regime including frequency of animal assessment and weighing.  Select frequency that will adequately identify potential issues (including those described in section17D).</p>
-
-                    <textarea name="monitoring_frequency" class="form-control"></textarea>
+                    <textarea name="monitoring_frequency" class="form-control" >{{ dictionary_data.monitoring_frequency.monitoring_frequency }}</textarea>
                    </div>
       </div>
     </div>
-
-    <div class="panel panel-warning">
-      <div class="panel-heading">Type of Recording sheet</div>
-      <div class="panel-body">
-            <div class="form-group">
-              <input type="checkbox" name="general" value="general">General
-              <input type="checkbox" name="anasthesia" value="anasthesia">Anaesthesia
-              <input type="checkbox" name="post_proc" value="post_proc">Post Procedure
-              <input type="checkbox" name="other" value="other">Other
-              <input type="text" placeholder="Please Specify" name="other_description" class="form-control">
-            </div>
+    <br>
+    <div class="card">
+      <div class="card-header">Type of Recording sheet</div>
+      <div class="card-body">
+              <input type="checkbox" name="general" value="general"
+              {% if dictionary_data.type_of_recording_sheet.general %} checked {% endif %}> General
+              <input type="checkbox" name="anasthesia" value="anasthesia"
+              {% if dictionary_data.type_of_recording_sheet.anasthesia %} checked {% endif %}> Anaesthesia
+              <input type="checkbox" name="post_proc" value="post_proc"
+              {% if dictionary_data.type_of_recording_sheet.post_proc %} checked {% endif %}> Post Procedure
+              <input type="checkbox" name="other"  id="other" onclick="checkboxchange();" value="other"{% if dictionary_data.type_of_recording_sheet.other %} checked {% endif %}>Other
+              <div id="other_description" {% if not dictionary_data.type_of_recording_sheet.other %} style="display: none;" {% endif %}>
+                <input type="text" placeholder="Please Specify" name="other_description" class="form-control" value="{{dictionary_data.type_of_recording_sheet.other_description}}">
+              </div>
       </div>
     </div>
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">ACTIONS AND INTERVENTIONS</div>
-      <div class="panel-body">
+    <br>
+    <div class="card">
+      <div class="card-header">ACTIONS AND INTERVENTIONS</div>
+      <div class="card-body">
         <p>Add together all individual monitoring criteria scores for a Total Welfare Impact Score</p>
       <table id="asint">
         <tr>
@@ -212,33 +213,32 @@
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">0</textarea></td>
-          <td><textarea cols="30" rows="5" style="width:100%;">- No interventions required</textarea></td>
+          <td><textarea name="actions1a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1a %}0{% else %}{{dictionary_data.actions_and_interventions.actions1a}}{% endif %}</textarea></td>
+          <td><textarea name="actions1b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions1b %}- No interventions required{% else %}{{dictionary_data.actions_and_interventions.actions1b}}{% endif %}</textarea></td>
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">1</textarea></td>
+          <td><textarea name="actions2a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2a %}1{% else %}{{dictionary_data.actions_and_interventions.actions2a}}{% endif %}</textarea></td>
           <td>
-            <textarea cols="30" rows="5" style="width:100%;">- Monitor once daily
-Consider analgesia (as described in the approval or following veterinary authorisation)</textarea>
+            <textarea name="actions2b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions2b %}- Monitor once daily
+Consider analgesia (as described in the approval or following veterinary authorisation){% else %}{{dictionary_data.actions_and_interventions.actions2b}}{% endif %}</textarea>
           </td>
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">2-4</textarea></td>
-          <td>
-<textarea cols="30" rows="5" style="width:100%;">- Monitor twice daily
+          <td><textarea name="actions3a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3a %}2-4{% else %}{{dictionary_data.actions_and_interventions.actions3a}}{% endif %}</textarea></td>
+          <td><textarea name="actions3b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions3b %}- Monitor twice daily
 - Weigh
 - Consider analgesia (as described in the approval or following veterinary authorisation)
-- Assess for euthanasia</textarea>
+- Assess for euthanasia{% else %}{{dictionary_data.actions_and_interventions.actions3b}}{% endif %}</textarea>
           </td>
           
         </tr>
         <tr>
-          <td><textarea cols="30" rows="5" style="width:100%;">5
-- Humane end-point</textarea></td>
+          <td><textarea name="actions4a" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4a %}5
+- Humane end-point{% else %}{{dictionary_data.actions_and_interventions.actions4a}}{% endif %}</textarea></td>
           <td>
-              <textarea cols="30" rows="5" style="width:100%;">- Immediate euthanasia
-- Complete reporting documentation and submit to facilities staff/manager andAWO if required</textarea>
+              <textarea name="actions4b" class="form-control" cols="30" rows="5" style="width:100%;">{% if not dictionary_data.actions_and_interventions.actions4b %}- Immediate euthanasia
+- Complete reporting documentation and submit to facilities staff/manager andAWO if required{% else %}{{dictionary_data.actions_and_interventions.actions4b}}{% endif %}</textarea>
           </td>
           
         </tr>
@@ -248,19 +248,21 @@ Consider analgesia (as described in the approval or following veterinary authori
           <th>Delete</th>
         </tr>
         <tr>
-          <td><textarea placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
-          <td><textarea style="width:100%;"></textarea></td>
+          <td><textarea class="addfield1" placeholder="Intervention description (e.g. Flystrike)" style="width:100%;"></textarea></td>
+          <td><textarea class="addfield2" style="width:100%;"></textarea></td>
           <td><input type="button" value="X" class="del3"></td>
         </tr>
       </table>
-      <input type="button" value="add" onclick="add3()">
+      <textarea hidden id="additional-output" name="additional" class="form-control">{{ dictionary_data.actions_and_interventions.additional }}</textarea>
+      <input hidden type="button" value="test" onclick="add2string()">
+      <input type="button" value="add interventions" onclick="add3()">
       </div>
     </div>
+    <br>
 
-
-    <div class="panel panel-danger">
-      <div class="panel-heading">AEC INTERVENTIONS for body weight loss and subcutaneous tumor size</div>
-      <div class="panel-body">
+    <div class="card">
+      <div class="card-header">AEC INTERVENTIONS for body weight loss and subcutaneous tumor size</div>
+      <div class="card-body">
         <p>Please referto Guidelines on the Induction of Tumours and Monitoring of Animal Welfare and Guidelines on Body Weight Deficit and Monitoring of Animal Welfare documents at: www.research.uwa.edu.au/staff/forms/animals</p>
         <p>NB. When body weight loss Threshold 2 is set at 10% the AEC does not require a dual threshold. ThereforeThreshold 1 should read N/A</p>
         <table>
@@ -271,18 +273,18 @@ Consider analgesia (as described in the approval or following veterinary authori
           </tr>
           <tr>
             <th>Weight Loss %*</th>
-            <td>Threshold 1:<br><input type="text"></td>
+            <td>Threshold 1:<br><input name="aec1" class="form-control" type="text" value="{{ dictionary_data.aec.aec1 }}"></td>
             <td>
               <ul>
-                <li>Increase welfare monitoring frequency to: <input type="text"></li>
-                <li>Measure weight at a frequency of: <input type="text"></li>
+                <li>Increase welfare monitoring frequency to: <input name="aec2" class="form-control" type="text" value="{{ dictionary_data.aec.aec2 }}"></li>
+                <li>Measure weight at a frequency of: <input name="aec3" class="form-control" type="text" value="{{ dictionary_data.aec.aec3 }}"></li>
                 <li>Notify the AWO or other approved reviewer</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>Threshold 2:<br><input type="text"></td>
+            <td>Threshold 2:<br><input name="aec4" class="form-control" type="text" value="{{ dictionary_data.aec.aec4 }}"></td>
             <td>
               <ul>
                 <li>If the body weight deficit in any animal reaches this approved second threshold euthanasia must be performed</li>
@@ -292,18 +294,18 @@ Consider analgesia (as described in the approval or following veterinary authori
           </tr>
           <tr>
             <th>Tumor size</th>
-            <td>Threshold 1:<br><input type="text"></td>
+            <td>Threshold 1:<br><input name="aec5" class="form-control" type="text" value="{{ dictionary_data.aec.aec5 }}"></td>
             <td>
               <ul>
-                <li>Increase welfare monitoring frequency to: <input type="text"></li>
-                <li>Measure tumours at a frequency of: <input type="text"></li>
+                <li>Increase welfare monitoring frequency to: <input name="aec6" class="form-control" type="text" value="{{ dictionary_data.aec.aec6 }}"></li>
+                <li>Measure tumours at a frequency of: <input name="aec7" class="form-control" type="text" value="{{ dictionary_data.aec.aec7 }}"></li>
                 <li>Notify the AWO or other approved reviewer</li>
               </ul>
             </td>
           </tr>
           <tr>
             <td></td>
-            <td>Threshold 2:<br><input type="text"></td>
+            <td>Threshold 2:<br><input name="aec8" class="form-control" type="text" value="{{ dictionary_data.aec.aec8 }}"></td>
             <td>
               <ul>
                 <li>Immediate euthanasia</li>
@@ -315,10 +317,38 @@ Consider analgesia (as described in the approval or following veterinary authori
         <p style="background-color:yellow;">*“In immature animals the assessment of a body weight deficit, as a manifestation of failure to thrive, may be based on a comparison with body weight in a comparable group of control animals or predicted body weight for age derived from a species-specific growth chart."</p>
       </div>
     </div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Create CoverSheet</button>
+    <br>
+    {% if not approved and not request.user.is_superuser %}
+  <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" > {% if dictionary_data %}Edit Coversheet{% else %}Create CoverSheet{% endif %}</button>
+    {% endif %}
 </div>
+<script>
+//document.getElementById("tempbutt").onclick = tempsel;
+function tempsel()
+{
+  var alltemplates = [];
+  var temptemplate;
+  //template IDs start at 1, so ID==1 means index==0
+  {% for tempa in templates %}
+    temptemplate=[];
+    temptemplate.push("{{ tempa.name }}");
+    temptemplate.push("{{ tempa.data }}");
+    alltemplates.push(temptemplate);
+  {% endfor %}
+
+  var a = document.getElementById("template").value-1;
+  if(alltemplates !='')//if there are no templates
+  {
+    document.getElementById("scrit-output").value=alltemplates[a][1];
+  }
+  scheck()
+}
+</script>
 {% load static %}
 <script src="{% static "animalwellbeing/coversheet.js" %}">
 </script>
+<script src="{% static "animalwellbeing/criteria.js" %}">
+</script>
+</fieldset>
 </form>
 {% endblock %}

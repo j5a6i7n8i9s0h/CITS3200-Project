@@ -1,0 +1,39 @@
+{% extends "./index.html" %}
+{% block title %} Activation Requests {% endblock %}
+{% block content %}
+<center><h1>User : {{user.user.username}}</h1></center>
+
+	 <div class="container">
+	 	<div class ="card"> 
+        <div class="card-header">
+<a href={% url 'awb:activate' username=usertoactivate.user.username  %}><button type="button" class="btn btn-outline-primary"> Activate User</button></a>
+		<div class="float-sm-right"><a href={% url 'awb:decline_user' username=usertoactivate.user.username %}><button type="button" class="btn btn-outline-danger"> Decline Activation</button></a></div>
+        </div>
+        <div class="card-body">
+        	<div class="container">
+				<table class="table">
+				  <tbody>
+				    <tr>
+				      <th scope="row">Firstname</th>
+				      <td>{{usertoactivate.firstname}}</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Surname</th>
+				      <td>{{usertoactivate.surname}}</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Username</th>
+				      <td>{{usertoactivate.user.username}}</td>
+				    </tr>
+				    <tr>
+				      <th scope="row">Email</th>
+				      <td>{{usertoactivate.email}}</td>
+				    </tr>
+				  </tbody>
+				</table>
+			</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

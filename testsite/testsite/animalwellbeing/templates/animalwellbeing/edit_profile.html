@@ -1,0 +1,16 @@
+{% extends "./index.html" %}
+{% block title %} {% if request.user.is_superuser %} {{user.username}} {% else %} {{user.firstname}} {% endif %}'s Profile {% endblock %}
+{% block content %}
+    <br>
+    <br>
+    <div class="container">
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+            <p> If you would like to change your password, please click
+            <a href={% url 'awb:change_password' %}> Here</a></p>
+        </form>
+        <br>
+    </div>
+{% endblock %}

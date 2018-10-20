@@ -43,3 +43,13 @@ To view on your mobile:
     - clone this repo 
     - install django and python + additional libraries 
     - run as per usual 
+______________________________________________________________________________________________________________________________
+
+- Auth altered: 
+To successfully create a user you must `activate user` in `user requests` in admin view. This is to prevent unauthorized users from creating accounts. 
+
+if you run into issue (chances are its migration issues): 
+run : `python3 manage.py makemigrations animalwellbeing` 
+run: `python3 manage.py migrate` 
+
+If you run into any other issues let me know. 
