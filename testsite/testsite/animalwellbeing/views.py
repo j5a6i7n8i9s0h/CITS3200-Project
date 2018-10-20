@@ -335,7 +335,28 @@ def edit_form(request, coversheet_id):
                 'other': form['other'].value(),
                 'other_description': form['other_description'].value(),
             },
-            'actions_and_interventions': {}
+            'actions_and_interventions': {
+                'actions1a': form['actions1a'].value(),
+                'actions1b': form['actions1b'].value(),
+                'actions2a': form['actions2a'].value(),
+                'actions2b': form['actions2b'].value(),
+                'actions3a': form['actions3a'].value(),
+                'actions3b': form['actions3b'].value(),
+                'actions4a': form['actions4a'].value(),
+                'actions4b': form['actions4b'].value(),
+                'additional': form['additional'].value(),
+            },
+            'aec': {
+                'aec1': form['aec1'].value(),
+                'aec2': form['aec2'].value(),
+                'aec3': form['aec3'].value(),
+                'aec4': form['aec4'].value(),
+                'aec5': form['aec5'].value(),
+                'aec6': form['aec6'].value(),
+                'aec7': form['aec7'].value(),
+                'aec8': form['aec8'].value(),
+            }
+
         }
 
         coversheetmodel.name = form['protocol_title'].value() or coversheetmodel.name
@@ -403,7 +424,27 @@ def form_creation(request):
                 'other': form['other'].value(),
                 'other_description': form['other_description'].value(),
             },
-            'actions_and_interventions': {}
+            'actions_and_interventions': {
+                'actions1a': form['actions1a'].value(),
+                'actions1b': form['actions1b'].value(),
+                'actions2a': form['actions2a'].value(),
+                'actions2b': form['actions2b'].value(),
+                'actions3a': form['actions3a'].value(),
+                'actions3b': form['actions3b'].value(),
+                'actions4a': form['actions4a'].value(),
+                'actions4b': form['actions4b'].value(),
+                'additional': form['additional'].value(),
+            },
+            'aec': {
+                'aec1': form['aec1'].value(),
+                'aec2': form['aec2'].value(),
+                'aec3': form['aec3'].value(),
+                'aec4': form['aec4'].value(),
+                'aec5': form['aec5'].value(),
+                'aec6': form['aec6'].value(),
+                'aec7': form['aec7'].value(),
+                'aec8': form['aec8'].value(),
+            }
         }
         creator_ = Researchers.objects.get(user=request.user)
         csfm = CoverSheetFormModel.objects.create(
