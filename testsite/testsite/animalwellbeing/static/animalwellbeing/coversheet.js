@@ -71,7 +71,7 @@ function add2()
 {
 	var srtable = document.getElementById("pscrit");
 	var srcrow = srtable.insertRow(-1);
-	var cell0 = srcrow.insertCell(0);//test
+	var cell0 = srcrow.insertCell(0);
 	var cell1 = srcrow.insertCell(1);
 	var cell2 = srcrow.insertCell(2);
 	var cell3 = srcrow.insertCell(3);

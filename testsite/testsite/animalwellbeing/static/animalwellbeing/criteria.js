@@ -21,7 +21,7 @@ function string2add()
 //then fill them in
 {
 	var x = document.getElementById("additional-output");
-	let aar = x.value;//test
+	let aar = x.value;
 	let aar2 = aar.split("#");
 
 	let a;
