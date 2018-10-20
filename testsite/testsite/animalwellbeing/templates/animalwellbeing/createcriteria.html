@@ -63,6 +63,9 @@
           <!--THIS IS USED FOR STANDARD CRITERIA-->
           <textarea hidden id="scrit-output" name="scrit" class="form-control"></textarea>
           <input hidden type="button" value="test" id="test" > 
+          {% if message %}
+            <p>{{ message }}</p>
+          {% endif %}
           <button class="btn btn-lg btn-outline-success btn-block" type="submit" onclick="criteriaprocess()" >Save Criteria Template</button>
 
   </div>
@@ -75,20 +78,21 @@
 
 function tempsel()
 {
-	var alltemplates = [];
+	var alltemplates = {};
 	var temptemplate;
 	//template IDs start at 1, so ID==1 means index==0
 	{% for tempa in templates %}
 		temptemplate=[];
 		temptemplate.push("{{ tempa.name }}");
-		temptemplate.push("{{ tempa.data }}");
-		alltemplates.push(temptemplate);
-	{% endfor %}
-
-	var a = document.getElementById("template").value-1;
+    temptemplate.push("{{ tempa.data }}");
+		alltemplates["{{ tempa.name }}"] = temptemplate;
+  {% endfor %}
+  var sel = document.getElementById("template");
+  var a= sel.options[sel.selectedIndex].text;
 	if(alltemplates !='')//if there are no templates
 	{
 		document.getElementById("scrit-output").value=alltemplates[a][1];
+    document.getElementById("templatename").value=alltemplates[a][0];
 	}
 	scheck();
 }
