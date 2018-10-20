@@ -80,5 +80,62 @@ if __name__=="__main__":
     else:
         document.tables[6].rows[1].cells[index].paragraphs[0].add_run(other_D).bold = True
 
+    #action
+    actions = coversheet_data['actions_and_interventions']
+    document.tables[7].rows[1].cells[0].paragraphs[0].add_run(actions['actions1a'].replace("\r", "")).bold = True
+    document.tables[7].rows[1].cells[1].paragraphs[0].add_run(actions['actions1b'].replace("\r", "")).bold = True
+    document.tables[7].rows[2].cells[0].paragraphs[0].add_run(actions['actions2a'].replace("\r", "")).bold = True
+    document.tables[7].rows[2].cells[1].paragraphs[0].add_run(actions['actions2b'].replace("\r", "")).bold = True
+    document.tables[7].rows[3].cells[0].paragraphs[0].add_run(actions['actions3a'].replace("\r", "")).bold = True
+    document.tables[7].rows[3].cells[1].paragraphs[0].add_run(actions['actions3b'].replace("\r", "")).bold = True
+    document.tables[7].rows[4].cells[0].paragraphs[0].add_run(actions['actions4a'].replace("\r", "")).bold = True
+    document.tables[7].rows[4].cells[1].paragraphs[0].add_run(actions['actions4b'].replace("\r", "")).bold = True
+
+    #additional action
+    additional_action = actions['additional'].split('#')
+    if len(additional_action) > 2:
+        for i in range(len(additional_action)-2):
+            document.tables[8].add_row()
+
+    x = 0 #to access the element of additional_action
+    jj = 0 # used to skiped the first row
+    for rows in document.tables[8].rows:
+        if jj > 0 and jj <= len(additional_action):
+            temp = additional_action[x].split('@')
+            x += 1
+            for k in range(2):
+                rows.cells[k].paragraphs[0].add_run(temp[k].replace("\r", "")).bold = True
+        jj += 1
+
+    #since teh atble is not going to change just hardcode to fill in 
+    aecss = coversheet_data['aec']
+    document.tables[9].rows[2].cells[2].paragraphs[0].add_run(aecss['aec1']).bold = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('•    Increase welfare monitoring frequency to:    ' + aecss['aec2']).bold  = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '•    Measure weight at a frequency of:    ' + aecss['aec3']).bold  = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '•    Notify the AWO or other approved reviewer.').bold  = True
+
+    document.tables[9].rows[3].cells[2].paragraphs[0].add_run(aecss['aec4']).bold = True
+
+    document.tables[9].rows[4].cells[2].paragraphs[0].add_run(aecss['aec5']).bold = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('•    Increase welfare monitoring frequency to:    ' + aecss['aec6']).bold  = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '•    Measure tumours at a frequency of:    ' + aecss['aec7']).bold  = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '•    Notify the AWO or other approved reviewer.').bold  = True
+
+    document.tables[9].rows[5].cells[2].paragraphs[0].add_run(aecss['aec8']).bold = True
+
     document.save('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(sys.argv[2]))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
