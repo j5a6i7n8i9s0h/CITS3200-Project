@@ -101,21 +101,22 @@ if 'Monitoring Start Date :' in contact_details:
     if (start_date[0].isdigit() == start_date[1].isdigit() == start_date[2].isdigit() == True):
         insert_start_date(int(start_date[0]), int(start_date[1]), int(start_date[2]))
 
-        if 'weighing_frequency' in monitoring_frequency:
-            insert_weighing_freq(monitoring_frequency['weighing_frequency'])
-            weigh_freq = monitoring_frequency['weighing_frequency'].split(' ')
-            if (weigh_freq[2].isdigit()):
-                insert_weight_dates(int(weigh_freq[2]))
+#        if 'weighing_frequency' in monitoring_frequency:
+#            insert_weighing_freq(monitoring_frequency['weighing_frequency'])
+#            weigh_freq = monitoring_frequency['weighing_frequency'].split(' ')
+#            if (weigh_freq[2].isdigit()):
+#                insert_weight_dates(int(weigh_freq[2]))
 
         if 'monitoring_frequency' in monitoring_frequency:
             insert_monitoring_freq(monitoring_frequency['monitoring_frequency'])
             monitor_freq = monitoring_frequency['monitoring_frequency'].split(' ')
-            if (monitor_freq[2].isdigit()):
-                insert_monitoring_dates(int(monitor_freq[2]))
+            if (len(monitor_freq) == 4):            
+                if (monitor_freq[2].isdigit()):
+                    insert_monitoring_dates(int(monitor_freq[2]))
 
 else:
-    if 'weighing_frequency' in monitoring_frequency:
-        insert_weighing_freq(monitoring_frequency['weighing_frequency'])
+#    if 'weighing_frequency' in monitoring_frequency:
+#        insert_weighing_freq(monitoring_frequency['weighing_frequency'])
 
     if 'monitoring_frequency' in monitoring_frequency:
         insert_monitoring_freq(monitoring_frequency['monitoring_frequency'])
