@@ -26,26 +26,8 @@ def insert_start_date(year, month, day):
     recording_sheet.paragraphs[0].runs[15].add_text(str_date)
     return
 
-def insert_weighing_freq(weighing_freq):
-    table_one.rows[1].cells[5].paragraphs[0].add_run(weighing_freq)
-    return
-
 def insert_monitoring_freq(monitoring_freq):
     table_one.rows[1].cells[7].paragraphs[0].add_run(monitoring_freq)
-    return
-
-def insert_weight_dates(freq):
-    start_date = datetime.datetime.now()
-    alpha = start_date - rec_start_date
-    while (alpha.days % freq != 0):
-        start_date = start_date + timedelta(days = 1)
-        alpha = start_date - rec_start_date
-    str_date = start_date.strftime('%d/%m/%y')
-    a = 2
-    for x in range(7):
-        table_two.rows[0].cells[a].paragraphs[0].add_run(start_date.strftime('%d/%m/%y'))
-        start_date = start_date + timedelta(days = freq)
-        a += 2
     return
 
 def insert_monitoring_dates(freq):
@@ -96,38 +78,34 @@ def insert_criteria(std_criteria, proj_criteria):
         row += 1
 
 
+
 if 'Monitoring Start Date :' in contact_details:
-    start_date = contact_details['Monitoring Start Date :'].split('-')
-    if (start_date[0].isdigit() == start_date[1].isdigit() == start_date[2].isdigit() == True):
-        insert_start_date(int(start_date[0]), int(start_date[1]), int(start_date[2]))
-
-#        if 'weighing_frequency' in monitoring_frequency:
-#            insert_weighing_freq(monitoring_frequency['weighing_frequency'])
-#            weigh_freq = monitoring_frequency['weighing_frequency'].split(' ')
-#            if (weigh_freq[2].isdigit()):
-#                insert_weight_dates(int(weigh_freq[2]))
-
-        if 'monitoring_frequency' in monitoring_frequency:
-            insert_monitoring_freq(monitoring_frequency['monitoring_frequency'])
-            monitor_freq = monitoring_frequency['monitoring_frequency'].split(' ')
-            if (len(monitor_freq) == 4):            
-                if (monitor_freq[2].isdigit()):
-                    insert_monitoring_dates(int(monitor_freq[2]))
-
-else:
-#    if 'weighing_frequency' in monitoring_frequency:
-#        insert_weighing_freq(monitoring_frequency['weighing_frequency'])
+    if (type(contact_details['Monitoring Start Date :'] is str)):
+        start_date = contact_details['Monitoring Start Date :'].split('-')
+        if (len(start_date) == 4):
+            if (start_date[0].isdigit() == start_date[1].isdigit() == start_date[2].isdigit() == True):
+                if ((len(start_date[0]) == 4) == (len(start_date[1]) >= 2) == (len(start_date[2]) >= 2)):
+                    insert_start_date(int(start_date[0]), int(start_date[1]), int(start_date[2]))
 
     if 'monitoring_frequency' in monitoring_frequency:
+        monitor_freq = monitoring_frequency['monitoring_frequency'].split(' ')
+        if (len(monitor_freq) == 4):
+            if (monitor_freq[2].isdigit()):
+                insert_monitoring_dates(int(monitor_freq[2]))
+
+if 'monitoring_frequency' in monitoring_frequency:
         insert_monitoring_freq(monitoring_frequency['monitoring_frequency'])
 
 #if 'Protocol Title :' in contact_details:
 #    insert_aec_protocol(contact_details['Protocol Title :'])
 
-table_one.rows[3].cells[5].paragraphs[0].runs[0].add_text(aec['aec1'] + '%')
-table_one.rows[3].cells[6].paragraphs[0].runs[0].add_text(aec['aec4'] + '%')
-table_one.rows[3].cells[7].paragraphs[0].runs[0].add_text(aec['aec5'])
-table_one.rows[3].cells[8].paragraphs[0].runs[0].add_text(aec['aec8'])
+if 'aec1' in aec:
+    if 'aec4' in aec:
+        insert_weight_threshold(aec['aec1'], aec['aec4'])
+
+if 'aec5' in aec:
+    if 'aec8' in aec:
+        insert_tumor_threshold(aec['aec5'], aec['aec8'])
 
 if 'Species' in species_phenotype_issues:
     insert_species(species_phenotype_issues['Species'])
