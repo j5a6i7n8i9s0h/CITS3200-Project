@@ -52,9 +52,8 @@
         	 <li class="nav-item dropdown">
 	         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 1em;">{% if request.user.is_superuser %} <img src= "{% static 'animalwellbeing/adminprofile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.username}}{% else %}<img src= "{% static 'animalwellbeing/profile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.firstname}} {{user.surname}}{% endif %}</a>
 	        <div class="dropdown-menu dropdown-pull-right" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#" %}>FAQ</a>
             {% if request.user.is_superuser %}
-            <a class="dropdown-item" href={% url 'awb:user_activation' %}>Researcher Request</a>
+            <a class="dropdown-item" href={% url 'awb:user_activation' %}>Researcher <br> Requests</a>
             {% endif %}
             {% if not request.user.is_superuser %}
             <a class="dropdown-item" href={% url 'awb:view_profile' %}> Profile </a>
@@ -72,7 +71,13 @@
 <body>
 	{% block content %}{% endblock %}
 </body>
-<br><br><br><br><br><br>
+<br><br><br>
+<center>
+<p class="text-muted">If you are having troubles please contact your administrator or the Animal Ethics Office (6488 7887 / 3033) </p>
+<br>
+<p class="text-muted"> Click <a href="http://www.research.uwa.edu.au/staff/forms/animals">here</a> for more info</p>
+</center>
+<br><br><br>
 <!-- Footer -->
 	<!-- need to get it sorted -->
 <!-- 	<center>

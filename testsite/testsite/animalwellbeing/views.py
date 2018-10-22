@@ -502,6 +502,26 @@ def download_cs(request, coversheet_id):
     except CoverSheetFormModel.DoesNotExist:
         return redirect('/awb/')
 
+@login_required
+def download_rs(request, coversheet_id):
+    coversheetmodel = None
+    try:
+        if request.user.is_superuser:
+            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+        else:
+            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
+                                                              creator=Researchers.objects.get(user=request.user))
+        script = ["python2.7", "animalwellbeing/pydocxrec.py", json.dumps(coversheetmodel.all_data),
+                  coversheetmodel.name]
+        process = subprocess.Popen(script, stdout=subprocess.PIPE)
+        output, error = process.communicate()
+        response = FileResponse(
+            open('animalwellbeing/static/animalwellbeing/recordingsheets/{}_rs.docx'.format(coversheetmodel.name), 'rb'),
+            as_attachment=True)
+        return response
+    except CoverSheetFormModel.DoesNotExist:
+        return redirect('/awb/')
+
 
 def login_view(request):
 	context = {}

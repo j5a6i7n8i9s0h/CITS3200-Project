@@ -71,7 +71,7 @@
 			
 			{% if coversheet.approved  %}
 			<div class="container">
-				<a href="#"><button type="button" class="btn btn-outline-success">Use for Recording Sheet</button></a>
+				<a href={% url 'awb:download_rs' coversheet.pk %}><button type="button" class="btn btn-outline-success">Use for Recording Sheet</button></a>
 				</div>
 				<br>
 			{% else %}
