@@ -8,6 +8,7 @@ urlpatterns = [
     path('createcoversheet',views.form_creation, name='createcoversheet'),
     path('accounts/createresearcher', views.create_researcher, name='create_researcher'),
     path('download/<int:coversheet_id>/', views.download_cs, name='download'),
+    path('download_rs/<int:coversheet_id>/', views.download_rs, name='download_rs'),
     path('edit/<int:coversheet_id>/', views.edit_form, name='edit_cs'),
     path('search', views.search, name='search'),
     path('user_activation', views.user_activation, name='user_activation'),

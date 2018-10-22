@@ -143,7 +143,7 @@ def activate(request, username):
 		return render(request, 'animalwellbeing/activation.html', context)
 	except User.DoesNotExist:
 		return redirect('/awb/')
-		
+
 
 
 @login_required
@@ -306,6 +306,7 @@ def edit_form(request, coversheet_id):
 		form = CoverSheetForm(request.POST)
 		dictionary_data = {
 			'contact_details': {
+				'Protocol Number :': '' or form['protocol_number'].value(),
 				'Protocol Title :': '' or form['protocol_title'].value(),
 				'Monitoring Start Date :': '' or form['start_date'].value(),
 				'Chief Investigator :': [form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
@@ -395,6 +396,7 @@ def form_creation(request):
 		print(form['protocol_title'].value())
 		dictionary_data = {
 			'contact_details': {
+				'Protocol Number :': '' or form['protocol_number'].value(),
 				'Protocol Title :': '' or form['protocol_title'].value(),
 				'Monitoring Start Date :': '' or form['start_date'].value(),
 				'Chief Investigator :': [form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
@@ -484,6 +486,26 @@ def approve_or_disapprove_coversheet(request, coversheet_id):
 
 @login_required
 def download_cs(request, coversheet_id):
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
+															  creator=Researchers.objects.get(user=request.user))
+		script = ["python2.7", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data),
+				  coversheetmodel.name]
+		process = subprocess.Popen(script, stdout=subprocess.PIPE)
+		output, error = process.communicate()
+		response = FileResponse(
+			open('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(coversheetmodel.name), 'rb'),
+			as_attachment=True)
+		return response
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
+
+@login_required
+def download_rs(request, coversheet_id):
     coversheetmodel = None
     try:
         if request.user.is_superuser:
@@ -491,17 +513,16 @@ def download_cs(request, coversheet_id):
         else:
             coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
                                                               creator=Researchers.objects.get(user=request.user))
-        script = ["python2.7", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data),
+        script = ["python2.7", "animalwellbeing/pydocxrec.py", json.dumps(coversheetmodel.all_data),
                   coversheetmodel.name]
         process = subprocess.Popen(script, stdout=subprocess.PIPE)
         output, error = process.communicate()
         response = FileResponse(
-            open('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(coversheetmodel.name), 'rb'),
+            open('animalwellbeing/static/animalwellbeing/recordingsheets/{}.docx'.format(coversheetmodel.name), 'rb'),
             as_attachment=True)
         return response
     except CoverSheetFormModel.DoesNotExist:
         return redirect('/awb/')
-
 
 def login_view(request):
 	context = {}
@@ -608,7 +629,7 @@ def search(request):
 def activate_detail(request,username):
 	try:
 		user_need_activation = Researchers.objects.get(user=User.objects.get(username=username))
-		return render(request, 'animalwellbeing/activation-detail.html', 
+		return render(request, 'animalwellbeing/activation-detail.html',
 			{
 			'usertoactivate':user_need_activation,
 			'user': request.user
@@ -657,7 +678,7 @@ def criteria(request):
 			print(ctm.name)
 			if not ctm.is_general or (ctm.is_general and creator_.is_superuser):
 				ctm.data = form['scrit'].value()
-			else: 
+			else:
 				message = "Cannot edit General criteria if you arent admin. To create a editable make a copy."
 		except CriteriaTemplateFormModel.DoesNotExist:
 			ctm = CriteriaTemplateFormModel.objects.create(
