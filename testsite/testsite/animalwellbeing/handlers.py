@@ -63,22 +63,23 @@ if __name__=="__main__":
     #MONITORING FREQUENCY
     document.tables[5].rows[0].cells[0].paragraphs[0].add_run(coversheet_data['monitoring_frequency']['monitoring_frequency']).bold = True
 
-    index = 0
+    indexs = []
     type_of_recordingsheet = coversheet_data['type_of_recording_sheet']
     if type_of_recordingsheet['general'] == True:
-        index = 0
-    elif type_of_recordingsheet['anasthesia'] == True:
-        index = 1
-    elif type_of_recordingsheet['post_proc'] == True:
-        index = 2
-    elif type_of_recordingsheet['other'] == True:
-        index = 3
+        indexs.append(0)
+    if type_of_recordingsheet['anasthesia'] == True:
+        indexs.append(1)
+    if type_of_recordingsheet['post_proc'] == True:
+        indexs.append(2)
+    if type_of_recordingsheet['other'] == True:
+        indexs.append(3)
         other_D = type_of_recordingsheet['other_description']
 
-    if index != 3:
-        document.tables[6].rows[1].cells[index].paragraphs[0].add_run("X").bold = True
-    else:
-        document.tables[6].rows[1].cells[index].paragraphs[0].add_run(other_D).bold = True
+    for index in indexs:
+        if index != 3:
+            document.tables[6].rows[1].cells[index].paragraphs[0].add_run("X").bold = True
+        else:
+            document.tables[6].rows[1].cells[index].paragraphs[0].add_run(other_D).bold = True
 
     #action
     actions = coversheet_data['actions_and_interventions']
@@ -110,16 +111,16 @@ if __name__=="__main__":
     #since teh atble is not going to change just hardcode to fill in 
     aecss = coversheet_data['aec']
     document.tables[9].rows[2].cells[2].paragraphs[0].add_run(aecss['aec1']).bold = True
-    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('•    Increase welfare monitoring frequency to:    ' + aecss['aec2']).bold  = True
-    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '•    Measure weight at a frequency of:    ' + aecss['aec3']).bold  = True
-    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '•    Notify the AWO or other approved reviewer.').bold  = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('    Increase welfare monitoring frequency to:    ' + aecss['aec2']).bold  = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '    Measure weight at a frequency of:    ' + aecss['aec3']).bold  = True
+    document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '    Notify the AWO or other approved reviewer.').bold  = True
 
     document.tables[9].rows[3].cells[2].paragraphs[0].add_run(aecss['aec4']).bold = True
 
     document.tables[9].rows[4].cells[2].paragraphs[0].add_run(aecss['aec5']).bold = True
-    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('•    Increase welfare monitoring frequency to:    ' + aecss['aec6']).bold  = True
-    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '•    Measure tumours at a frequency of:    ' + aecss['aec7']).bold  = True
-    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '•    Notify the AWO or other approved reviewer.').bold  = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('    Increase welfare monitoring frequency to:    ' + aecss['aec6']).bold  = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '   Measure tumours at a frequency of:    ' + aecss['aec7']).bold  = True
+    document.tables[9].rows[4].cells[3].paragraphs[0].add_run('\n' + '    Notify the AWO or other approved reviewer.').bold  = True
 
     document.tables[9].rows[5].cells[2].paragraphs[0].add_run(aecss['aec8']).bold = True
 
