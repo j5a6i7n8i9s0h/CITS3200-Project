@@ -50,3 +50,12 @@ run : `python3 manage.py makemigrations animalwellbeing`
 run: `python3 manage.py migrate` 
 
 If you run into any other issues let me know. 
+
+To run locally: 
+`python3 maange.py makemigrations animalwellbeing`
+`python3 manage.py migrate`
+`python3 manage.py runserver`
+
+To manually edit models in shell 
+`python3 manage.py shell` 
+
