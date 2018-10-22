@@ -1,8 +1,7 @@
 from docx.api import Document
 import json, sys
 
-if __name__=="__main__":
-    coversheet_data = json.loads(sys.argv[1])
+def run(coversheet_data, name):
     document = Document('py-docx/test.docx')
     i=0
     j=0
@@ -24,5 +23,5 @@ if __name__=="__main__":
                     rows.cells[1].paragraphs[0].add_run(dictionary[head][0]).bold = True
                     rows.cells[2].paragraphs[0].add_run(dictionary[head][1]).bold = True
     document.tables[1].rows[0].cells[0].paragraphs[0].add_run(coversheet_data['species_phenotype_issues']['Species']).bold = True
-    document.save('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(sys.argv[2]))
+    document.save('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(name))
 

@@ -5,6 +5,9 @@ from .models import *
 from django.db.models import Q
 from django.urls import reverse
 
+import os
+import sys
+
 # user authentication
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required, user_passes_test
@@ -489,38 +492,38 @@ def download_cs(request, coversheet_id):
 		if request.user.is_superuser:
 			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
 		else:
-			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
-															  creator=Researchers.objects.get(user=request.user))
-		script = ["python3.7", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data),
-				  coversheetmodel.name]
-		process = subprocess.Popen(script, stdout=subprocess.PIPE)
-		output, error = process.communicate()
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		configfile = 'animalwellbeing/handlers.py'
+		sys.path.append(os.path.dirname(os.path.expanduser(configfile)))
+		import handlers
+		handlers.run(coversheetmodel.all_data, coversheetmodel.name)
 		response = FileResponse(
-			open('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(coversheetmodel.name), 'rb'),
-			as_attachment=True)
+			open('animalwellbeing/static/animalwellbeing/coversheets/asdasd.docx', 'rb'),
+			as_attachment=True
+		)
 		return response
 	except CoverSheetFormModel.DoesNotExist:
 		return redirect('/awb/')
 
 @login_required
 def download_rs(request, coversheet_id):
-    coversheetmodel = None
-    try:
-        if request.user.is_superuser:
-            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
-        else:
-            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
-                                                              creator=Researchers.objects.get(user=request.user))
-        script = ["python3.7", "animalwellbeing/pydocxrec.py", json.dumps(coversheetmodel.all_data),
-                  coversheetmodel.name]
-        process = subprocess.Popen(script, stdout=subprocess.PIPE)
-        output, error = process.communicate()
-        response = FileResponse(
-            open('animalwellbeing/static/animalwellbeing/recordingsheets/{}.docx'.format(coversheetmodel.name), 'rb'),
-            as_attachment=True)
-        return response
-    except CoverSheetFormModel.DoesNotExist:
-        return redirect('/awb/')
+	coversheetmodel = None
+	try:
+		if request.user.is_superuser:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
+		else:
+			coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id, creator=Researchers.objects.get(user=request.user))
+		configfile = 'animalwellbeing/pydocxrec.py'
+		sys.path.append(os.path.dirname(os.path.expanduser(configfile)))
+		import pydocxrec
+		pydocxrec.run(coversheetmodel.all_data, coversheetmodel.name)
+		response = FileResponse(
+			open('animalwellbeing/static/animalwellbeing/recordingsheets/asdasd.docx', 'rb'),
+			as_attachment=True
+		)
+		return response
+	except CoverSheetFormModel.DoesNotExist:
+		return redirect('/awb/')
 
 def login_view(request):
 	context = {}
