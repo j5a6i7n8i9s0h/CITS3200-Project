@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	
+		<head>
+				<title> {% block title %} {{user.username}}'s Profile {% endblock %} </title>
+				<meta charset="utf-8">
+				<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+			
+				<!-- Bootstrap CSS -->
+				<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+						
+		</head>
+
+
+		<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item dropdown">
+	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          Coversheets
+	        </a>
+	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	          <a class="dropdown-item" href={% url 'awb:createcoversheet' %}>Create</a>
+	          <a class="dropdown-item" href={% url 'awb:index' %}>View All</a>
+	          {% if request.user.is_superuser %}
+				<a class="dropdown-item" href={% url 'awb:cs_requests' %}>Requests</a>
+	          {% endif %}
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href={% url 'awb:criteria' %}>Edit Criteria Settings</a>
+	        </div>
+	      </li>
+        </ul>
+    </div>
+    <div class="mx-auto order-0">
+    	{% load static %}
+         <a class="navbar-brand mx-auto" href={% url 'awb:index' %}><img src= "{% static 'animalwellbeing/uwa-logo.png' %}" width="30" height="30" class="d-inline-block align-top" alt="">TELOS</a>
+       
+    </div>
+    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2 dropdown-pull-left">
+    	{% load static %}
+        <ul class="navbar-nav ml-auto">
+        	 <li class="nav-item dropdown">
+	         <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="margin-right: 1em;">{% if request.user.is_superuser %} <img src= "{% static 'animalwellbeing/adminprofile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.username}}{% else %}<img src= "{% static 'animalwellbeing/profile.png' %}" width="30" height="30" class="d-inline-block align-top" alt=""> {{user.firstname}} {{user.surname}}{% endif %}</a>
+	        <div class="dropdown-menu dropdown-pull-right" aria-labelledby="navbarDropdown">
+            {% if request.user.is_superuser %}
+            <a class="dropdown-item" href={% url 'awb:user_activation' %}>Researcher <br> Requests</a>
+            {% endif %}
+            {% if not request.user.is_superuser %}
+            <a class="dropdown-item" href={% url 'awb:view_profile' %}> Profile </a>
+            {% endif %}
+	          <div class="dropdown-divider"></div>
+	          <a class="dropdown-item" href={% url 'awb:logout' %}>
+	          	<button type="button" class="btn btn-outline-danger">Logout</button></a>
+	        </div>
+	      </li>
+
+        </ul>
+    </div>
+</nav>
+  
+<body>
+	{% block content %}{% endblock %}
+</body>
+<br><br><br>
+<center>
+<p class="text-muted">If you are having troubles please contact your administrator or the Animal Ethics Office (6488 7887 / 3033) </p>
+<br>
+<p class="text-muted"> Click <a href="http://www.research.uwa.edu.au/staff/forms/animals">here</a> for more info</p>
+</center>
+<br><br><br>
+<!-- Footer -->
+	<!-- need to get it sorted -->
+<!-- 	<center>
+	<p class="text-muted" style="bottom: 0;
+margin-top:1em;
+  left: 0;
+  text-align: center;
+  position: absolute;
+  width: 100%;
+  height: 5em;
+  ">For support please contact admin or your facilitator</p>
+	</center> -->
+<!-- <footer class="navbar-dark bg-dark d-inline-block" style="bottom: 0;
+margin-top:1em;
+  left: 0;
+  text-align: center;
+  position: relative;
+  width: 100%;
+  height: 4em;
+  ">
+    <center>
+    	<div class="container">
+      <font color="white">TELOS</font><br>
+      <i><font color="white">Respecting the unique nature of each animal species</font></i>
+  </div>
+	</center>
+
+  </footer> -->
+  <!-- 
+<footer style="bottom: 0;
+  left: 0;
+  position: fixed;
+  text-align: center;
+  width: 100%;
+  height: 2em;
+  z-index: -1;">
+	stay at bottom
+</footer> -->
+  <!-- Footer -->
+</html>

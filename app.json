@@ -1,0 +1,20 @@
+{
+  "name": "Telos-UWA",
+  "description": "Telos is an app to streamline the process of creating documentation for animal research",
+  "image": "heroku/python",
+  "scripts": {
+    "postdeploy": "python manage.py makemigrations",
+    "postdeploy": "python manage.py migrate",
+    "postdeploy": "python manage.py collectstatic",
+  },
+  "env": {
+    "SECRET_TOKEN": {
+      "description": "The secret key for the Django application.",
+      "generator": "secret"
+    },
+    "WEB_CONCURRENCY": {
+      "description": "The number of processes to run.",
+      "value": "5"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+django-heroku
+django
+django-picklefield
+gunicorn
+python-docx
+whitenoise
+psycopg2-binary
+dj-database-url
