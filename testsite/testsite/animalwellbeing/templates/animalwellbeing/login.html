@@ -60,7 +60,8 @@ body {
       {% csrf_token %}
       {% load static %}
       <!-- animalwellbeing/paw-print-rooweb-clipart.png -->
-      <h1 class="h3 mb-3 font-weight-normal"> UWA Animal WellBeing App</h1>
+      <h1 class="h3 mb-3 font-weight-normal"> Telos</h1>
+        <h5 class="mt-5 mb-3 font-weight-normal"> Respecting the unique nature of each animal species</h5>
 			<img ="mb-4" src={% static 'animalwellbeing/rat.png' %} alt="" width="308" height="140">
       <br>
       <br>
@@ -76,7 +77,7 @@ body {
           <a href={% url 'awb:get_username' %}>Forgot Password?</a>
         </div>
       {%if has_attempted %}
-          <p class="mt-5 mb-3 text-muted"> Inccorect username or password. If you dont have a account click  <a href={% url 'awb:create_researcher' %} >here </a> </p>
+          <p class="mt-5 mb-3 text-muted"> Incorect username or password. If you don't have a account click  <a href={% url 'awb:create_researcher' %} >here </a> </p>
       {% elif activation %}
           <p class="mt-5 mb-3 text-muted"> New account need to be approval by Admin</p>
       <br>

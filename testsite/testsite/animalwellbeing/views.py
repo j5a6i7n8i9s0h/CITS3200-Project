@@ -290,94 +290,6 @@ def cancel_request(request, coversheet_id):
 
 @login_required
 def edit_form(request, coversheet_id):
-<<<<<<< HEAD
-    criteriamodel = None
-    coversheetmodel = None
-    try:
-        if request.user.is_superuser:
-            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id)
-            criteriamodel = CriteriaTemplateFormModel.objects.all()
-        else:
-            coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
-                                                              creator=Researchers.objects.get(user=request.user))
-            criteriamodel = CriteriaTemplateFormModel.objects.filter(
-                Q(general=True) | Q(creator_=Researchers.objects.get(user=request.user)))
-    except CoverSheetFormModel.DoesNotExist or CriteriaTemplateFormModel.DoesNotExist:
-        return redirect('/awb/')
-
-    if request.method == 'POST':
-        form = CoverSheetForm(request.POST)
-        dictionary_data = {
-            'contact_details': {
-                'Protocol Title :': '' or form['protocol_title'].value(),
-                'Monitoring Start Date :': '' or form['start_date'].value(),
-                'Chief Investigator :': [form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
-                'Emergency Contact :': [form['emergency_investigator'].value(),
-                                        form['emergency_investigator_phone'].value()],
-                'Monitor 1 :': [form['monitor_1'].value(), form['monitor_1_phone'].value()],
-                'Monitor 2 :': [form['monitor_2'].value(), form['monitor_2_phone'].value()],
-                'Monitor 3 :': [form['monitor_3'].value(), form['monitor_3_phone'].value()],
-                'Supervisor :': form['supervision'].value(),
-                'Person responsible for euthanasia :': [form['euthanasia_person'].value(),
-                                                        form['euthanasia_phone'].value()],
-                'Other experts :': [form['other_experts'].value(), form['other_experts_phone'].value()],
-            },
-            'species_phenotype_issues': {
-                'Species': form['species_phenotype_issues'].value()
-            },
-            'monitoring_criteria': {
-                'standard_criteria': form['scrit'].value(),
-                'project_criteria': form['pcrit'].value(),
-            },
-            'monitoring_frequency': {
-                'monitoring_frequency': form['monitoring_frequency'].value()
-            },
-            'type_of_recording_sheet': {
-                'general': form['general'].value(),
-                'anasthesia': form['anasthesia'].value(),
-                'post_proc': form['post_proc'].value(),
-                'other': form['other'].value(),
-                'other_description': form['other_description'].value(),
-            },
-            'actions_and_interventions': {
-                'actions1a': form['actions1a'].value(),
-                'actions1b': form['actions1b'].value(),
-                'actions2a': form['actions2a'].value(),
-                'actions2b': form['actions2b'].value(),
-                'actions3a': form['actions3a'].value(),
-                'actions3b': form['actions3b'].value(),
-                'actions4a': form['actions4a'].value(),
-                'actions4b': form['actions4b'].value(),
-                'additional': form['additional'].value(),
-            },
-            'aec': {
-                'aec1': form['aec1'].value(),
-                'aec2': form['aec2'].value(),
-                'aec3': form['aec3'].value(),
-                'aec4': form['aec4'].value(),
-                'aec5': form['aec5'].value(),
-                'aec6': form['aec6'].value(),
-                'aec7': form['aec7'].value(),
-                'aec8': form['aec8'].value(),
-            }
-
-        }
-        coversheetmodel.name = form['protocol_title'].value() or coversheetmodel.name
-        coversheetmodel.all_data = dictionary_data
-        coversheetmodel.updated_at = datetime.datetime.utcnow()
-        coversheetmodel.save()
-        return redirect('/awb/')
-
-    else:
-        return render(request, 'animalwellbeing/createcoversheet.html',
-                      {
-                          'dictionary_data': standardise_keys(coversheetmodel.all_data),
-                          'approved': coversheetmodel.approved or coversheetmodel.request_lodged,
-                          'user': request.user if request.user.is_superuser else Researchers.objects.get(
-                              user=request.user),
-                          'templates': criteriamodel,
-                      })
-=======
 	criteriamodel = None
 	coversheetmodel = None
 	try:
@@ -462,8 +374,6 @@ def edit_form(request, coversheet_id):
 							  user=request.user),
 						  'templates': criteriamodel,
 					  })
->>>>>>> master
-
 
 @login_required
 def form_creation(request):
