@@ -12,7 +12,6 @@ monitoring_frequency = coversheet_data['monitoring_frequency']
 aec = coversheet_data['aec']
 
 recording_sheet = docx.Document("py-docx/rec_sheet.docx")
-print "got here"
 
 table_one = recording_sheet.tables[0]
 table_two = recording_sheet.tables[1]
