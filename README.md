@@ -49,7 +49,7 @@ if you run into issue (chances are its migration issues):
 run : `python3 manage.py makemigrations animalwellbeing` 
 run: `python3 manage.py migrate` 
 
-If you run into any other issues let me know. 
+If you run into any other issues let us know. 
 
 To run locally: 
 `python3 maange.py makemigrations animalwellbeing`
