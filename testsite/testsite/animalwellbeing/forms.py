@@ -20,6 +20,7 @@ class ReviewForm(forms.Form):
 	comment = forms.CharField(max_length=300,widget=forms.Textarea)
 
 class CoverSheetForm(forms.Form):
+    aec_protocol = forms.CharField(max_length=200, strip=False)
     protocol_title = forms.CharField(max_length=200, strip=False)
     start_date = forms.DateField()
     cheif_investigator = forms.CharField(max_length=30)

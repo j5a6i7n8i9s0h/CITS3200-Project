@@ -11,7 +11,7 @@ if __name__=="__main__":
     standard_criteria = coversheet_data['monitoring_criteria']
     criteria = standard_criteria['standard_criteria'].split('#')
     p_criteria = standard_criteria['project_criteria'].split('#')
-
+    document.tables[0].rows[0].cells[1].paragraphs[0].add_run(dictionary['AEC Protocol']).bold = True
     for rows in document.tables[0].rows:
         head = rows.cells[0].text
         if head in dictionary:
@@ -110,12 +110,12 @@ if __name__=="__main__":
 
     #since teh atble is not going to change just hardcode to fill in 
     aecss = coversheet_data['aec']
-    document.tables[9].rows[2].cells[2].paragraphs[0].add_run(aecss['aec1']).bold = True
+    document.tables[9].rows[2].cells[2].paragraphs[0].add_run(aecss['aec1'] + "%").bold = True
     document.tables[9].rows[2].cells[3].paragraphs[0].add_run('    Increase welfare monitoring frequency to:    ' + aecss['aec2']).bold  = True
     document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '    Measure weight at a frequency of:    ' + aecss['aec3']).bold  = True
     document.tables[9].rows[2].cells[3].paragraphs[0].add_run('\n' + '    Notify the AWO or other approved reviewer.').bold  = True
 
-    document.tables[9].rows[3].cells[2].paragraphs[0].add_run(aecss['aec4']).bold = True
+    document.tables[9].rows[3].cells[2].paragraphs[0].add_run(aecss['aec4'] + "%").bold = True
 
     document.tables[9].rows[4].cells[2].paragraphs[0].add_run(aecss['aec5']).bold = True
     document.tables[9].rows[4].cells[3].paragraphs[0].add_run('    Increase welfare monitoring frequency to:    ' + aecss['aec6']).bold  = True

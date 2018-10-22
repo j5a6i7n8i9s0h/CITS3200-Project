@@ -304,8 +304,10 @@ def edit_form(request, coversheet_id):
 
 	if request.method == 'POST':
 		form = CoverSheetForm(request.POST)
+		print(form['aec_protocol'].value())
 		dictionary_data = {
 			'contact_details': {
+				'AEC Protocol': '' or form['aec_protocol'].value(),
 				'Protocol Title :': '' or form['protocol_title'].value(),
 				'Monitoring Start Date :': '' or form['start_date'].value(),
 				'Chief Investigator :': [form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
@@ -388,13 +390,10 @@ def form_creation(request):
 		return redirect('/awb/')
 	if request.method == 'POST':
 		form = CoverSheetForm(request.POST)
-		# print(form)
-		# if form.is_valid():
-		# 	print("GOT EHRE")
-		print(form.data)
-		print(form['protocol_title'].value())
+		print(form['aec_protocol'].value())
 		dictionary_data = {
 			'contact_details': {
+				'AEC Protocol': '' or form['aec_protocol'].value(),
 				'Protocol Title :': '' or form['protocol_title'].value(),
 				'Monitoring Start Date :': '' or form['start_date'].value(),
 				'Chief Investigator :': [form['cheif_investigator'].value(), form['cheif_investigator_phone'].value()],
