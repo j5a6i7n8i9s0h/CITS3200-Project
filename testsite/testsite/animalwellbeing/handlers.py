@@ -1,4 +1,4 @@
-from docx.api import Document
+from docx import Document
 import json, sys
 
 if __name__=="__main__":
