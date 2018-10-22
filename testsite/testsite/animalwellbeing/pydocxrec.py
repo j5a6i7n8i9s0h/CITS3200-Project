@@ -1,4 +1,4 @@
-import docx.api
+import docx
 import datetime
 from datetime import timedelta
 from docx.enum.text import WD_ALIGN_PARAGRAPH

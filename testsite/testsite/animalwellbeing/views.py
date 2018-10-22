@@ -491,7 +491,7 @@ def download_cs(request, coversheet_id):
         else:
             coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
                                                               creator=Researchers.objects.get(user=request.user))
-        script = ["python2.7", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data),
+        script = ["python", "animalwellbeing/handlers.py", json.dumps(coversheetmodel.all_data),
                   coversheetmodel.name]
         process = subprocess.Popen(script, stdout=subprocess.PIPE)
         output, error = process.communicate()
@@ -511,7 +511,7 @@ def download_rs(request, coversheet_id):
         else:
             coversheetmodel = CoverSheetFormModel.objects.get(pk=coversheet_id,
                                                               creator=Researchers.objects.get(user=request.user))
-        script = ["python2.7", "animalwellbeing/pydocxrec.py", json.dumps(coversheetmodel.all_data),
+        script = ["python", "animalwellbeing/pydocxrec.py", json.dumps(coversheetmodel.all_data),
                   coversheetmodel.name]
         process = subprocess.Popen(script, stdout=subprocess.PIPE)
         output, error = process.communicate()
