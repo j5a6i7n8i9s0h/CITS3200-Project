@@ -498,7 +498,7 @@ def download_cs(request, coversheet_id):
 		import handlers
 		handlers.run(coversheetmodel.all_data, coversheetmodel.name)
 		response = FileResponse(
-			open('animalwellbeing/static/animalwellbeing/coversheets/asdasd.docx', 'rb'),
+			open('animalwellbeing/static/animalwellbeing/coversheets/{}.docx'.format(coversheetmodel.name), 'rb'),
 			as_attachment=True
 		)
 		return response
@@ -518,7 +518,7 @@ def download_rs(request, coversheet_id):
 		import pydocxrec
 		pydocxrec.run(coversheetmodel.all_data, coversheetmodel.name)
 		response = FileResponse(
-			open('animalwellbeing/static/animalwellbeing/recordingsheets/asdasd.docx', 'rb'),
+			open('animalwellbeing/static/animalwellbeing/recordingsheets/{}.docx'.format(coversheetmodel.name), 'rb'),
 			as_attachment=True
 		)
 		return response
