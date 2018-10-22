@@ -16,10 +16,10 @@ Syed Zulqarnain Gilani
 
 Standard :
 - django 2.0 <- pip3 install django
-- python 3 or up 
+- python 3.7 or up 
 
 Additional libraries to add: 
-- django pickledfield <- pip install django-picklefield
+- django pickledfield <- pip3 install django-picklefield
 - pydocx <- pip install python-docx
 
 PROCEDURE OF WORK: 
