@@ -20,6 +20,7 @@ Standard :
 
 Additional libraries to add: 
 - django pickledfield <- pip install django-picklefield
+- pydocx <- pip install python-docx
 
 PROCEDURE OF WORK: 
 
